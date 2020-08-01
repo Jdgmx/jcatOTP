@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D24684CF24D5CCD200105D35 /* MainWindow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D24684CE24D5CCD200105D35 /* MainWindow.storyboard */; };
 		D2B8AE4724D4D79900C542D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8AE4624D4D79900C542D3 /* AppDelegate.swift */; };
 		D2B8AE4924D4D79900C542D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2B8AE4824D4D79900C542D3 /* Assets.xcassets */; };
 		D2B8AE4C24D4D79900C542D3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2B8AE4A24D4D79900C542D3 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D24684CE24D5CCD200105D35 /* MainWindow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainWindow.storyboard; sourceTree = "<group>"; };
 		D2B8AE4324D4D79900C542D3 /* jcatOTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jcatOTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2B8AE4624D4D79900C542D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2B8AE4824D4D79900C542D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -32,6 +34,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D24684CD24D5CBE400105D35 /* Main window */ = {
+			isa = PBXGroup;
+			children = (
+				D24684CE24D5CCD200105D35 /* MainWindow.storyboard */,
+			);
+			path = "Main window";
+			sourceTree = "<group>";
+		};
 		D2B8AE3A24D4D79900C542D3 = {
 			isa = PBXGroup;
 			children = (
@@ -52,8 +62,9 @@
 			isa = PBXGroup;
 			children = (
 				D2B8AE4624D4D79900C542D3 /* AppDelegate.swift */,
-				D2B8AE4824D4D79900C542D3 /* Assets.xcassets */,
 				D2B8AE4A24D4D79900C542D3 /* MainMenu.xib */,
+				D24684CD24D5CBE400105D35 /* Main window */,
+				D2B8AE4824D4D79900C542D3 /* Assets.xcassets */,
 				D2B8AE4D24D4D79900C542D3 /* Info.plist */,
 				D2B8AE4E24D4D79900C542D3 /* jcatOTP.entitlements */,
 			);
@@ -118,6 +129,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D24684CF24D5CCD200105D35 /* MainWindow.storyboard in Resources */,
 				D2B8AE4924D4D79900C542D3 /* Assets.xcassets in Resources */,
 				D2B8AE4C24D4D79900C542D3 /* MainMenu.xib in Resources */,
 			);

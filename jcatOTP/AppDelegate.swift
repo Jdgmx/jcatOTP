@@ -14,14 +14,31 @@ class AppDelegate: NSObject, NSApplicationDelegate
 {
 	@IBOutlet weak var window: NSWindow!
 
+	var mainWindowController: NSWindowController? = nil
 
 	func applicationDidFinishLaunching(_ aNotification: Notification)
 	{
 		// Insert code here to initialize your application
+
+		openMainWindow()
 	}
 
 	func applicationWillTerminate(_ aNotification: Notification)
 	{
 		// Insert code here to tear down your application
 	}
+
+	// MARK: stuff
+
+	func openMainWindow()
+	{
+		if mainWindowController == nil {
+			mainWindowController = NSStoryboard(name: "MainWindow", bundle: nil).instantiateInitialController()
+
+			/**/ NSLog("mainWindowController = \(String(describing: mainWindowController))")
+		}
+
+		mainWindowController?.showWindow(self)
+	}
+
 }
