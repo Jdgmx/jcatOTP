@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -96,7 +96,7 @@
 				};
 			};
 			buildConfigurationList = D2B8AE3E24D4D79900C542D3 /* Build configuration list for PBXProject "jcatOTP" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 11.4";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -268,7 +268,7 @@
 				CODE_SIGN_ENTITLEMENTS = jcatOTP/jcatOTP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = RFUCMFXN6L;
+				DEVELOPMENT_TEAM = XHE67XE9DA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = jcatOTP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -288,7 +288,7 @@
 				CODE_SIGN_ENTITLEMENTS = jcatOTP/jcatOTP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = RFUCMFXN6L;
+				DEVELOPMENT_TEAM = XHE67XE9DA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = jcatOTP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
