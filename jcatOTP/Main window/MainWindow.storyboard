@@ -49,33 +49,12 @@
                 </splitViewController>
                 <customObject id="WTj-Zu-eSm" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="187" y="-276"/>
+            <point key="canvasLocation" x="187" y="-301"/>
         </scene>
-        <!--Window Controller-->
-        <scene sceneID="NgO-IH-QVh">
-            <objects>
-                <windowController id="6lS-Hm-lKv" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="Oca-Za-S55">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="425" y="461" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
-                        <connections>
-                            <outlet property="delegate" destination="6lS-Hm-lKv" id="MLi-0U-8o8"/>
-                        </connections>
-                    </window>
-                    <connections>
-                        <segue destination="8iz-K6-6or" kind="relationship" relationship="window.shadowedContentViewController" id="8jX-Tf-3Vq"/>
-                    </connections>
-                </windowController>
-                <customObject id="pVd-or-rqC" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="782" y="-719"/>
-        </scene>
-        <!--View Controller-->
+        <!--New Otp View Controller-->
         <scene sceneID="izJ-ut-Dbm">
             <objects>
-                <viewController id="8iz-K6-6or" sceneMemberID="viewController">
+                <viewController id="8iz-K6-6or" customClass="NewOtpViewController" customModule="jcatOTP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="1CP-yA-zdx">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="240"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -168,6 +147,9 @@
 DQ
 </string>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="ok:" target="8iz-K6-6or" id="jaL-Ao-icP"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oe3-0I-31r">
                                 <rect key="frame" x="334" y="13" width="82" height="32"/>
@@ -179,6 +161,9 @@ DQ
 Gw
 </string>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="cancel:" target="8iz-K6-6or" id="M6G-rL-4OK"/>
+                                </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SL5-le-ySk">
                                 <rect key="frame" x="206" y="141" width="67" height="16"/>
@@ -245,7 +230,7 @@ Gw
                 </viewController>
                 <customObject id="7j4-86-b11" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="832" y="-306"/>
+            <point key="canvasLocation" x="25" y="719"/>
         </scene>
         <!--Outline View Controller-->
         <scene sceneID="Hy5-9g-ucO">
@@ -346,11 +331,12 @@ Gw
                     </scrollView>
                     <connections>
                         <outlet property="otpOutlineView" destination="NED-kD-VQN" id="Yv3-ID-dLa"/>
+                        <segue destination="8iz-K6-6or" kind="sheet" identifier="newOtp" id="PHe-FM-OEi"/>
                     </connections>
                 </viewController>
                 <customObject id="D1y-1m-JCg" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="25" y="275"/>
+            <point key="canvasLocation" x="25" y="249"/>
         </scene>
         <!--OTP View Controller-->
         <scene sceneID="yJP-e9-wl1">
@@ -383,7 +369,7 @@ Gw
                 </viewController>
                 <customObject id="a3d-ul-C3V" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="441" y="275"/>
+            <point key="canvasLocation" x="442" y="249"/>
         </scene>
     </scenes>
     <resources>

@@ -14,7 +14,6 @@ class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineV
 	typealias OTPWrapper = Dictionary<String, Any>
 
 	@IBOutlet var otpOutlineView: NSOutlineView?
-	@IBOutlet var newOtpViewController: NSViewController?
 
 	var passwords: Array<OTPWrapper> = []
 
@@ -38,7 +37,7 @@ class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineV
 
 	@IBAction func addOTP(_ sender: Any)
 	{
-		presentAsSheet(<#T##viewController: NSViewController##NSViewController#>)
+		performSegue(withIdentifier: "newOtp", sender: self)
 	}
 
 	// MARK: Data source and delegate

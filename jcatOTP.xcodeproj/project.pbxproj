@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D22994B024D775A500D80793 /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22994AF24D775A500D80793 /* OTPViewController.swift */; };
+		D22994B224D77D9900D80793 /* NewOtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22994B124D77D9900D80793 /* NewOtpViewController.swift */; };
 		D24684CF24D5CCD200105D35 /* MainWindow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D24684CE24D5CCD200105D35 /* MainWindow.storyboard */; };
 		D254D93324D6CC2E00EE2C74 /* OTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254D93224D6CC2E00EE2C74 /* OTP.swift */; };
 		D2802C4E24D665FE00C33A55 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2802C4D24D665FE00C33A55 /* OutlineViewController.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		D22994AF24D775A500D80793 /* OTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
+		D22994B124D77D9900D80793 /* NewOtpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOtpViewController.swift; sourceTree = "<group>"; };
 		D24684CE24D5CCD200105D35 /* MainWindow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainWindow.storyboard; sourceTree = "<group>"; };
 		D254D93224D6CC2E00EE2C74 /* OTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTP.swift; sourceTree = "<group>"; };
 		D2802C4D24D665FE00C33A55 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +48,7 @@
 				D24684CE24D5CCD200105D35 /* MainWindow.storyboard */,
 				D2802C4D24D665FE00C33A55 /* OutlineViewController.swift */,
 				D22994AF24D775A500D80793 /* OTPViewController.swift */,
+				D22994B124D77D9900D80793 /* NewOtpViewController.swift */,
 			);
 			path = "Main window";
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D22994B224D77D9900D80793 /* NewOtpViewController.swift in Sources */,
 				D22994B024D775A500D80793 /* OTPViewController.swift in Sources */,
 				D254D93324D6CC2E00EE2C74 /* OTP.swift in Sources */,
 				D2B8AE4724D4D79900C542D3 /* AppDelegate.swift in Sources */,
