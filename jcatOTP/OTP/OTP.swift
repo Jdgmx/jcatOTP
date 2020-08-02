@@ -16,7 +16,14 @@ enum DecodingScheme
 	case base64
 }
 
-struct OTP<H> where H: HashFunction
+protocol OTPGenerator
+{
+	var name: String { get }
+
+	func generate() -> String
+}
+
+struct OTP<H>: OTPGenerator where H: HashFunction
 {
 	let name: String
 	let secretKey: Data
@@ -77,12 +84,12 @@ struct OTP<H> where H: HashFunction
 // MARK: - base 32
 // see: https://en.wikipedia.org/wiki/Base32 & https://www.ietf.org/rfc/rfc4648.txt
 
-private var zB32table: Array<Character> = ["y", "b", "n", "d", "r", "f", "g", "8",
+private let zB32table: Array<Character> = ["y", "b", "n", "d", "r", "f", "g", "8",
 														 "e", "j", "k", "m", "c", "p", "q", "x",
 														 "o", "t", "1", "u", "w", "i", "s", "z",
 														 "a", "3", "4", "5", "h", "7", "6", "9"]
 
-private var b32table: Array<Character> = ["a", "b", "c", "d", "e", "f", "g", "h",
+private let b32table: Array<Character> = ["a", "b", "c", "d", "e", "f", "g", "h",
 														"i", "j", "k", "l", "m", "n", "o", "p",
 														"q", "r", "s", "t", "u", "v", "w", "x",
 														"y", "z", "2", "3", "4", "5", "6", "7"]
