@@ -13,6 +13,9 @@ class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineV
 {
 	typealias OTPWrapper = Dictionary<String, Any>
 
+	@IBOutlet var otpOutlineView: NSOutlineView?
+	@IBOutlet var newOtpViewController: NSViewController?
+
 	var passwords: Array<OTPWrapper> = []
 
 	override func viewDidLoad()
@@ -29,6 +32,13 @@ class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineV
 			let wrapper = ["otp": testOTP]
 			passwords.append(wrapper)
 		}
+
+
+	}
+
+	@IBAction func addOTP(_ sender: Any)
+	{
+		presentAsSheet(<#T##viewController: NSViewController##NSViewController#>)
 	}
 
 	// MARK: Data source and delegate
@@ -71,7 +81,7 @@ class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineV
 		} else {
 			let view = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "DataCell"), owner: self) as! NSTableCellView
 
-//			view.imageView = nil
+			view.imageView?.image = NSImage(named: NSImage.statusNoneName)
 			view.textField?.stringValue = ((item as? OTPWrapper)?["otp"] as? OTPGenerator)?.name ?? ""
 			return view
 		}

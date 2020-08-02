@@ -299,14 +299,12 @@ Gw
                                                     <rect key="frame" x="1" y="17" width="245" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Cd-15-BsV">
-                                                            <rect key="frame" x="3" y="0.0" width="17" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <imageView horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Cd-15-BsV">
+                                                            <rect key="frame" x="3" y="2" width="14" height="14"/>
                                                             <imageCell key="cell" refusesFirstResponder="YES" imageScaling="proportionallyDown" image="NSActionTemplate" id="Cp4-AN-j8o"/>
                                                         </imageView>
-                                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GEU-bO-3jx">
-                                                            <rect key="frame" x="25" y="0.0" width="220" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GEU-bO-3jx">
+                                                            <rect key="frame" x="22" y="1" width="222" height="16"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="exW-LS-ovI">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -314,6 +312,13 @@ Gw
                                                             </textFieldCell>
                                                         </textField>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="9Cd-15-BsV" firstAttribute="leading" secondItem="1o7-bi-l0c" secondAttribute="leading" constant="3" id="B7L-df-oGP"/>
+                                                        <constraint firstAttribute="trailing" secondItem="GEU-bO-3jx" secondAttribute="trailing" constant="3" id="BLH-EE-SOI"/>
+                                                        <constraint firstItem="9Cd-15-BsV" firstAttribute="centerY" secondItem="1o7-bi-l0c" secondAttribute="centerY" id="Kra-8J-giH"/>
+                                                        <constraint firstItem="GEU-bO-3jx" firstAttribute="leading" secondItem="9Cd-15-BsV" secondAttribute="trailing" constant="7" id="NEG-OH-l7T"/>
+                                                        <constraint firstItem="GEU-bO-3jx" firstAttribute="centerY" secondItem="1o7-bi-l0c" secondAttribute="centerY" id="voh-VE-lqi"/>
+                                                    </constraints>
                                                     <connections>
                                                         <outlet property="imageView" destination="9Cd-15-BsV" id="NCX-k1-P5u"/>
                                                         <outlet property="textField" destination="GEU-bO-3jx" id="ZZj-rm-ExV"/>
@@ -339,15 +344,18 @@ Gw
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <connections>
+                        <outlet property="otpOutlineView" destination="NED-kD-VQN" id="Yv3-ID-dLa"/>
+                    </connections>
                 </viewController>
                 <customObject id="D1y-1m-JCg" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="25" y="275"/>
         </scene>
-        <!--View Controller-->
+        <!--OTP View Controller-->
         <scene sceneID="yJP-e9-wl1">
             <objects>
-                <viewController id="xVv-TZ-fwu" sceneMemberID="viewController">
+                <viewController id="xVv-TZ-fwu" userLabel="OTP View Controller" customClass="OTPViewController" customModule="jcatOTP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="DzM-we-S7M">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="420"/>
                         <autoresizingMask key="autoresizingMask"/>

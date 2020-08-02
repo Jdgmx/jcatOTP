@@ -19,6 +19,8 @@ enum DecodingScheme
 protocol OTPGenerator
 {
 	var name: String { get }
+	var digits: Int { get }
+	var period: TimeInterval { get }
 
 	func generate() -> String
 }
