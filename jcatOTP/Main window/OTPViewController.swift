@@ -12,10 +12,5 @@ class OTPViewController: NSViewController
 {
 	var selectedOtp: OTPGenerator? = nil
 
-	override func viewDidLoad()
-	{
-		super.viewDidLoad()
-		// Do view setup here.
-	}
 
 }

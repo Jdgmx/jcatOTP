@@ -9,6 +9,7 @@
 import Cocoa
 import CryptoKit
 
+
 class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewDataSource
 {
 	typealias OTPWrapper = Dictionary<String, Any>
@@ -31,13 +32,26 @@ class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineV
 			let wrapper = ["otp": testOTP]
 			passwords.append(wrapper)
 		}
+	}
 
+	func addOtp(_ otp: OTPGenerator)
+	{
+		let wrapper = ["otp": otp]
 
+		passwords.append(wrapper)
+		otpOutlineView?.reloadData()
 	}
 
 	@IBAction func addOTP(_ sender: Any)
 	{
 		performSegue(withIdentifier: "newOtp", sender: self)
+	}
+
+	override func prepare(for segue: NSStoryboardSegue, sender: Any?)
+	{
+		super.prepare(for: segue, sender: sender)
+
+		(segue.destinationController as? NewOtpViewController)?.ovc = self // setting the ovc in the new otp sheet
 	}
 
 	// MARK: Data source and delegate

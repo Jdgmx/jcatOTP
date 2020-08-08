@@ -11,6 +11,7 @@ import CryptoKit
 
 enum DecodingScheme
 {
+	case none
 	case base32
 	case zBase32
 	case base64
@@ -49,6 +50,8 @@ struct OTP<H>: OTPGenerator where H: HashFunction
 				data = Data(baseTable: zB32table, base32str: secret)
 			case .base64:
 				data = Data(base64Encoded: secret)
+			case .none:
+				data = nil
 		}
 
 		if data != nil {
@@ -131,5 +134,13 @@ private extension Data
 
 			counter += 1
 		}
+	}
+}
+
+extension String
+{
+	func isValid(baseTable: Array<Character> = b32table) -> Bool
+	{
+		return true
 	}
 }
