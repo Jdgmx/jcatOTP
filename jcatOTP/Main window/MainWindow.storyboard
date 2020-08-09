@@ -290,14 +290,14 @@ Gw
             <objects>
                 <viewController id="tD4-E0-62v" customClass="OutlineViewController" customModule="jcatOTP" customModuleProvider="target" sceneMemberID="viewController">
                     <scrollView key="view" misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="knH-9h-Dea">
-                        <rect key="frame" x="0.0" y="0.0" width="250" height="417"/>
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="420"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" drawsBackground="NO" id="0RO-9g-Yk6">
-                            <rect key="frame" x="1" y="1" width="248" height="415"/>
+                            <rect key="frame" x="1" y="1" width="248" height="418"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="14" outlineTableColumn="YPK-HV-Gyz" id="NED-kD-VQN">
-                                    <rect key="frame" x="0.0" y="0.0" width="248" height="415"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="248" height="418"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="0.0"/>
                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -319,9 +319,8 @@ Gw
                                                     <rect key="frame" x="1" y="0.0" width="245" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DN8-2e-9hI">
-                                                            <rect key="frame" x="0.0" y="1" width="245" height="14"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DN8-2e-9hI">
+                                                            <rect key="frame" x="0.0" y="2" width="245" height="14"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="HEADER CELL" id="WG7-uy-qFF">
                                                                 <font key="font" metaFont="smallSystemBold"/>
                                                                 <color key="textColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -329,6 +328,11 @@ Gw
                                                             </textFieldCell>
                                                         </textField>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="DN8-2e-9hI" firstAttribute="centerY" secondItem="rzZ-LC-4me" secondAttribute="centerY" id="2Se-Po-V6D"/>
+                                                        <constraint firstItem="DN8-2e-9hI" firstAttribute="leading" secondItem="rzZ-LC-4me" secondAttribute="leading" constant="2" id="Oh0-Xj-k5T"/>
+                                                        <constraint firstAttribute="trailing" secondItem="DN8-2e-9hI" secondAttribute="trailing" constant="2" id="moc-6D-xrp"/>
+                                                    </constraints>
                                                     <connections>
                                                         <outlet property="textField" destination="DN8-2e-9hI" id="kL7-q6-Hca"/>
                                                     </connections>
@@ -399,26 +403,61 @@ Gw
                         <rect key="frame" x="0.0" y="0.0" width="450" height="420"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IGd-nt-pX5">
-                                <rect key="frame" x="169" y="371" width="112" height="29"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" selectable="YES" alignment="center" title="000 000" id="XaZ-qw-j7M">
-                                    <font key="font" metaFont="systemSemibold" size="25"/>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y1Q-CO-AdJ">
+                                <rect key="frame" x="20" y="183" width="410" height="55"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IGd-nt-pX5">
+                                        <rect key="frame" x="149" y="26" width="112" height="29"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" alignment="center" title="000 000" placeholderString="000 000" id="XaZ-qw-j7M">
+                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="### ### ### ###" usesGroupingSeparator="NO" formatWidth="-1" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="42" id="LxN-ig-Ldy"/>
+                                            <font key="font" metaFont="systemSemibold" size="25"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="xVv-TZ-fwu" name="value" keyPath="self.otpValue" id="7am-hj-2yQ"/>
+                                        </connections>
+                                    </textField>
+                                    <progressIndicator wantsLayer="YES" maxValue="100" doubleValue="50" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="JvC-DQ-Wc8">
+                                        <rect key="frame" x="0.0" y="-1" width="410" height="20"/>
+                                        <connections>
+                                            <binding destination="xVv-TZ-fwu" name="value" keyPath="self.counter" id="c1P-pZ-D7E"/>
+                                        </connections>
+                                    </progressIndicator>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A1Z-qa-cWp">
+                                <rect key="frame" x="18" y="384" width="37" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="neE-6z-ehv">
+                                    <font key="font" usesAppearanceFont="YES"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <binding destination="xVv-TZ-fwu" name="value" keyPath="self.name" id="b4z-xO-peS"/>
+                                </connections>
                             </textField>
-                            <progressIndicator wantsLayer="YES" maxValue="100" doubleValue="50" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="JvC-DQ-Wc8">
-                                <rect key="frame" x="20" y="344" width="410" height="20"/>
-                            </progressIndicator>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="JvC-DQ-Wc8" firstAttribute="top" secondItem="IGd-nt-pX5" secondAttribute="bottom" constant="8" id="0c5-o2-aS1"/>
-                            <constraint firstItem="IGd-nt-pX5" firstAttribute="top" secondItem="DzM-we-S7M" secondAttribute="top" constant="20" id="Eeu-2o-KHb"/>
-                            <constraint firstAttribute="trailing" secondItem="JvC-DQ-Wc8" secondAttribute="trailing" constant="20" id="V0g-xY-Cor"/>
-                            <constraint firstItem="JvC-DQ-Wc8" firstAttribute="leading" secondItem="DzM-we-S7M" secondAttribute="leading" constant="20" id="dS7-5N-zUe"/>
-                            <constraint firstItem="IGd-nt-pX5" firstAttribute="centerX" secondItem="DzM-we-S7M" secondAttribute="centerX" id="eWn-Oo-b5r"/>
+                            <constraint firstItem="A1Z-qa-cWp" firstAttribute="top" secondItem="DzM-we-S7M" secondAttribute="top" constant="20" id="INN-1u-EBp"/>
+                            <constraint firstItem="y1Q-CO-AdJ" firstAttribute="centerY" secondItem="DzM-we-S7M" secondAttribute="centerY" id="Jxb-gE-Ke3"/>
+                            <constraint firstItem="A1Z-qa-cWp" firstAttribute="leading" secondItem="DzM-we-S7M" secondAttribute="leading" constant="20" id="Mm5-nF-0wp"/>
+                            <constraint firstAttribute="trailing" secondItem="y1Q-CO-AdJ" secondAttribute="trailing" constant="20" id="TA0-mR-8Rs"/>
+                            <constraint firstItem="y1Q-CO-AdJ" firstAttribute="leading" secondItem="DzM-we-S7M" secondAttribute="leading" constant="20" id="srB-Ra-NIP"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="otpFormatter" destination="LxN-ig-Ldy" id="PsN-c7-lk1"/>
+                        <outlet property="progress" destination="JvC-DQ-Wc8" id="MVq-8r-cc6"/>
+                    </connections>
                 </viewController>
                 <customObject id="a3d-ul-C3V" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

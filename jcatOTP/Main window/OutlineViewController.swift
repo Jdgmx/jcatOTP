@@ -9,14 +9,21 @@
 import Cocoa
 import CryptoKit
 
-
 class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewDataSource
 {
 	typealias OTPWrapper = Dictionary<String, Any>
 
 	@IBOutlet var otpOutlineView: NSOutlineView?
 
-	var passwords: Array<OTPWrapper> = []
+	var passwords: Array<OTPWrapper> = [] // The array of OTP passwords
+
+	lazy var otpViewControler: OTPViewController? = {
+		if let svi = (parent as? NSSplitViewController)?.splitViewItems.first(where: { $0.viewController is OTPViewController }) {
+			return svi.viewController as? OTPViewController
+		} else {
+			return nil
+		}
+	}()
 
 	override func viewDidLoad()
 	{
@@ -29,8 +36,7 @@ class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineV
 	func testAddOTP()
 	{
 		if let testOTP = OTP<Insecure.SHA1>(name: "My test OTP", secret: "7OH6HVLLVW6VZRP7") {
-			let wrapper = ["otp": testOTP]
-			passwords.append(wrapper)
+			addOtp(testOTP)
 		}
 	}
 
@@ -40,6 +46,7 @@ class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineV
 
 		passwords.append(wrapper)
 		otpOutlineView?.reloadData()
+		otpOutlineView?.expandItem(nil, expandChildren: true)
 	}
 
 	@IBAction func addOTP(_ sender: Any)
@@ -102,10 +109,21 @@ class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineV
 
 	func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool
 	{
-		return item is OTPGenerator
+		return item is OTPWrapper
 	}
 
 	func outlineViewSelectionDidChange(_ notification: Notification)
 	{
+		guard otpOutlineView != nil else { return }
+
+		let sr = otpOutlineView!.selectedRow
+		if sr >= 0 {
+			if let item = otpOutlineView!.item(atRow: sr) as? OTPWrapper {
+				otpViewControler?.selectedOtp = item["otp"] as? OTPGenerator
+				return
+			}
+		}
+
+		otpViewControler?.selectedOtp = nil
 	}
 }

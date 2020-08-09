@@ -23,7 +23,7 @@ protocol OTPGenerator
 	var digits: Int { get }
 	var period: TimeInterval { get }
 
-	func generate() -> String
+	func generate() -> (code:Int, count:Int)
 }
 
 struct OTP<H>: OTPGenerator where H: HashFunction
@@ -64,11 +64,12 @@ struct OTP<H>: OTPGenerator where H: HashFunction
 	/// Algorithm
 	/// from: https://developer.apple.com/forums/thread/120918
 	/// see also: https://tools.ietf.org/html/rfc6238#section-4
-	func generate() -> String
+	func generate() -> (code:Int, count:Int)
 	{
-		var counter = UInt64(Date().timeIntervalSince1970/period).bigEndian
+		let counter = Date().timeIntervalSince1970/period
+		var t = UInt64(counter).bigEndian
 
-		let counterData = withUnsafeBytes(of: &counter) { Array($0) }
+		let counterData = withUnsafeBytes(of: &t) { Array($0) }
 		let hash = algorithm.authenticationCode(for: counterData, using: SymmetricKey(data: secretKey))
 
 		var truncatedHash = hash.withUnsafeBytes { ptr -> UInt32 in
@@ -82,8 +83,14 @@ struct OTP<H>: OTPGenerator where H: HashFunction
 		truncatedHash = truncatedHash & 0x7FFF_FFFF
 		truncatedHash = truncatedHash % UInt32(pow(10, Float(digits)))
 
-		return String(format: "%0*u", digits, truncatedHash)
+		return (Int(truncatedHash), Int(period*modf(counter).1 + 1))
+		//return String(format: "%0*u", digits, truncatedHash)
 	}
+}
+
+extension OTP: CustomDebugStringConvertible
+{
+	var debugDescription: String { "OTPGenerator for \(name)" }
 }
 
 // MARK: - base 32
