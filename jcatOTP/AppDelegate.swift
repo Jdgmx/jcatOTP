@@ -20,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
 	{
 		// Insert code here to initialize your application
 
-		openMainWindow()
+		openMainWindow(self)
 	}
 
 	func applicationWillTerminate(_ aNotification: Notification)
@@ -30,15 +30,12 @@ class AppDelegate: NSObject, NSApplicationDelegate
 
 	// MARK: stuff
 
-	func openMainWindow()
+	@IBAction func openMainWindow(_ sender: Any?)
 	{
 		if mainWindowController == nil {
 			mainWindowController = NSStoryboard(name: "MainWindow", bundle: nil).instantiateInitialController()
-
-			/**/ NSLog("mainWindowController = \(String(describing: mainWindowController))")
 		}
 
 		mainWindowController?.showWindow(self)
 	}
-
 }

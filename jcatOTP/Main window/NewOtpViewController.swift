@@ -93,4 +93,17 @@ class NewOtpViewController: NSViewController
 	{
 		dismiss(self)
 	}
+
+	override func setNilValueForKey(_ key: String)
+	{
+		if key == "otpName" {
+			otpName = "no name"
+		} else if key == "secret" {
+			secret = ""
+		} else if key == "digits" {
+			digits = 6
+		} else if key == "period" {
+			period = 30
+		}
+	}
 }

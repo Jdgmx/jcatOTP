@@ -49,6 +49,8 @@ class OTPViewController: NSViewController
 			otpFormatter.maximumFractionDigits = 0
 			otpFormatter.minimumIntegerDigits = selectedOtp!.digits
 
+			name = selectedOtp!.name
+
 			configureTimer()
 		}
 	}
@@ -58,7 +60,7 @@ class OTPViewController: NSViewController
 	func configureTimer()
 	{
 		if (timer == nil) && (selectedOtp != nil){
-			timer = Timer(timeInterval: TimeInterval(1), repeats: true, block: timerClick)
+			timer = Timer(timeInterval: TimeInterval(1), repeats: true, block: timerTick)
 			RunLoop.current.add(timer!, forMode: .default)
 		}
 	}
@@ -71,13 +73,10 @@ class OTPViewController: NSViewController
 		}
 	}
 
-	func timerClick(_ t: Timer)
+	func timerTick(_ t: Timer)
 	{
 		guard selectedOtp != nil else { return }
 
 		(otpValue, counter) = selectedOtp!.generate()
-		name = selectedOtp!.name
-
-		NSLog("timer = \(t), \(otpValue) \(counter)")
 	}
 }
