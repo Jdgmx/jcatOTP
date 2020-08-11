@@ -17,6 +17,14 @@ enum DecodingScheme
 	case base64
 }
 
+enum HashingAlgorithm: Int
+{
+	case sha1
+	case sha256
+	case sha384
+	case sha512
+}
+
 protocol OTPGenerator
 {
 	var name: String { get }
@@ -24,9 +32,12 @@ protocol OTPGenerator
 	var period: TimeInterval { get }
 
 	func generate() -> (code:Int, count:Int)
+
+//	static func restore(from data: Data) -> OTPGenerator? THIS CAN'T BE HERE BECAUSE CAN'T BE CALLED FROM FROM A STATIC WHEN THE TYPE IS JUST A PROTOCOL
+	func save() throws -> Data
 }
 
-struct OTP<H>: OTPGenerator where H: HashFunction
+struct OTP<H> where H: HashFunction
 {
 	let name: String
 	let secretKey: Data
@@ -93,7 +104,67 @@ extension OTP: CustomDebugStringConvertible
 	var debugDescription: String { "OTPGenerator for \(name)" }
 }
 
-// MARK: - base 32
+extension OTP: OTPGenerator // for loading and saving
+{
+	init(name: String, secretKey: Data, digits: Int, period: Int)
+	{
+		self.name = name
+		self.secretKey = secretKey
+		self.digits = digits
+		self.period = TimeInterval(period)
+		self.algorithm = HMAC<H>.self
+	}
+
+	func save() throws -> Data
+	{
+		let algo: HashingAlgorithm
+
+		if algorithm is HMAC<SHA256>.Type {
+			algo = .sha256
+		} else if algorithm is HMAC<SHA384>.Type {
+			algo = .sha384
+		} else if algorithm is HMAC<SHA512>.Type {
+			algo = .sha512
+		} else {
+			algo = .sha1
+		}
+
+		let info: Dictionary<String, Any> = ["name": self.name,
+														 "secretKey": self.secretKey,
+														 "algorithm": algo.rawValue,
+														 "digits": self.digits,
+														 "period": Int(self.period)];
+
+		return try PropertyListSerialization.data(fromPropertyList: info, format: .binary, options: .zero)
+	}
+}
+
+func OTPRestore(from data: Data) -> OTPGenerator?
+{
+	if let info = try? PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as? Dictionary<String, Any> {
+		if let name = info["name"] as? String,
+			let secretKey = info["secretKey"] as? Data,
+			let algo = info["algorithm"] as? Int, let algorithm = HashingAlgorithm(rawValue: algo),
+			let digits = info["digits"] as? Int,
+			let period = info["period"] as? Int {
+
+			switch algorithm {
+				case .sha1:
+					return OTP<Insecure.SHA1>(name: name, secretKey: secretKey, digits: digits, period: period)
+				case .sha256:
+					return OTP<SHA256>(name: name, secretKey: secretKey, digits: digits, period: period)
+				case .sha384:
+					return OTP<SHA384>(name: name, secretKey: secretKey, digits: digits, period: period)
+				case .sha512:
+					return OTP<SHA512>(name: name, secretKey: secretKey, digits: digits, period: period)
+			}
+		}
+	}
+
+	return nil
+}
+
+// MARK: - base 32 & family
 // see: https://en.wikipedia.org/wiki/Base32 & https://www.ietf.org/rfc/rfc4648.txt
 
 private let zB32table: Array<Character> = ["y", "b", "n", "d", "r", "f", "g", "8",
