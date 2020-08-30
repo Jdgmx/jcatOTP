@@ -16,6 +16,23 @@ class TableController: NSViewController, AddOtpFunction
 	@IBOutlet var otpTableView: NSTableView!
 
 	var passwords: Array<OTPWrapper> = [] // The array of OTP passwords
+	var onReturn: Bool = true
+	private var obs: NSObjectProtocol?
+
+	required init?(coder: NSCoder)
+	{
+		super.init(coder: coder)
+
+		onReturn = UserDefaults.standard.value(forKey: "copyOnReturn") as? Bool ?? false
+		obs = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main, using: defaultsChanged)
+	}
+
+	deinit
+	{
+		if obs != nil {
+			NotificationCenter.default.removeObserver(obs!)
+		}
+	}
 
 	override func viewDidLoad()
 	{
@@ -23,6 +40,12 @@ class TableController: NSViewController, AddOtpFunction
 		testAddOTP()
 	}
 
+	override func prepare(for segue: NSStoryboardSegue, sender: Any?)
+	{
+		super.prepare(for: segue, sender: sender)
+
+		(segue.destinationController as? NewOtpViewController)?.ovc = self // setting the ovc in the new otp sheet
+	}
 
 	func testAddOTP()
 	{
@@ -70,19 +93,47 @@ class TableController: NSViewController, AddOtpFunction
 		}
 	}
 
-	override func prepare(for segue: NSStoryboardSegue, sender: Any?)
+	@IBAction func dobleClick(_ sender: Any)
 	{
-		super.prepare(for: segue, sender: sender)
-
-		(segue.destinationController as? NewOtpViewController)?.ovc = self // setting the ovc in the new otp sheet
+		copySelectedOTP()
 	}
 
+	override func keyUp(with event: NSEvent)
+	{
+		NSLog("keyUp: \(event)")
+
+		if onReturn && (event.keyCode == 36) {
+			copySelectedOTP()
+		}
+	}
+
+	private func copySelectedOTP()
+	{
+		let selRow = otpTableView.selectedRow
+
+		if (selRow >= 0) { // if there is something selected
+			let w = passwords[selRow]
+
+			if let otpg = (w["otp"] as? OTPGenerator) {
+				let pb = NSPasteboard.general
+				let (code, _) = otpg.generate()
+
+				pb.clearContents()
+				pb.setString(String(code), forType: .string)
+			}
+		}
+	}
 }
 
 // MARK: - Delegate and data source extension
 
 extension TableController: NSTableViewDataSource, NSTableViewDelegate
 {
+	func defaultsChanged(_ n: Notification)
+	{
+		onReturn = UserDefaults.standard.value(forKey: "copyOnReturn") as? Bool ?? false
+	}
+
 	func numberOfRows(in tableView: NSTableView) -> Int
 	{
 		return passwords.count
@@ -111,4 +162,15 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 		return nil
 	}
 
+	func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool
+	{
+		return true // for now
+	}
+
+	func tableViewSelectionDidChange(_ notification: Notification)
+	{
+		if !onReturn {
+			copySelectedOTP()
+		}
+	}
 }

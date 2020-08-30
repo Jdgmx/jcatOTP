@@ -12,13 +12,18 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate
 {
-	@IBOutlet weak var window: NSWindow!
+	@IBOutlet weak var preferencesWindow: NSWindow!
+	@IBOutlet weak var onReturn: NSButton!
+	@IBOutlet weak var onSelection: NSButton!
 
 	var mainWindowController: NSWindowController? = nil
 
 	func applicationDidFinishLaunching(_ aNotification: Notification)
 	{
 		// Insert code here to initialize your application
+		if !((UserDefaults.standard.value(forKey: "defaults") as? Bool) ?? false) {
+			setDefaultPreferences()
+		}
 
 		openMainWindow(self)
 	}
@@ -28,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
 		// Insert code here to tear down your application
 	}
 
-	// MARK: stuff
+	// MARK: Stuff
 
 	@IBAction func openMainWindow(_ sender: Any?)
 	{
@@ -37,5 +42,40 @@ class AppDelegate: NSObject, NSApplicationDelegate
 		}
 
 		mainWindowController?.showWindow(self)
+	}
+}
+
+	// MARK: - Preferences
+
+extension AppDelegate: NSWindowDelegate // we are the delegate of the preferences window
+{
+	@IBAction func openPreferences(_ sender: Any)
+	{
+		preferencesWindow?.makeKeyAndOrderFront(self)
+	}
+
+	func setDefaultPreferences()
+	{
+		let defaults = UserDefaults.standard
+
+		defaults.setValue(true, forKey: "defaults")
+		defaults.setValue(true, forKey: "copyOnReturn")
+	}
+
+	@IBAction func copyRadios(_ sender: NSButton)
+	{
+		if sender.tag == 100 { // on return
+			UserDefaults.standard.setValue(true, forKey: "copyOnReturn")
+		} else if sender.tag == 200 { // on select
+			UserDefaults.standard.setValue(false, forKey: "copyOnReturn")
+		}
+	}
+
+	func windowDidBecomeMain(_ notification: Notification)
+	{
+		let onr = UserDefaults.standard.value(forKey: "copyOnReturn") as? Bool ?? false
+
+		onReturn.state = onr ? .on : .off
+		onSelection.state = onr ? .off : .on
 	}
 }

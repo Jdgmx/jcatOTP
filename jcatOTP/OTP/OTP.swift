@@ -84,7 +84,7 @@ struct OTP<H> where H: HashFunction
 		let hash = algorithm.authenticationCode(for: counterData, using: SymmetricKey(data: secretKey))
 
 		var truncatedHash = hash.withUnsafeBytes { ptr -> UInt32 in
-			let offset = ptr[hash.byteCount - 1] & 0x0f
+			let offset = ptr[hash.byteCount - 1] & 0x0F
 
 			let truncatedHashPtr = ptr.baseAddress! + Int(offset)
 			return truncatedHashPtr.bindMemory(to: UInt32.self, capacity: 1).pointee
