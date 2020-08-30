@@ -9,11 +9,11 @@
 import Cocoa
 import CryptoKit
 
-class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewDataSource
+class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewDataSource, AddOtpFunction
 {
 	typealias OTPWrapper = Dictionary<String, Any>
 
-	@IBOutlet var otpOutlineView: NSOutlineView?
+	@IBOutlet var otpOutlineView: NSOutlineView!
 
 	var passwords: Array<OTPWrapper> = [] // The array of OTP passwords
 
@@ -36,11 +36,11 @@ class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineV
 	func testAddOTP()
 	{
 		if let testOTP = OTP<Insecure.SHA1>(name: "My test OTP", secret: "7OH6HVLLVW6VZRP7") {
-			addOtp(testOTP)
+			add(otp: testOTP)
 		}
 	}
 
-	func addOtp(_ otp: OTPGenerator)
+	func add(otp: OTPGenerator)
 	{
 		let wrapper = ["otp": otp]
 
@@ -52,6 +52,31 @@ class OutlineViewController: NSViewController, NSOutlineViewDelegate, NSOutlineV
 	@IBAction func addOTP(_ sender: Any)
 	{
 		performSegue(withIdentifier: "newOtp", sender: self)
+	}
+
+	// normally from the menu item
+	@IBAction func deleteOTP(_ sender: Any)
+	{
+		let selRow = otpOutlineView.selectedRow
+
+		if (selRow >= 0) { // if there is something selected
+			let w = passwords[selRow]
+			if let otpg = (w["otp"] as? OTPGenerator) {
+				let alert = NSAlert()
+
+				alert.alertStyle = .warning
+				alert.messageText = "Delete \"\(otpg.name)\""
+				alert.informativeText = "Are you sure you want to delete this OTP?"
+				alert.addButton(withTitle: "Delete")
+				alert.addButton(withTitle: "Cancel")
+
+				let r = alert.runModal()
+				if r == .alertFirstButtonReturn {
+					passwords.remove(at: selRow)
+					otpOutlineView.reloadData()
+				}
+			}
+		}
 	}
 
 	override func prepare(for segue: NSStoryboardSegue, sender: Any?)

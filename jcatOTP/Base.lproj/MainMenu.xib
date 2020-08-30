@@ -68,6 +68,12 @@
                                     <action selector="addOTP:" target="-1" id="310-sZ-otU"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Delete" keyEquivalent="" id="Wsy-lv-cyW">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="deleteOTP:" target="-1" id="RCh-xm-CPC"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>

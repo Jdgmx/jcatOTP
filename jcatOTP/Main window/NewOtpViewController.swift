@@ -9,6 +9,11 @@
 import Cocoa
 import CryptoKit
 
+protocol AddOtpFunction
+{
+	func add(otp: OTPGenerator)
+}
+
 class NewOtpViewController: NSViewController
 {
 	@IBOutlet dynamic var outlineVC: OutlineViewController?
@@ -18,7 +23,7 @@ class NewOtpViewController: NSViewController
 	@objc dynamic var digits: Int = 6
 	@objc dynamic var period: Int = 30
 
-	weak var ovc: OutlineViewController? = nil
+	weak var ovc: AnyObject? = nil
 
 	var encoding: DecodingScheme = .base32
 	var algorithm: Int = 1
@@ -58,6 +63,8 @@ class NewOtpViewController: NSViewController
 					algorithm = 2
 				case 600:
 					algorithm = 3
+				case 700:
+					algorithm = 4
 				default:
 					algorithm = -1
 			}
@@ -68,20 +75,24 @@ class NewOtpViewController: NSViewController
 	{
 		guard (otpName != nil) && (secret != nil) else { return }
 		guard ovc != nil else { return } // we must know the outline view controller
-		
+
 		switch algorithm {
 			case 1:
 				if let otp = OTP<Insecure.SHA1>(name: otpName!, secret: secret!, scheme: encoding, digits: digits, period: period) {
-					ovc!.addOtp(otp)
-			}
+					(ovc! as? AddOtpFunction)?.add(otp: otp)
+				}
 			case 2:
 				if let otp = OTP<SHA256>(name: otpName!, secret: secret!, scheme: encoding, digits: digits, period: period) {
-					ovc!.addOtp(otp)
-			}
+					(ovc! as? AddOtpFunction)?.add(otp: otp)
+				}
 			case 3:
+				if let otp = OTP<SHA384>(name: otpName!, secret: secret!, scheme: encoding, digits: digits, period: period) {
+					(ovc! as? AddOtpFunction)?.add(otp: otp)
+				}
+			case 4:
 				if let otp = OTP<SHA512>(name: otpName!, secret: secret!, scheme: encoding, digits: digits, period: period) {
-					ovc!.addOtp(otp)
-			}
+					(ovc! as? AddOtpFunction)?.add(otp: otp)
+				}
 			default:
 				break
 		}

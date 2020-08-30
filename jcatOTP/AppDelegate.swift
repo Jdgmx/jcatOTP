@@ -33,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
 	@IBAction func openMainWindow(_ sender: Any?)
 	{
 		if mainWindowController == nil {
-			mainWindowController = NSStoryboard(name: "MainWindow", bundle: nil).instantiateInitialController()
+			mainWindowController = NSStoryboard(name: "TableWindow" /*"SplitWindow"*/, bundle: nil).instantiateInitialController()
 		}
 
 		mainWindowController?.showWindow(self)

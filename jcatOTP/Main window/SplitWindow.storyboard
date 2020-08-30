@@ -409,7 +409,9 @@ Gw
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IGd-nt-pX5">
                                         <rect key="frame" x="149" y="26" width="112" height="29"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" alignment="center" title="000 000" placeholderString="000 000" id="XaZ-qw-j7M">
-                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="### ### ### ###" usesGroupingSeparator="NO" formatWidth="-1" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="42" id="LxN-ig-Ldy"/>
+                                            <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="### ### ### ###" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="24" decimalSeparator="." groupingSeparator=" " id="zl2-rY-P6N">
+                                                <real key="minimum" value="0.0"/>
+                                            </numberFormatter>
                                             <font key="font" metaFont="systemSemibold" size="25"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -455,7 +457,6 @@ Gw
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="otpFormatter" destination="LxN-ig-Ldy" id="PsN-c7-lk1"/>
                         <outlet property="progress" destination="JvC-DQ-Wc8" id="MVq-8r-cc6"/>
                     </connections>
                 </viewController>
