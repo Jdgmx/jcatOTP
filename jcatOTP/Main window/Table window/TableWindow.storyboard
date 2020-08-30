@@ -116,7 +116,7 @@
                                                 </tableColumn>
                                             </tableColumns>
                                             <connections>
-                                                <action selector="dobleClick:" target="Im1-U8-LLz" id="E9n-Ui-Mr0"/>
+                                                <action trigger="doubleAction" selector="dobleClick:" target="Im1-U8-LLz" id="dbY-A7-x5I"/>
                                                 <outlet property="dataSource" destination="Im1-U8-LLz" id="eZi-Vy-lgu"/>
                                                 <outlet property="delegate" destination="Im1-U8-LLz" id="kXi-m1-Tjl"/>
                                             </connections>

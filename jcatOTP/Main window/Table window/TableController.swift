@@ -23,7 +23,6 @@ class TableController: NSViewController, AddOtpFunction
 	{
 		super.init(coder: coder)
 
-		onReturn = UserDefaults.standard.value(forKey: "copyOnReturn") as? Bool ?? false
 		obs = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main, using: defaultsChanged)
 	}
 
@@ -100,10 +99,17 @@ class TableController: NSViewController, AddOtpFunction
 
 	override func keyUp(with event: NSEvent)
 	{
-		NSLog("keyUp: \(event)")
-
 		if onReturn && (event.keyCode == 36) {
 			copySelectedOTP()
+		} else {
+			super.keyUp(with: event)
+		}
+	}
+
+	override func keyDown(with event: NSEvent)
+	{
+		if !onReturn || !(event.keyCode == 36) {
+			super.keyDown(with: event)
 		}
 	}
 
