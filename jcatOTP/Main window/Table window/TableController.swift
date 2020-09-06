@@ -19,6 +19,9 @@ class TableController: NSViewController, AddOtpFunction
 	var onReturn: Bool = true
 	private var obs: NSObjectProtocol?
 
+	var timers: Dictionary<Int, Any>?
+	var refreshSeconds: Set<TimeInterval> = [0.0] // at which secongs the table must be refreshed
+
 	required init?(coder: NSCoder)
 	{
 		super.init(coder: coder)
@@ -36,6 +39,8 @@ class TableController: NSViewController, AddOtpFunction
 	override func viewDidLoad()
 	{
 		super.viewDidLoad()
+
+		timers = [:]
 		testAddOTP()
 	}
 
@@ -58,13 +63,14 @@ class TableController: NSViewController, AddOtpFunction
 		let wrapper = ["otp": otp]
 
 		passwords.append(wrapper)
-		otpTableView.reloadData()
+		calcRefreshTimers()
+		otpTableView.reloadData() // always do it right now
 	}
 
 	// normally from the menu item
 	@IBAction func addOTP(_ sender: Any)
 	{
-		performSegue(withIdentifier: "NewOTP", sender: self)
+		performSegue(withIdentifier: "NewOTP", sender: self) // this pulls the add sheet
 	}
 
 	// normally from the menu item
@@ -90,6 +96,8 @@ class TableController: NSViewController, AddOtpFunction
 				}
 			}
 		}
+
+		calcRefreshTimers()
 	}
 
 	@IBAction func dobleClick(_ sender: Any)
@@ -129,6 +137,54 @@ class TableController: NSViewController, AddOtpFunction
 			}
 		}
 	}
+
+	// MARK: Utils
+
+	// Calculate refreshSeconds, or the second of each minute where the table must be reloaded.
+	// Note that for now we are refreshing the whole table, that can be optimized
+	func calcRefreshTimers()
+	{
+		// get the seconds of where this should refresh
+		let secs = passwords.map { (w) -> TimeInterval in
+			if let otp = w["otp"] as? OTPGenerator {
+				return trunc(otp.period)
+			} else {
+				return 0.0
+			}
+		}
+		let refreshPerioids = Set(secs) // note this is a set, we want them unique
+
+		// invalidate all the previous timers
+		timers?.forEach { (t) in
+			(t.value as? Timer)?.invalidate()
+		}
+
+		// create the timers
+		timers = [:]
+		let c = Calendar.current
+		for p in refreshPerioids.map({ Int($0) }) {
+			let date = Date()
+			var dc = c.dateComponents([.minute, .second], from: date)
+
+			// want to have the next moment where the time should fire
+			if (dc.second! + p) > 60 {
+				dc.second = 0
+				dc.minute = (dc.minute! < 59) ? dc.minute! + 1 : 0
+			} else {
+				dc.second = p // BUG: we are skipping one case: p=20, second=30, fire at 40 should be valid
+			}
+			dc.nanosecond = 500000000 // want to be half a second ahead
+
+			if let nd = c.nextDate(after: date, matching: dc, matchingPolicy: .nextTime) { // this is the next fire date
+				let t = Timer(fire: nd, interval: TimeInterval(p), repeats: true, block: { (timer) in
+					self.otpTableView.reloadData(forRowIndexes: IndexSet(0..<self.passwords.count), columnIndexes: IndexSet(integer: 1))
+				})
+
+				RunLoop.current.add(t, forMode: .default)
+				timers?.updateValue(t, forKey: p)
+			}
+		}
+	}
 }
 
 // MARK: - Delegate and data source extension
@@ -144,7 +200,7 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 	{
 		return passwords.count
 	}
-
+	
 	func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView?
 	{
 		if let ident = tableColumn?.identifier { // if we have an identifier

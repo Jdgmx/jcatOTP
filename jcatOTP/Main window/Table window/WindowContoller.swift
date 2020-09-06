@@ -14,16 +14,14 @@ private extension NSToolbarItem.Identifier
 {
 	static let newOtpTb: NSToolbarItem.Identifier = NSToolbarItem.Identifier(rawValue: "newOtp")
 	static let deleteOtpTb: NSToolbarItem.Identifier = NSToolbarItem.Identifier(rawValue: "deleteOtp")
-	static let progressOtpTb: NSToolbarItem.Identifier = NSToolbarItem.Identifier(rawValue: "progressOtp")
 }
 
 // MARK: - Window controller
 
-class WindowContoller: NSWindowController, NSToolbarDelegate
+class WindowContoller: NSWindowController, NSToolbarDelegate, NSWindowDelegate
 {
 	@IBOutlet weak var toolbar: NSToolbar!
 	@IBOutlet weak var progressView: NSView!
-	@IBOutlet weak var progressIndicator: NSProgressIndicator!
 
 	override func windowDidLoad()
 	{
@@ -38,50 +36,36 @@ class WindowContoller: NSWindowController, NSToolbarDelegate
 
 	func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier]
 	{
-		return [.newOtpTb, .deleteOtpTb, .space, .progressOtpTb]
+		return [.newOtpTb, .deleteOtpTb]
 	}
 
 	func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier]
 	{
-		return [.newOtpTb, .deleteOtpTb, .space, .progressOtpTb, .flexibleSpace, .separator]
+		return [.newOtpTb, .deleteOtpTb, .space, .flexibleSpace, .separator]
 	}
 
 	func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem?
 	{
 		if itemIdentifier == .newOtpTb {
-
 			let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
 
 			toolbarItem.label = "New"
 			toolbarItem.toolTip = "New OTP"
 			toolbarItem.image = NSImage(named: NSImage.addTemplateName)
-			//toolbarItem.target =
+			toolbarItem.action = #selector(TableController.addOTP(_:))
 
 			return toolbarItem
-
 		} else if itemIdentifier == .deleteOtpTb {
-
 			let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
 
 			toolbarItem.label = "Delete"
 			toolbarItem.toolTip = "Delete OTP"
 			toolbarItem.image = NSImage(named: NSImage.removeTemplateName)
+			toolbarItem.action = #selector(TableController.deleteOTP(_:))
 
 			return toolbarItem
-
-		} else if itemIdentifier == .progressOtpTb {
-
-			let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
-
-			toolbarItem.label = "Time"
-			toolbarItem.toolTip = "Elapsed time"
-			toolbarItem.view = progressView
-
-			return toolbarItem
-
 		}
 
 		return nil
 	}
-
 }

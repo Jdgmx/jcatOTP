@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="WkU-Ep-tGu">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="WkU-Ep-tGu">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -25,27 +25,11 @@
                         </connections>
                     </window>
                     <connections>
-                        <outlet property="progressIndicator" destination="cZf-4I-Lz5" id="Eno-Ex-EHy"/>
-                        <outlet property="progressView" destination="6sX-as-CDh" id="sb7-Df-Tec"/>
                         <outlet property="toolbar" destination="M2v-It-6DG" id="1K2-dp-ZYD"/>
                         <segue destination="Im1-U8-LLz" kind="relationship" relationship="window.shadowedContentViewController" id="EHT-iJ-6Da"/>
                     </connections>
                 </windowController>
                 <customObject id="0Nu-Gk-PAM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <customView id="6sX-as-CDh">
-                    <rect key="frame" x="0.0" y="0.0" width="163" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <subviews>
-                        <progressIndicator wantsLayer="YES" maxValue="100" doubleValue="50" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="cZf-4I-Lz5">
-                            <rect key="frame" x="2" y="0.0" width="159" height="20"/>
-                        </progressIndicator>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="cZf-4I-Lz5" firstAttribute="centerY" secondItem="6sX-as-CDh" secondAttribute="centerY" id="Ais-De-vq9"/>
-                        <constraint firstAttribute="trailing" secondItem="cZf-4I-Lz5" secondAttribute="trailing" constant="2" id="MLM-f2-Ukv"/>
-                        <constraint firstItem="cZf-4I-Lz5" firstAttribute="leading" secondItem="6sX-as-CDh" secondAttribute="leading" constant="2" id="cM5-ry-aTo"/>
-                    </constraints>
-                </customView>
             </objects>
             <point key="canvasLocation" x="139" y="67"/>
         </scene>
