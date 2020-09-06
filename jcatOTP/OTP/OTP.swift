@@ -32,8 +32,6 @@ protocol OTPGenerator
 	var period: TimeInterval { get }
 
 	func generate() -> (code:Int, count:Int)
-
-//	static func restore(from data: Data) -> OTPGenerator? THIS CAN'T BE HERE BECAUSE CAN'T BE CALLED FROM FROM A STATIC WHEN THE TYPE IS JUST A PROTOCOL
 	func save() throws -> Data
 }
 

@@ -13,6 +13,8 @@
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="425" y="461" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+                        <value key="minSize" type="size" width="240" height="135"/>
+                        <value key="maxSize" type="size" width="960" height="540"/>
                         <toolbar key="toolbar" implicitIdentifier="A7C51D67-F9F0-4FC3-9791-36183035897C" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="M2v-It-6DG">
                             <allowedToolbarItems/>
                             <defaultToolbarItems/>
@@ -55,7 +57,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="Service" width="236" minWidth="40" maxWidth="1000" id="QSV-dg-RhJ">
+                                                <tableColumn identifier="Service" editable="NO" width="230" minWidth="40" maxWidth="1000" id="QSV-dg-RhJ">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Service">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -68,11 +70,11 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="xgX-2I-c72">
-                                                            <rect key="frame" x="1" y="1" width="236" height="17"/>
+                                                            <rect key="frame" x="1" y="1" width="230" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kIt-xC-Sna">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="236" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="230" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="xhY-oj-ei1">
                                                                         <font key="font" metaFont="system"/>
@@ -87,7 +89,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="Otp" editable="NO" width="236" minWidth="40" maxWidth="1000" id="p7N-TO-QUs">
+                                                <tableColumn identifier="Otp" editable="NO" width="230" minWidth="40" maxWidth="1000" id="p7N-TO-QUs">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="OTP">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -100,11 +102,11 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="1OG-bd-Z8F">
-                                                            <rect key="frame" x="240" y="1" width="236" height="17"/>
+                                                            <rect key="frame" x="234" y="1" width="230" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0LF-8N-PMg">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="236" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="230" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="xFm-kW-XDV">
                                                                         <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="### ### ### ###" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="24" decimalSeparator="." groupingSeparator=" " id="0YY-Fl-ao4">

@@ -40,8 +40,18 @@ class TableController: NSViewController, AddOtpFunction
 	{
 		super.viewDidLoad()
 
-		timers = [:]
-		testAddOTP()
+		if let savedOtps = try? restoreOtps() {
+			passwords = savedOtps.map { ["otp": $0] }
+			calcRefreshTimers()
+			otpTableView.reloadData() // always do it right now
+		}
+	}
+
+	override func viewWillDisappear()
+	{
+		super.viewWillDisappear()
+
+		try? store(otps: passwords.compactMap({ $0["otp"] as? OTPGenerator }))
 	}
 
 	override func prepare(for segue: NSStoryboardSegue, sender: Any?)
@@ -49,13 +59,6 @@ class TableController: NSViewController, AddOtpFunction
 		super.prepare(for: segue, sender: sender)
 
 		(segue.destinationController as? NewOtpViewController)?.ovc = self // setting the ovc in the new otp sheet
-	}
-
-	func testAddOTP()
-	{
-		if let testOTP = OTP<Insecure.SHA1>(name: "My test OTP", secret: "7OH6HVLLVW6VZRP7") {
-			add(otp: testOTP)
-		}
 	}
 
 	func add(otp: OTPGenerator)

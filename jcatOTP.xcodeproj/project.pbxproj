@@ -12,6 +12,7 @@
 		D24684CF24D5CCD200105D35 /* SplitWindow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D24684CE24D5CCD200105D35 /* SplitWindow.storyboard */; };
 		D254D93324D6CC2E00EE2C74 /* OTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254D93224D6CC2E00EE2C74 /* OTP.swift */; };
 		D2802C4E24D665FE00C33A55 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2802C4D24D665FE00C33A55 /* OutlineViewController.swift */; };
+		D29B16EF250591E80033968A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29B16EE250591E80033968A /* Utils.swift */; };
 		D2B8AE4724D4D79900C542D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8AE4624D4D79900C542D3 /* AppDelegate.swift */; };
 		D2B8AE4924D4D79900C542D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2B8AE4824D4D79900C542D3 /* Assets.xcassets */; };
 		D2B8AE4C24D4D79900C542D3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2B8AE4A24D4D79900C542D3 /* MainMenu.xib */; };
@@ -26,6 +27,7 @@
 		D24684CE24D5CCD200105D35 /* SplitWindow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplitWindow.storyboard; sourceTree = "<group>"; };
 		D254D93224D6CC2E00EE2C74 /* OTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTP.swift; sourceTree = "<group>"; };
 		D2802C4D24D665FE00C33A55 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
+		D29B16EE250591E80033968A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D2B8AE4324D4D79900C542D3 /* jcatOTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jcatOTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2B8AE4624D4D79900C542D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2B8AE4824D4D79900C542D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,6 +67,14 @@
 			path = OTP;
 			sourceTree = "<group>";
 		};
+		D29B16ED250591D00033968A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D29B16EE250591E80033968A /* Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		D2B8AE3A24D4D79900C542D3 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +98,7 @@
 				D2B8AE4A24D4D79900C542D3 /* MainMenu.xib */,
 				D24684CD24D5CBE400105D35 /* Main window */,
 				D254D93124D6CC0600EE2C74 /* OTP */,
+				D29B16ED250591D00033968A /* Utils */,
 				D2B8AE4824D4D79900C542D3 /* Assets.xcassets */,
 				D2B8AE4D24D4D79900C542D3 /* Info.plist */,
 				D2B8AE4E24D4D79900C542D3 /* jcatOTP.entitlements */,
@@ -195,6 +206,7 @@
 				D254D93324D6CC2E00EE2C74 /* OTP.swift in Sources */,
 				D2B8AE4724D4D79900C542D3 /* AppDelegate.swift in Sources */,
 				D2802C4E24D665FE00C33A55 /* OutlineViewController.swift in Sources */,
+				D29B16EF250591E80033968A /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
