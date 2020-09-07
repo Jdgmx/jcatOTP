@@ -40,18 +40,19 @@
             <objects>
                 <customObject id="HPM-6F-buN" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <viewController title="OTPs" id="Im1-U8-LLz" customClass="TableController" customModule="jcatOTP" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="mHv-uL-GEn">
-                        <rect key="frame" x="0.0" y="0.0" width="500" height="216"/>
+                    <view key="view" id="mHv-uL-GEn">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeJ-32-sru">
-                                <rect key="frame" x="0.0" y="0.0" width="500" height="216"/>
-                                <clipView key="contentView" id="gpa-es-YeK">
-                                    <rect key="frame" x="1" y="0.0" width="498" height="215"/>
+                            <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeJ-32-sru">
+                                <rect key="frame" x="0.0" y="0.0" width="500" height="270"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <clipView key="contentView" ambiguous="YES" id="gpa-es-YeK">
+                                    <rect key="frame" x="1" y="0.0" width="498" height="269"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="8Ed-Gh-Fck" viewBased="YES" id="QtP-UW-eQk">
-                                            <rect key="frame" x="0.0" y="0.0" width="498" height="190"/>
+                                        <tableView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="8Ed-Gh-Fck" viewBased="YES" id="QtP-UW-eQk">
+                                            <rect key="frame" x="0.0" y="0.0" width="498" height="244"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -178,12 +179,6 @@
                                 </tableHeaderView>
                             </scrollView>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="IeJ-32-sru" firstAttribute="top" secondItem="mHv-uL-GEn" secondAttribute="top" id="99M-Ka-NTQ"/>
-                            <constraint firstItem="IeJ-32-sru" firstAttribute="leading" secondItem="mHv-uL-GEn" secondAttribute="leading" id="AUs-UI-8g1"/>
-                            <constraint firstAttribute="trailing" secondItem="IeJ-32-sru" secondAttribute="trailing" id="P5Y-sH-SXx"/>
-                            <constraint firstAttribute="bottom" secondItem="IeJ-32-sru" secondAttribute="bottom" id="jj1-So-ivG"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="otpTableView" destination="QtP-UW-eQk" id="g4f-z6-9iJ"/>
@@ -191,7 +186,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="139" y="459"/>
+            <point key="canvasLocation" x="139" y="526"/>
         </scene>
         <!--New Otp View Controller-->
         <scene sceneID="fZO-jh-g1H">
@@ -446,7 +441,7 @@ Gw
                 </viewController>
                 <customObject id="748-an-yYj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="821"/>
+            <point key="canvasLocation" x="139" y="917"/>
         </scene>
     </scenes>
 </document>
