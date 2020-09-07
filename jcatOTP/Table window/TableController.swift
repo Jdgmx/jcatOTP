@@ -9,18 +9,16 @@
 import Cocoa
 import CryptoKit
 
-class TableController: NSViewController, AddOtpFunction
+class TableController: NSViewController
 {
-	typealias OTPWrapper = Dictionary<String, Any>
-
 	@IBOutlet var otpTableView: NSTableView!
 
-	var passwords: Array<OTPWrapper> = [] // The array of OTP passwords
-	var onReturn: Bool = true
-	private var obs: NSObjectProtocol?
+	var onReturn: Bool = true // value from Defaults
+	private var obs: NSObjectProtocol? // to retain the notiofication
 
 	var timers: Dictionary<Int, Any>?
-	var refreshSeconds: Set<TimeInterval> = [0.0] // at which secongs the table must be refreshed
+
+	var service: OTPService { OTPService.shared }
 
 	required init?(coder: NSCoder)
 	{
@@ -40,18 +38,13 @@ class TableController: NSViewController, AddOtpFunction
 	{
 		super.viewDidLoad()
 
-		if let savedOtps = try? restoreOtps() {
-			passwords = savedOtps.map { ["otp": $0] }
-			calcRefreshTimers()
-			otpTableView.reloadData() // always do it right now
-		}
+		OTPService.shared.changeCallback = self.updatedOtps
+		updatedOtps()
 	}
 
 	override func viewWillDisappear()
 	{
 		super.viewWillDisappear()
-
-		try? store(otps: passwords.compactMap({ $0["otp"] as? OTPGenerator }))
 	}
 
 	override func prepare(for segue: NSStoryboardSegue, sender: Any?)
@@ -59,15 +52,6 @@ class TableController: NSViewController, AddOtpFunction
 		super.prepare(for: segue, sender: sender)
 
 		(segue.destinationController as? NewOtpViewController)?.ovc = self // setting the ovc in the new otp sheet
-	}
-
-	func add(otp: OTPGenerator)
-	{
-		let wrapper = ["otp": otp]
-
-		passwords.append(wrapper)
-		calcRefreshTimers()
-		otpTableView.reloadData() // always do it right now
 	}
 
 	// normally from the menu item
@@ -82,8 +66,7 @@ class TableController: NSViewController, AddOtpFunction
 		let selRow = otpTableView.selectedRow
 
 		if (selRow >= 0) { // if there is something selected
-			let w = passwords[selRow]
-			if let otpg = (w["otp"] as? OTPGenerator) {
+			if let otpg = service.otp(at: selRow) {
 				let alert = NSAlert()
 
 				alert.alertStyle = .warning
@@ -94,13 +77,10 @@ class TableController: NSViewController, AddOtpFunction
 
 				let r = alert.runModal()
 				if r == .alertFirstButtonReturn {
-					passwords.remove(at: selRow)
-					otpTableView.reloadData()
+					service.removeOtp(at: selRow)
 				}
 			}
 		}
-
-		calcRefreshTimers()
 	}
 
 	@IBAction func dobleClick(_ sender: Any)
@@ -129,9 +109,7 @@ class TableController: NSViewController, AddOtpFunction
 		let selRow = otpTableView.selectedRow
 
 		if (selRow >= 0) { // if there is something selected
-			let w = passwords[selRow]
-
-			if let otpg = (w["otp"] as? OTPGenerator) {
+			if let otpg = service.otp(at: selRow) {
 				let pb = NSPasteboard.general
 				let (code, _) = otpg.generate()
 
@@ -147,15 +125,7 @@ class TableController: NSViewController, AddOtpFunction
 	// Note that for now we are refreshing the whole table, that can be optimized
 	func calcRefreshTimers()
 	{
-		// get the seconds of where this should refresh
-		let secs = passwords.map { (w) -> TimeInterval in
-			if let otp = w["otp"] as? OTPGenerator {
-				return trunc(otp.period)
-			} else {
-				return 0.0
-			}
-		}
-		let refreshPerioids = Set(secs) // note this is a set, we want them unique
+		let refreshPerioids = service.getRefreshPeriods()
 
 		// invalidate all the previous timers
 		timers?.forEach { (t) in
@@ -180,13 +150,19 @@ class TableController: NSViewController, AddOtpFunction
 
 			if let nd = c.nextDate(after: date, matching: dc, matchingPolicy: .nextTime) { // this is the next fire date
 				let t = Timer(fire: nd, interval: TimeInterval(p), repeats: true, block: { (timer) in
-					self.otpTableView.reloadData(forRowIndexes: IndexSet(0..<self.passwords.count), columnIndexes: IndexSet(integer: 1))
+					self.otpTableView.reloadData(forRowIndexes: IndexSet(0..<self.service.count), columnIndexes: IndexSet(integer: 1))
 				})
 
 				RunLoop.current.add(t, forMode: .default)
 				timers?.updateValue(t, forKey: p)
 			}
 		}
+	}
+
+	func updatedOtps()
+	{
+		calcRefreshTimers()
+		otpTableView.reloadData() // always do it right now
 	}
 }
 
@@ -201,19 +177,19 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 
 	func numberOfRows(in tableView: NSTableView) -> Int
 	{
-		return passwords.count
+		return service.count
 	}
 	
 	func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView?
 	{
 		if let ident = tableColumn?.identifier { // if we have an identifier
 			if let view = tableView.makeView(withIdentifier: ident, owner: self) as? NSTableCellView {
-				view.objectValue = passwords[row]
+//				view.objectValue = passwords[row]
 
 				if ident.rawValue == "Service" {
-					view.textField?.stringValue = (passwords[row]["otp"] as? OTPGenerator)?.name ?? "noname"
+					view.textField?.stringValue = service.otp(at: row)?.name ?? "noname"
 				} else if ident.rawValue == "Otp" {
-					if let (otpValue, _) = (passwords[row]["otp"] as? OTPGenerator)?.generate() {
+					if let (otpValue, _) = service.otp(at: row)?.generate() {
 						view.textField?.integerValue = otpValue
 					} else {
 						view.textField?.stringValue = "..."

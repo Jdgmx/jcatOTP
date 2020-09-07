@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D22994B024D775A500D80793 /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22994AF24D775A500D80793 /* OTPViewController.swift */; };
 		D22994B224D77D9900D80793 /* NewOtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22994B124D77D9900D80793 /* NewOtpViewController.swift */; };
-		D24684CF24D5CCD200105D35 /* SplitWindow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D24684CE24D5CCD200105D35 /* SplitWindow.storyboard */; };
 		D254D93324D6CC2E00EE2C74 /* OTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254D93224D6CC2E00EE2C74 /* OTP.swift */; };
-		D2802C4E24D665FE00C33A55 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2802C4D24D665FE00C33A55 /* OutlineViewController.swift */; };
 		D29B16EF250591E80033968A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29B16EE250591E80033968A /* Utils.swift */; };
+		D29B16F12505DC550033968A /* OTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29B16F02505DC550033968A /* OTPService.swift */; };
 		D2B8AE4724D4D79900C542D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8AE4624D4D79900C542D3 /* AppDelegate.swift */; };
 		D2B8AE4924D4D79900C542D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2B8AE4824D4D79900C542D3 /* Assets.xcassets */; };
 		D2B8AE4C24D4D79900C542D3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2B8AE4A24D4D79900C542D3 /* MainMenu.xib */; };
@@ -22,12 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D22994AF24D775A500D80793 /* OTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPViewController.swift; sourceTree = "<group>"; };
 		D22994B124D77D9900D80793 /* NewOtpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOtpViewController.swift; sourceTree = "<group>"; };
-		D24684CE24D5CCD200105D35 /* SplitWindow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplitWindow.storyboard; sourceTree = "<group>"; };
 		D254D93224D6CC2E00EE2C74 /* OTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTP.swift; sourceTree = "<group>"; };
-		D2802C4D24D665FE00C33A55 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
 		D29B16EE250591E80033968A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		D29B16F02505DC550033968A /* OTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPService.swift; sourceTree = "<group>"; };
 		D2B8AE4324D4D79900C542D3 /* jcatOTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jcatOTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2B8AE4624D4D79900C542D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2B8AE4824D4D79900C542D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -50,19 +46,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D24684CD24D5CBE400105D35 /* Main window */ = {
-			isa = PBXGroup;
-			children = (
-				D2BCD1DE24E83FAE000E68D6 /* Split window */,
-				D2BCD1DF24E83FD9000E68D6 /* Table window */,
-			);
-			path = "Main window";
-			sourceTree = "<group>";
-		};
 		D254D93124D6CC0600EE2C74 /* OTP */ = {
 			isa = PBXGroup;
 			children = (
 				D254D93224D6CC2E00EE2C74 /* OTP.swift */,
+				D29B16F02505DC550033968A /* OTPService.swift */,
 			);
 			path = OTP;
 			sourceTree = "<group>";
@@ -96,7 +84,7 @@
 			children = (
 				D2B8AE4624D4D79900C542D3 /* AppDelegate.swift */,
 				D2B8AE4A24D4D79900C542D3 /* MainMenu.xib */,
-				D24684CD24D5CBE400105D35 /* Main window */,
+				D2BCD1DF24E83FD9000E68D6 /* Table window */,
 				D254D93124D6CC0600EE2C74 /* OTP */,
 				D29B16ED250591D00033968A /* Utils */,
 				D2B8AE4824D4D79900C542D3 /* Assets.xcassets */,
@@ -106,23 +94,13 @@
 			path = jcatOTP;
 			sourceTree = "<group>";
 		};
-		D2BCD1DE24E83FAE000E68D6 /* Split window */ = {
-			isa = PBXGroup;
-			children = (
-				D24684CE24D5CCD200105D35 /* SplitWindow.storyboard */,
-				D2802C4D24D665FE00C33A55 /* OutlineViewController.swift */,
-				D22994AF24D775A500D80793 /* OTPViewController.swift */,
-				D22994B124D77D9900D80793 /* NewOtpViewController.swift */,
-			);
-			name = "Split window";
-			sourceTree = "<group>";
-		};
 		D2BCD1DF24E83FD9000E68D6 /* Table window */ = {
 			isa = PBXGroup;
 			children = (
 				D2BCD1DC24E83CEE000E68D6 /* TableWindow.storyboard */,
 				D2BCD1E024E8406C000E68D6 /* TableController.swift */,
 				D2D6772724FC49F600700418 /* WindowContoller.swift */,
+				D22994B124D77D9900D80793 /* NewOtpViewController.swift */,
 			);
 			path = "Table window";
 			sourceTree = "<group>";
@@ -185,7 +163,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D24684CF24D5CCD200105D35 /* SplitWindow.storyboard in Resources */,
 				D2BCD1DD24E83CEE000E68D6 /* TableWindow.storyboard in Resources */,
 				D2B8AE4924D4D79900C542D3 /* Assets.xcassets in Resources */,
 				D2B8AE4C24D4D79900C542D3 /* MainMenu.xib in Resources */,
@@ -199,13 +176,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D29B16F12505DC550033968A /* OTPService.swift in Sources */,
 				D2BCD1E124E8406C000E68D6 /* TableController.swift in Sources */,
 				D2D6772824FC49F600700418 /* WindowContoller.swift in Sources */,
 				D22994B224D77D9900D80793 /* NewOtpViewController.swift in Sources */,
-				D22994B024D775A500D80793 /* OTPViewController.swift in Sources */,
 				D254D93324D6CC2E00EE2C74 /* OTP.swift in Sources */,
 				D2B8AE4724D4D79900C542D3 /* AppDelegate.swift in Sources */,
-				D2802C4E24D665FE00C33A55 /* OutlineViewController.swift in Sources */,
 				D29B16EF250591E80033968A /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

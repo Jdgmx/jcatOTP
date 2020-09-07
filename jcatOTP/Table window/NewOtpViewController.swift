@@ -9,17 +9,10 @@
 import Cocoa
 import CryptoKit
 
-protocol AddOtpFunction
-{
-	func add(otp: OTPGenerator)
-}
-
 class NewOtpViewController: NSViewController
 {
-	@IBOutlet dynamic var outlineVC: OutlineViewController?
-
-	@objc dynamic var otpName: String?
-	@objc dynamic var secret: String?
+	@objc dynamic var otpName: String? = ""
+	@objc dynamic var secret: String? = ""
 	@objc dynamic var digits: Int = 6
 	@objc dynamic var period: Int = 30
 
@@ -27,15 +20,6 @@ class NewOtpViewController: NSViewController
 
 	var encoding: DecodingScheme = .base32
 	var algorithm: Int = 1
-
-	override func viewDidLoad()
-	{
-		super.viewDidLoad()
-
-		// tests
-		otpName = "Staging"
-		secret = "7OH6HVLLVW6VZRP7"
-	}
 
 	@IBAction func setEncoding(_ sender: Any?)
 	{
@@ -79,19 +63,19 @@ class NewOtpViewController: NSViewController
 		switch algorithm {
 			case 1:
 				if let otp = OTP<Insecure.SHA1>(name: otpName!, secret: secret!, scheme: encoding, digits: digits, period: period) {
-					(ovc! as? AddOtpFunction)?.add(otp: otp)
+					OTPService.shared.add(otp: otp)
 				}
 			case 2:
 				if let otp = OTP<SHA256>(name: otpName!, secret: secret!, scheme: encoding, digits: digits, period: period) {
-					(ovc! as? AddOtpFunction)?.add(otp: otp)
+					OTPService.shared.add(otp: otp)
 				}
 			case 3:
 				if let otp = OTP<SHA384>(name: otpName!, secret: secret!, scheme: encoding, digits: digits, period: period) {
-					(ovc! as? AddOtpFunction)?.add(otp: otp)
+					OTPService.shared.add(otp: otp)
 				}
 			case 4:
 				if let otp = OTP<SHA512>(name: otpName!, secret: secret!, scheme: encoding, digits: digits, period: period) {
-					(ovc! as? AddOtpFunction)?.add(otp: otp)
+					OTPService.shared.add(otp: otp)
 				}
 			default:
 				break
@@ -105,6 +89,7 @@ class NewOtpViewController: NSViewController
 		dismiss(self)
 	}
 
+	// mostly sets the defaults values if the field is left empty
 	override func setNilValueForKey(_ key: String)
 	{
 		if key == "otpName" {

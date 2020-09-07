@@ -25,6 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
 			setDefaultPreferences()
 		}
 
+		try? OTPService.shared.restoreOtps()
 		openMainWindow(self)
 	}
 
@@ -38,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
 	@IBAction func openMainWindow(_ sender: Any?)
 	{
 		if mainWindowController == nil {
-			mainWindowController = NSStoryboard(name: "TableWindow" /*"SplitWindow"*/, bundle: nil).instantiateInitialController()
+			mainWindowController = NSStoryboard(name: "TableWindow", bundle: nil).instantiateInitialController()
 		}
 
 		mainWindowController?.showWindow(self)
