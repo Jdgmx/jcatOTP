@@ -33,7 +33,7 @@ class OTPService: NSObject
 	{
 		guard index <= passwords.endIndex else { return }
 
-		let wrapper = ["otp": otp]
+		let wrapper = ["otp": otp, "service": false] as OTPWrapper
 
 		if index < 0 {
 			passwords.append(wrapper)
@@ -55,6 +55,33 @@ class OTPService: NSObject
 		if changeCallback != nil {
 			OperationQueue.main.addOperation(changeCallback!)
 		}
+	}
+
+	func isOtpService(at index: Int) -> Bool
+	{
+		guard (index >= 0) && (index <= passwords.endIndex) else { return false }
+
+		return (passwords[index]["service"] as? Bool) ?? false
+	}
+
+	func setOtpService(at index: Int, service: Bool = true)
+	{
+		guard (index >= 0) && (index <= passwords.endIndex) else { return }
+
+		passwords[index]["service"] = service
+	}
+
+	func toggleOtpService(at index: Int) -> Bool
+	{
+		guard (index >= 0) && (index <= passwords.endIndex) else { return false }
+
+		if var s = passwords[index]["service"] as? Bool {
+			s.toggle()
+			passwords[index]["service"] = s
+			return s
+		}
+
+		return false
 	}
 
 	// Calculate refreshSeconds, or the second of each minute where the table must be reloaded.
@@ -107,4 +134,46 @@ class OTPService: NSObject
 
 		passwords = []
 	}
+
+	// MARK: Services
+
+	// Generates the OTP code at a given index and copies it into the pasteboard.
+	func copyOtp(at index:Int)
+	{
+		if let otp = otp(at: index) {
+			let pb = NSPasteboard.general
+			let (code, _) = otp.generate()
+
+			pb.clearContents()
+			pb.setString(String(code), forType: .string)
+		}
+	}
+
+	// The following methods are the callbacks from the services menu
+
+	@objc func otpPassword0(from pboard: NSPasteboard, userData: String) throws
+	{
+		NSLog("Services pasteboard: \(pboard), userData: \(userData)")
+
+		pboard.clearContents()
+		pboard.setString("PASTE COSA 0", forType: .string)
+
+	}
+
+	@objc func otpPassword1(from pboard: NSPasteboard, userData: String) throws
+	{
+		NSLog("Services pasteboard: \(pboard), userData: \(userData)")
+
+		pboard.clearContents()
+		pboard.setString("PASTE COSA 2", forType: .string)
+	}
+
+	@objc func otpPassword2(from pboard: NSPasteboard, userData: String) throws
+	{
+		NSLog("Services pasteboard: \(pboard), userData: \(userData)")
+
+		pboard.clearContents()
+		pboard.setString("PASTE COSA 2", forType: .string)
+	}
+
 }

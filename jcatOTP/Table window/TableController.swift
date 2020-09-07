@@ -109,13 +109,7 @@ class TableController: NSViewController
 		let selRow = otpTableView.selectedRow
 
 		if (selRow >= 0) { // if there is something selected
-			if let otpg = service.otp(at: selRow) {
-				let pb = NSPasteboard.general
-				let (code, _) = otpg.generate()
-
-				pb.clearContents()
-				pb.setString(String(code), forType: .string)
-			}
+			service.copyOtp(at: selRow)
 		}
 	}
 
