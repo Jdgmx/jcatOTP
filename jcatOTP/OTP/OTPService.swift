@@ -19,6 +19,7 @@ class OTPService: NSObject
 	private var passwords: Array<OTPWrapper> = [] // The array of OTP passwords
 
 	var count: Int { passwords.count }
+	var endIndex: Int { passwords.endIndex }
 
 	// MARK: Methods
 
@@ -56,6 +57,15 @@ class OTPService: NSObject
 			OperationQueue.main.addOperation(changeCallback!)
 		}
 	}
+
+	func swapOtp(at index: Int, with dest: Int)
+	{
+		guard (index >= 0) && (index < passwords.endIndex) else { return }
+		guard (dest >= 0) && (dest < passwords.endIndex) else { return }
+
+		passwords.swapAt(index, dest)
+	}
+
 
 	func isOtpService(at index: Int) -> Bool
 	{

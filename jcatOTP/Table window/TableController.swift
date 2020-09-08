@@ -38,6 +38,9 @@ class TableController: NSViewController
 	{
 		super.viewDidLoad()
 
+		otpTableView.setDraggingSourceOperationMask(.move, forLocal: true)
+		otpTableView.registerForDraggedTypes([.string])
+
 		OTPService.shared.changeCallback = self.updatedOtps
 		updatedOtps()
 	}
@@ -221,5 +224,43 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 		if !onReturn {
 			copySelectedOTP()
 		}
+	}
+
+	func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting?
+	{
+		return NSString(format: "%i", row) // in a string, the row that initiaied the drag
+	}
+
+	func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation
+	{
+		if let s = info.draggingSource as? NSTableView {
+			if s == otpTableView {
+				return .move
+			}
+		}
+		return .generic
+	}
+
+	func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool
+	{
+		if let s = info.draggingSource as? NSTableView, s == otpTableView {
+			if let data = info.draggingPasteboard.pasteboardItems?.first?.data(forType: .string) {
+				if let irs = String(bytes: data, encoding: .utf8), let iri = Int(irs) {  // in the pasteboard comes the row that initiated the drag
+					let r: Int
+					if row >= service.endIndex { // if its beyond the end...
+						r = service.endIndex - 1 // ...then it's at the end
+					} else {
+						r = row
+					}
+
+					service.swapOtp(at: iri, with: r)
+					OperationQueue.main.addOperation { self.otpTableView.reloadData() }
+
+					return true
+				}
+			}
+		}
+
+		return false
 	}
 }
