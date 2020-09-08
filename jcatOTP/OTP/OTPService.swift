@@ -24,7 +24,7 @@ class OTPService: NSObject
 
 	func otp(at index:Int) -> OTPGenerator?
 	{
-		guard (index >= 0) && (index <= passwords.endIndex) else { return nil }
+		guard (index >= 0) && (index < passwords.endIndex) else { return nil }
 
 		return passwords[index]["otp"] as? OTPGenerator
 	}
@@ -48,7 +48,7 @@ class OTPService: NSObject
 
 	func removeOtp(at index: Int)
 	{
-		guard (index >= 0) && (index <= passwords.endIndex) else { return }
+		guard (index >= 0) && (index < passwords.endIndex) else { return }
 
 		passwords.remove(at: index)
 
@@ -59,21 +59,21 @@ class OTPService: NSObject
 
 	func isOtpService(at index: Int) -> Bool
 	{
-		guard (index >= 0) && (index <= passwords.endIndex) else { return false }
+		guard (index >= 0) && (index < passwords.endIndex) else { return false }
 
 		return (passwords[index]["service"] as? Bool) ?? false
 	}
 
 	func setOtpService(at index: Int, service: Bool = true)
 	{
-		guard (index >= 0) && (index <= passwords.endIndex) else { return }
+		guard (index >= 0) && (index < passwords.endIndex) else { return }
 
 		passwords[index]["service"] = service
 	}
 
 	func toggleOtpService(at index: Int) -> Bool
 	{
-		guard (index >= 0) && (index <= passwords.endIndex) else { return false }
+		guard (index >= 0) && (index < passwords.endIndex) else { return false }
 
 		if var s = passwords[index]["service"] as? Bool {
 			s.toggle()
@@ -107,8 +107,7 @@ class OTPService: NSObject
 	func store() throws
 	{
 		if let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
-			let otps = passwords.compactMap { $0["otp"] as? OTPGenerator }
-			let datas = try otps.compactMap { try $0.save() }
+			let datas = passwords.map { ["data":(try? ($0["otp"] as? OTPGenerator)?.save()) ?? Data(), "service": $0["service"]] } // Array<[String: Any]>
 			let fileData = try PropertyListSerialization.data(fromPropertyList: datas, format: .binary, options: .zero)
 
 			FileManager.default.createFile(atPath: dir.appendingPathComponent(OTPService.fileName).path, contents: fileData, attributes: nil)
@@ -119,15 +118,23 @@ class OTPService: NSObject
 	{
 		if let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
 			if let fileData = FileManager.default.contents(atPath: dir.appendingPathComponent(OTPService.fileName).path) {
-				if let datas = try PropertyListSerialization.propertyList(from: fileData, options: .mutableContainers, format: nil) as? Array<Data> {
+
+				if let datas = try PropertyListSerialization.propertyList(from: fileData, options: .mutableContainers, format: nil) as? Array<[String: Any]> {
 					passwords = datas.compactMap { (d) -> OTPWrapper? in
-						if let g = OTPRestore(from: d) {
-							return ["otp": g]
-						} else {
-							return nil
+						if let data = d["data"] as? Data, data.count > 0 {
+							let s = d["service"] as? Bool ?? false
+
+							if let g = OTPRestore(from: data) {
+								return ["otp": g, "service": s]
+							} else {
+								return nil
+							}
 						}
+
+						return nil
 					}
-					return
+
+					return // we have the passwords set
 				}
 			}
 		}
@@ -155,25 +162,35 @@ class OTPService: NSObject
 	{
 		NSLog("Services pasteboard: \(pboard), userData: \(userData)")
 
-		pboard.clearContents()
-		pboard.setString("PASTE COSA 0", forType: .string)
+		if let otp = otp(at: 0) {
+			let (code, _) = otp.generate()
 
+			pboard.clearContents()
+			pboard.setString(String(code), forType: .string)
+		}
 	}
 
 	@objc func otpPassword1(from pboard: NSPasteboard, userData: String) throws
 	{
 		NSLog("Services pasteboard: \(pboard), userData: \(userData)")
 
-		pboard.clearContents()
-		pboard.setString("PASTE COSA 2", forType: .string)
+		if let otp = otp(at: 1) {
+			let (code, _) = otp.generate()
+
+			pboard.clearContents()
+			pboard.setString(String(code), forType: .string)
+		}
 	}
 
 	@objc func otpPassword2(from pboard: NSPasteboard, userData: String) throws
 	{
 		NSLog("Services pasteboard: \(pboard), userData: \(userData)")
 
-		pboard.clearContents()
-		pboard.setString("PASTE COSA 2", forType: .string)
-	}
+		if let otp = otp(at: 2) {
+			let (code, _) = otp.generate()
 
+			pboard.clearContents()
+			pboard.setString(String(code), forType: .string)
+		}
+	}
 }

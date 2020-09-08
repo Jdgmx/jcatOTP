@@ -45,6 +45,7 @@ class TableController: NSViewController
 	override func viewWillDisappear()
 	{
 		super.viewWillDisappear()
+		try? OTPService.shared.store()
 	}
 
 	override func prepare(for segue: NSStoryboardSegue, sender: Any?)
@@ -178,15 +179,20 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 	{
 		if let ident = tableColumn?.identifier { // if we have an identifier
 			if let view = tableView.makeView(withIdentifier: ident, owner: self) as? NSTableCellView {
-//				view.objectValue = passwords[row]
-
-				if ident.rawValue == "Service" {
+				if ident.rawValue == "Name" {
 					view.textField?.stringValue = service.otp(at: row)?.name ?? "noname"
 				} else if ident.rawValue == "Otp" {
 					if let (otpValue, _) = service.otp(at: row)?.generate() {
 						view.textField?.integerValue = otpValue
 					} else {
 						view.textField?.stringValue = "..."
+					}
+				} else if ident.rawValue == "Service" {
+					if let sb = view.subviews.first as? NSButton {
+						sb.state = service.isOtpService(at: row) ? .on : .off
+						sb.tag = row // the tag has the row number
+						sb.action = #selector(TableController.updateServiceCheck(_:))
+						sb.target = self
 					}
 				}
 
@@ -195,6 +201,14 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 		}
 
 		return nil
+	}
+
+	@IBAction func updateServiceCheck(_ sender: Any?)
+	{
+		if let sb = sender as? NSButton {
+			_ = service.toggleOtpService(at: sb.tag) // because in tag comes the row
+			otpTableView.reloadData(forRowIndexes: IndexSet(integer: sb.tag), columnIndexes: IndexSet(integer: 2))
+		}
 	}
 
 	func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool
