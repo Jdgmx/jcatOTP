@@ -31,7 +31,7 @@ protocol OTPGenerator
 	var digits: Int { get }
 	var period: TimeInterval { get }
 
-	func generate() -> (code:Int, count:Int)
+	func generate() -> (code:String, count:Int)
 	func save() throws -> Data
 }
 
@@ -73,7 +73,7 @@ struct OTP<H> where H: HashFunction
 	/// Algorithm
 	/// from: https://developer.apple.com/forums/thread/120918
 	/// see also: https://tools.ietf.org/html/rfc6238#section-4
-	func generate() -> (code:Int, count:Int)
+	func generate() -> (code:String, count:Int)
 	{
 		let counter = Date().timeIntervalSince1970/period
 		var t = UInt64(counter).bigEndian
@@ -92,8 +92,7 @@ struct OTP<H> where H: HashFunction
 		truncatedHash = truncatedHash & 0x7FFF_FFFF
 		truncatedHash = truncatedHash % UInt32(pow(10, Float(digits)))
 
-		return (Int(truncatedHash), Int(period*modf(counter).1 + 1))
-		//return String(format: "%0*u", digits, truncatedHash)
+		return (String(format: "%0*u", digits, truncatedHash), Int(period*modf(counter).1 + 1))
 	}
 }
 

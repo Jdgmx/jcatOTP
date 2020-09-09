@@ -2,48 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSServices</key>
-	<array>
-		<dict>
-			<key>NSReturnTypes</key>
-			<array>
-				<string>NSStringPboardType</string>
-			</array>
-			<key>NSMessage</key>
-			<string>otpPassword0From</string>
-			<key>NSMenuItem</key>
-			<dict>
-				<key>default</key>
-				<string>jcatOTP Password 0</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>NSReturnTypes</key>
-			<array>
-				<string>NSStringPboardType</string>
-			</array>
-			<key>NSMessage</key>
-			<string>otpPassword1From</string>
-			<key>NSMenuItem</key>
-			<dict>
-				<key>default</key>
-				<string>jcatOTP Password 1</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>NSReturnTypes</key>
-			<array>
-				<string>NSStringPboardType</string>
-			</array>
-			<key>NSMessage</key>
-			<string>otpPassword2From</string>
-			<key>NSMenuItem</key>
-			<dict>
-				<key>default</key>
-				<string>jcatOTP Password 2</string>
-			</dict>
-		</dict>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -72,9 +30,65 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSServices</key>
+	<array>
+		<dict>
+			<key>NSReturnTypes</key>
+			<array>
+				<string>NSStringPboardType</string>
+				<string>public.text</string>
+				<string>public.plain-text </string>
+			</array>
+			<key>NSRequiredContext</key>
+			<dict/>
+			<key>NSMenuItem</key>
+			<dict>
+				<key>default</key>
+				<string>2 jcatOTP</string>
+			</dict>
+			<key>NSMessage</key>
+			<string>otpPassword2From</string>
+		</dict>
+		<dict>
+			<key>NSReturnTypes</key>
+			<array>
+				<string>NSStringPboardType</string>
+				<string>public.text</string>
+				<string>public.plain-text </string>
+			</array>
+			<key>NSRequiredContext</key>
+			<dict/>
+			<key>NSMenuItem</key>
+			<dict>
+				<key>default</key>
+				<string>1 jcatOTP</string>
+			</dict>
+			<key>NSMessage</key>
+			<string>otpPassword1From</string>
+		</dict>
+		<dict>
+			<key>NSReturnTypes</key>
+			<array>
+				<string>NSStringPboardType</string>
+				<string>public.text</string>
+				<string>public.plain-text </string>
+			</array>
+			<key>NSPortName</key>
+			<string></string>
+			<key>NSRequiredContext</key>
+			<dict/>
+			<key>NSMenuItem</key>
+			<dict>
+				<key>default</key>
+				<string>0 jcatOTP</string>
+			</dict>
+			<key>NSMessage</key>
+			<string>otpPassword0From</string>
+		</dict>
+	</array>
 	<key>NSSupportsAutomaticTermination</key>
 	<true/>
 	<key>NSSupportsSuddenTermination</key>
-	<true/>
+	<false/>
 </dict>
 </plist>

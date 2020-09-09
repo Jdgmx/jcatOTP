@@ -162,11 +162,22 @@ class OTPService: NSObject
 			let (code, _) = otp.generate()
 
 			pb.clearContents()
-			pb.setString(String(code), forType: .string)
+			pb.setString(code, forType: .string)
 		}
 	}
 
 	// The following methods are the callbacks from the services menu
+
+	private func otpForService(index: Int) -> OTPGenerator?
+	{
+		let services = passwords.filter({ $0["service"] as? Bool ?? false })
+
+		if !services.isEmpty && (index < services.endIndex) {
+			return services[index]["otp"] as? OTPGenerator
+		} else {
+			return nil
+		}
+	}
 
 	@objc func otpPassword0(from pboard: NSPasteboard, userData: String) throws
 	{
@@ -176,7 +187,7 @@ class OTPService: NSObject
 			let (code, _) = otp.generate()
 
 			pboard.clearContents()
-			pboard.setString(String(code), forType: .string)
+			pboard.setString(code, forType: .string)
 		}
 	}
 
@@ -188,7 +199,7 @@ class OTPService: NSObject
 			let (code, _) = otp.generate()
 
 			pboard.clearContents()
-			pboard.setString(String(code), forType: .string)
+			pboard.setString(code, forType: .string)
 		}
 	}
 
@@ -200,7 +211,7 @@ class OTPService: NSObject
 			let (code, _) = otp.generate()
 
 			pboard.clearContents()
-			pboard.setString(String(code), forType: .string)
+			pboard.setString(code, forType: .string)
 		}
 	}
 }

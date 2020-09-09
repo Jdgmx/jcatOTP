@@ -60,25 +60,27 @@ class NewOtpViewController: NSViewController
 		guard (otpName != nil) && (secret != nil) else { return }
 		guard ovc != nil else { return } // we must know the outline view controller
 
-		switch algorithm {
-			case 1:
-				if let otp = OTP<Insecure.SHA1>(name: otpName!, secret: secret!, scheme: encoding, digits: digits, period: period) {
-					OTPService.shared.add(otp: otp)
+		if let trimSecret = secret?.trimmingCharacters(in: .whitespacesAndNewlines), !trimSecret.isEmpty {
+			switch algorithm {
+				case 1:
+					if let otp = OTP<Insecure.SHA1>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits, period: period) {
+						OTPService.shared.add(otp: otp)
 				}
-			case 2:
-				if let otp = OTP<SHA256>(name: otpName!, secret: secret!, scheme: encoding, digits: digits, period: period) {
-					OTPService.shared.add(otp: otp)
+				case 2:
+					if let otp = OTP<SHA256>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits, period: period) {
+						OTPService.shared.add(otp: otp)
 				}
-			case 3:
-				if let otp = OTP<SHA384>(name: otpName!, secret: secret!, scheme: encoding, digits: digits, period: period) {
-					OTPService.shared.add(otp: otp)
+				case 3:
+					if let otp = OTP<SHA384>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits, period: period) {
+						OTPService.shared.add(otp: otp)
 				}
-			case 4:
-				if let otp = OTP<SHA512>(name: otpName!, secret: secret!, scheme: encoding, digits: digits, period: period) {
-					OTPService.shared.add(otp: otp)
+				case 4:
+					if let otp = OTP<SHA512>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits, period: period) {
+						OTPService.shared.add(otp: otp)
 				}
-			default:
-				break
+				default:
+					break
+			}
 		}
 		
 		dismiss(self)
