@@ -211,11 +211,3 @@ private extension Data
 		}
 	}
 }
-
-extension String
-{
-	func isValid(baseTable: Array<Character> = b32table) -> Bool
-	{
-		return true
-	}
-}

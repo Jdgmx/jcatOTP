@@ -25,12 +25,6 @@ class AppDelegate: NSObject, NSApplicationDelegate
 			setDefaultPreferences()
 		}
 
-//		let sm = NSMenu()
-//		sm.addItem(withTitle: "OTP menu 1", action: #selector(OTPService.otpPassword(from:userData:)), keyEquivalent: "")
-//		sm.addItem(withTitle: "OTP menu 2", action: #selector(OTPService.otpPassword2(from:userData:)), keyEquivalent: "")
-//		NSApp.servicesMenu = sm
-//		NSApp.registerServicesMenuSendTypes([.string], returnTypes: [.string])
-
 		NSApp.servicesProvider = OTPService.shared
 
 		try? OTPService.shared.restoreOtps()

@@ -181,9 +181,7 @@ class OTPService: NSObject
 
 	@objc func otpPassword0(from pboard: NSPasteboard, userData: String) throws
 	{
-		NSLog("Services pasteboard: \(pboard), userData: \(userData)")
-
-		if let otp = otp(at: 0) {
+		if let otp = otpForService(index: 0) {
 			let (code, _) = otp.generate()
 
 			pboard.clearContents()
@@ -193,9 +191,7 @@ class OTPService: NSObject
 
 	@objc func otpPassword1(from pboard: NSPasteboard, userData: String) throws
 	{
-		NSLog("Services pasteboard: \(pboard), userData: \(userData)")
-
-		if let otp = otp(at: 1) {
+		if let otp = otpForService(index: 1) {
 			let (code, _) = otp.generate()
 
 			pboard.clearContents()
@@ -205,9 +201,27 @@ class OTPService: NSObject
 
 	@objc func otpPassword2(from pboard: NSPasteboard, userData: String) throws
 	{
-		NSLog("Services pasteboard: \(pboard), userData: \(userData)")
+		if let otp = otpForService(index: 2) {
+			let (code, _) = otp.generate()
 
-		if let otp = otp(at: 2) {
+			pboard.clearContents()
+			pboard.setString(code, forType: .string)
+		}
+	}
+
+	@objc func otpPassword3(from pboard: NSPasteboard, userData: String) throws
+	{
+		if let otp = otpForService(index: 3) {
+			let (code, _) = otp.generate()
+
+			pboard.clearContents()
+			pboard.setString(code, forType: .string)
+		}
+	}
+
+	@objc func otpPassword4(from pboard: NSPasteboard, userData: String) throws
+	{
+		if let otp = otpForService(index: 4) {
 			let (code, _) = otp.generate()
 
 			pboard.clearContents()

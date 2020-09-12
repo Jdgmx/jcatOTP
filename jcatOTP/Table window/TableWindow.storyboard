@@ -211,9 +211,10 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="8eH-Ui-8zy" name="value" keyPath="self.secret" id="yKO-XI-914">
+                                    <binding destination="8eH-Ui-8zy" name="value" keyPath="self.secret" id="GyR-cA-kFs">
                                         <dictionary key="options">
                                             <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                            <string key="NSNullPlaceholder">YBNDRFG8EJKMCPQX</string>
                                         </dictionary>
                                     </binding>
                                 </connections>
@@ -273,9 +274,10 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="8eH-Ui-8zy" name="value" keyPath="self.period" id="edb-Fu-Iux">
+                                    <binding destination="8eH-Ui-8zy" name="value" keyPath="self.period" id="AbC-Lc-WcM">
                                         <dictionary key="options">
                                             <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                            <integer key="NSNullPlaceholder" value="30"/>
                                         </dictionary>
                                     </binding>
                                 </connections>
@@ -302,9 +304,10 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="8eH-Ui-8zy" name="value" keyPath="self.digits" id="5hh-Ur-kLU">
+                                    <binding destination="8eH-Ui-8zy" name="value" keyPath="self.digits" id="QzR-yd-lbg">
                                         <dictionary key="options">
                                             <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                            <integer key="NSNullPlaceholder" value="6"/>
                                         </dictionary>
                                     </binding>
                                 </connections>
@@ -408,9 +411,10 @@ Gw
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="8eH-Ui-8zy" name="value" keyPath="self.otpName" id="FoW-iy-Doe">
+                                    <binding destination="8eH-Ui-8zy" name="value" keyPath="self.otpName" id="xmZ-z6-Nia">
                                         <dictionary key="options">
                                             <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                            <string key="NSNullPlaceholder">My brand new OTP</string>
                                         </dictionary>
                                     </binding>
                                 </connections>

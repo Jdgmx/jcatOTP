@@ -13,8 +13,8 @@ class NewOtpViewController: NSViewController
 {
 	@objc dynamic var otpName: String? = ""
 	@objc dynamic var secret: String? = ""
-	@objc dynamic var digits: Int = 6
-	@objc dynamic var period: Int = 30
+	@objc dynamic var digits: NSNumber? = 6
+	@objc dynamic var period: NSNumber? = 30
 
 	weak var ovc: AnyObject? = nil
 
@@ -58,31 +58,47 @@ class NewOtpViewController: NSViewController
 	@IBAction func ok(_ sender: Any)
 	{
 		guard (otpName != nil) && (secret != nil) else { return }
+		guard (digits != nil) && (period != nil) else { return }
 		guard ovc != nil else { return } // we must know the outline view controller
+
+		var success: Bool = false
 
 		if let trimSecret = secret?.trimmingCharacters(in: .whitespacesAndNewlines), !trimSecret.isEmpty {
 			switch algorithm {
 				case 1:
-					if let otp = OTP<Insecure.SHA1>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits, period: period) {
+					if let otp = OTP<Insecure.SHA1>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits!.intValue, period: period!.intValue) {
 						OTPService.shared.add(otp: otp)
-				}
+						success = true
+					}
 				case 2:
-					if let otp = OTP<SHA256>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits, period: period) {
+					if let otp = OTP<SHA256>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits!.intValue, period: period!.intValue) {
 						OTPService.shared.add(otp: otp)
-				}
+						success = true
+					}
 				case 3:
-					if let otp = OTP<SHA384>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits, period: period) {
+					if let otp = OTP<SHA384>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits!.intValue, period: period!.intValue) {
 						OTPService.shared.add(otp: otp)
-				}
+						success = true
+					}
 				case 4:
-					if let otp = OTP<SHA512>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits, period: period) {
+					if let otp = OTP<SHA512>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits!.intValue, period: period!.intValue) {
 						OTPService.shared.add(otp: otp)
-				}
+						success = true
+					}
 				default:
 					break
 			}
 		}
-		
+
+		if !success {
+			let alert = NSAlert()
+
+			alert.messageText = "Error Creating OTP"
+			alert.informativeText = "Check the parameters and please try again."
+			alert.alertStyle = .warning
+			alert.runModal()
+		}
+
 		dismiss(self)
 	}
 

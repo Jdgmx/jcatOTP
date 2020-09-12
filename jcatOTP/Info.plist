@@ -39,12 +39,48 @@
 				<string>public.text</string>
 				<string>public.plain-text </string>
 			</array>
+			<key>NSPortName</key>
+			<string></string>
 			<key>NSRequiredContext</key>
 			<dict/>
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>2 jcatOTP</string>
+				<string>0 jCatOTP</string>
+			</dict>
+			<key>NSMessage</key>
+			<string>otpPassword0From</string>
+		</dict>
+		<dict>
+			<key>NSReturnTypes</key>
+			<array>
+				<string>NSStringPboardType</string>
+				<string>public.text</string>
+				<string>public.plain-text </string>
+			</array>
+			<key>NSRequiredContext</key>
+			<dict/>
+			<key>NSMenuItem</key>
+			<dict>
+				<key>default</key>
+				<string>1 jCatOTP</string>
+			</dict>
+			<key>NSMessage</key>
+			<string>otpPassword1From</string>
+		</dict>
+		<dict>
+			<key>NSReturnTypes</key>
+			<array>
+				<string>NSStringPboardType</string>
+				<string>public.text</string>
+				<string>public.plain-text </string>
+			</array>
+			<key>NSRequiredContext</key>
+			<dict/>
+			<key>NSMenuItem</key>
+			<dict>
+				<key>default</key>
+				<string>2 jCatOTP</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>otpPassword2From</string>
@@ -61,10 +97,10 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>1 jcatOTP</string>
+				<string>3 jCatOTP</string>
 			</dict>
 			<key>NSMessage</key>
-			<string>otpPassword1From</string>
+			<string>otpPassword3From</string>
 		</dict>
 		<dict>
 			<key>NSReturnTypes</key>
@@ -73,17 +109,15 @@
 				<string>public.text</string>
 				<string>public.plain-text </string>
 			</array>
-			<key>NSPortName</key>
-			<string></string>
 			<key>NSRequiredContext</key>
 			<dict/>
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>0 jcatOTP</string>
+				<string>4 jCatOTP</string>
 			</dict>
 			<key>NSMessage</key>
-			<string>otpPassword0From</string>
+			<string>otpPassword4From</string>
 		</dict>
 	</array>
 	<key>NSSupportsAutomaticTermination</key>
