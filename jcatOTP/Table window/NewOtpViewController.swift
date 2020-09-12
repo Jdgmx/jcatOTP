@@ -63,30 +63,32 @@ class NewOtpViewController: NSViewController
 
 		var success: Bool = false
 
-		if let trimSecret = secret?.trimmingCharacters(in: .whitespacesAndNewlines), !trimSecret.isEmpty {
-			switch algorithm {
-				case 1:
-					if let otp = OTP<Insecure.SHA1>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits!.intValue, period: period!.intValue) {
-						OTPService.shared.add(otp: otp)
-						success = true
-					}
-				case 2:
-					if let otp = OTP<SHA256>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits!.intValue, period: period!.intValue) {
-						OTPService.shared.add(otp: otp)
-						success = true
-					}
-				case 3:
-					if let otp = OTP<SHA384>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits!.intValue, period: period!.intValue) {
-						OTPService.shared.add(otp: otp)
-						success = true
-					}
-				case 4:
-					if let otp = OTP<SHA512>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits!.intValue, period: period!.intValue) {
-						OTPService.shared.add(otp: otp)
-						success = true
-					}
-				default:
-					break
+		if !otpName!.isEmpty {
+			if let trimSecret = secret?.trimmingCharacters(in: .whitespacesAndNewlines), !trimSecret.isEmpty {
+				switch algorithm {
+					case 1:
+						if let otp = OTP<Insecure.SHA1>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits!.intValue, period: period!.intValue) {
+							OTPService.shared.add(otp: otp)
+							success = true
+						}
+					case 2:
+						if let otp = OTP<SHA256>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits!.intValue, period: period!.intValue) {
+							OTPService.shared.add(otp: otp)
+							success = true
+						}
+					case 3:
+						if let otp = OTP<SHA384>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits!.intValue, period: period!.intValue) {
+							OTPService.shared.add(otp: otp)
+							success = true
+						}
+					case 4:
+						if let otp = OTP<SHA512>(name: otpName!, secret: trimSecret, scheme: encoding, digits: digits!.intValue, period: period!.intValue) {
+							OTPService.shared.add(otp: otp)
+							success = true
+						}
+					default:
+						break
+				}
 			}
 		}
 
