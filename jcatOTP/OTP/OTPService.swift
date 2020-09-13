@@ -15,7 +15,7 @@ class OTPService: NSObject
 
 	static let shared: OTPService = OTPService() // shared/common instance
 
-	var changeCallback: (() -> Void)?
+	var changeCallback: (() -> Void)? // called every time an otp is added or removed from the passwords array
 
 	private var passwords: Array<OTPWrapper> = [] // The array of OTP passwords
 	private var inServices: Array<OTPWrapper> = [] // the OTPs that respond to the services menu
@@ -26,7 +26,8 @@ class OTPService: NSObject
 
 	// MARK: Methods
 
-	private func getinServices()
+	// because the order of the items in services is important
+	private func getInServices()
 	{
 		inServices = passwords.filter({ $0["service"] as? Bool ?? false }) // because order is important
 	}
@@ -49,7 +50,7 @@ class OTPService: NSObject
 		} else {
 			passwords.insert(wrapper, at: index)
 		}
-		getinServices()
+		getInServices()
 
 		if changeCallback != nil {
 			OperationQueue.main.addOperation(changeCallback!)
@@ -61,7 +62,7 @@ class OTPService: NSObject
 		guard (index >= 0) && (index < endIndex) else { return }
 
 		passwords.remove(at: index)
-		getinServices()
+		getInServices()
 
 		if changeCallback != nil {
 			OperationQueue.main.addOperation(changeCallback!)
@@ -75,7 +76,7 @@ class OTPService: NSObject
 		guard (dest >= 0) && (dest < endIndex) else { return }
 
 		passwords.insert(passwords.remove(at: org), at: dest)
-		getinServices() // because order is important
+		getInServices() // because order is important
 	}
 
 	func isOtpService(at index: Int) -> Bool
@@ -95,7 +96,7 @@ class OTPService: NSObject
 	func toggleOtpService(at index: Int) -> Bool
 	{
 		guard (index >= 0) && (index < endIndex) else { return false }
-		defer { getinServices() }
+		defer { getInServices() }
 
 		if var s = passwords[index]["service"] as? Bool {
 			if s || canAddToServices { // is was false then we wanted to turn it on, but can only do it if we can
@@ -109,6 +110,7 @@ class OTPService: NSObject
 	}
 
 	// Calculate refreshSeconds, or the second of each minute where the table must be reloaded.
+	// returns a Set of all the periods for the OTPs
 	func getRefreshPeriods() -> Set<TimeInterval>
 	{
 		// get the seconds of where this should refresh
@@ -157,7 +159,7 @@ class OTPService: NSObject
 
 						return nil
 					}
-					getinServices()
+					getInServices()
 
 					return // we have the passwords set
 				}
@@ -167,7 +169,7 @@ class OTPService: NSObject
 		passwords = []
 	}
 
-	// MARK: Services
+	// MARK: Services Provider
 
 	// Generates the OTP code at a given index and copies it into the pasteboard.
 	func copyOtp(at index:Int)

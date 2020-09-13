@@ -16,20 +16,20 @@ class TableController: NSViewController
 	var onReturn: Bool = true // value from Defaults
 	private var obs: NSObjectProtocol? // to retain the notiofication
 
-	var timers: Dictionary<Int, Any>?
-
-	var service: OTPService { OTPService.shared }
+	var timers: Dictionary<Int, Any>? // set of timers used to refresh the otp codes
+	var service: OTPService { OTPService.shared } // the otp service
 
 	required init?(coder: NSCoder)
 	{
 		super.init(coder: coder)
 
+		// need to know when the notifications change
 		obs = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main, using: defaultsChanged)
 	}
 
 	deinit
 	{
-		if obs != nil {
+		if obs != nil { // no longer need to know
 			NotificationCenter.default.removeObserver(obs!)
 		}
 	}
@@ -38,17 +38,20 @@ class TableController: NSViewController
 	{
 		super.viewDidLoad()
 
+		// this table view can drag
 		otpTableView.setDraggingSourceOperationMask(.move, forLocal: true)
 		otpTableView.registerForDraggedTypes([.string])
 
+		// the callback is called from the service every time the collection of otps changes
 		OTPService.shared.changeCallback = self.updatedOtps
-		updatedOtps()
+		updatedOtps() // and for thew first time...
+		defaultsChanged(nil)
 	}
 
 	override func viewWillDisappear()
 	{
 		super.viewWillDisappear()
-		try? OTPService.shared.store()
+		try? OTPService.shared.store() // save!
 	}
 
 	override func prepare(for segue: NSStoryboardSegue, sender: Any?)
@@ -58,13 +61,13 @@ class TableController: NSViewController
 		(segue.destinationController as? NewOtpViewController)?.ovc = self // setting the ovc in the new otp sheet
 	}
 
-	// normally from the menu item
+	// normally from the menu item and toolbar
 	@IBAction func addOTP(_ sender: Any)
 	{
 		performSegue(withIdentifier: "NewOTP", sender: self) // this pulls the add sheet
 	}
 
-	// normally from the menu item
+	// normally from the menu item and toolbar
 	@IBAction func deleteOTP(_ sender: Any)
 	{
 		let selRow = otpTableView.selectedRow
@@ -81,20 +84,21 @@ class TableController: NSViewController
 
 				let r = alert.runModal()
 				if r == .alertFirstButtonReturn {
-					service.removeOtp(at: selRow)
+					service.removeOtp(at: selRow) // bye bye
 				}
 			}
 		}
 	}
 
-	@IBAction func dobleClick(_ sender: Any)
+	// action if we double click on the table, comes from the nib
+	@IBAction func doubleClick(_ sender: Any)
 	{
 		copySelectedOTP()
 	}
 
 	override func keyUp(with event: NSEvent)
 	{
-		if onReturn && (event.keyCode == 36) {
+		if onReturn && (event.keyCode == 36) { // return
 			copySelectedOTP()
 		} else {
 			super.keyUp(with: event)
@@ -133,7 +137,7 @@ class TableController: NSViewController
 		// create the timers
 		timers = [:]
 		let c = Calendar.current
-		for p in refreshPerioids.map({ Int($0) }) {
+		for p in refreshPerioids.map({ Int($0) }) { // the periods in Int
 			let date = Date()
 			var dc = c.dateComponents([.minute, .second], from: date)
 
@@ -157,10 +161,17 @@ class TableController: NSViewController
 		}
 	}
 
+	// we need to do this if the array of otps changes
 	func updatedOtps()
 	{
 		calcRefreshTimers()
 		otpTableView.reloadData() // always do it right now
+	}
+
+	// need to do this if the user defaults change
+	func defaultsChanged(_ n: Notification?)
+	{
+		onReturn = UserDefaults.standard.value(forKey: "copyOnReturn") as? Bool ?? false
 	}
 }
 
@@ -168,10 +179,6 @@ class TableController: NSViewController
 
 extension TableController: NSTableViewDataSource, NSTableViewDelegate
 {
-	func defaultsChanged(_ n: Notification)
-	{
-		onReturn = UserDefaults.standard.value(forKey: "copyOnReturn") as? Bool ?? false
-	}
 
 	func numberOfRows(in tableView: NSTableView) -> Int
 	{
@@ -183,12 +190,12 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 		if let ident = tableColumn?.identifier { // if we have an identifier
 			if let view = tableView.makeView(withIdentifier: ident, owner: self) as? NSTableCellView {
 				if ident.rawValue == "Name" {
-					view.textField?.stringValue = service.otp(at: row)?.name ?? "noname"
+					view.textField?.stringValue = service.otp(at: row)?.name ?? "🐜"
 				} else if ident.rawValue == "Otp" {
 					if let (otpValue, _) = service.otp(at: row)?.generate() {
 						view.textField?.stringValue = otpValue 
 					} else {
-						view.textField?.stringValue = "..."
+						view.textField?.stringValue = "🐜"
 					}
 				} else if ident.rawValue == "Service" {
 					if let sb = view.subviews.first as? NSButton {
@@ -209,6 +216,7 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 		return nil
 	}
 
+	// when the check box in the services column is clicked
 	@IBAction func updateServiceCheck(_ sender: Any?)
 	{
 		if let sb = sender as? NSButton {
@@ -234,7 +242,7 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 
 	func tableViewSelectionDidChange(_ notification: Notification)
 	{
-		if !onReturn {
+		if !onReturn { // if not on return then its on select
 			copySelectedOTP()
 		}
 	}
@@ -260,7 +268,7 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 				if let irs = String(bytes: data, encoding: .utf8), let iri = Int(irs) {  // in the pasteboard comes the row that initiated the drag
 					var r = row
 
-					if dropOperation == .above {
+					if dropOperation == .above { // if above, in general is on top of the destionation one
 						let d = r - iri
 						if (d == 0) || (d == 1) {
 							return false
@@ -270,11 +278,11 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 					}
 
 					if r > service.endIndex {
-						r = service.endIndex - 1
+						r = service.endIndex - 1 // just to be sure
 					}
 
 					service.moveOtp(at: iri, to: r)
-					OperationQueue.main.addOperation { self.otpTableView.reloadData() }
+					OperationQueue.main.addOperation { self.otpTableView.reloadData() } // refresh
 
 					return true
 				}

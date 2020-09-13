@@ -52,7 +52,7 @@ class WindowContoller: NSWindowController, NSToolbarDelegate, NSWindowDelegate
 			toolbarItem.label = "New"
 			toolbarItem.toolTip = "New OTP"
 			toolbarItem.image = NSImage(named: NSImage.addTemplateName)
-			toolbarItem.action = #selector(TableController.addOTP(_:))
+			toolbarItem.action = #selector(TableController.addOTP(_:)) // note that if no target then goes to first responder
 
 			return toolbarItem
 		} else if itemIdentifier == .deleteOtpTb {
@@ -61,7 +61,7 @@ class WindowContoller: NSWindowController, NSToolbarDelegate, NSWindowDelegate
 			toolbarItem.label = "Delete"
 			toolbarItem.toolTip = "Delete OTP"
 			toolbarItem.image = NSImage(named: NSImage.removeTemplateName)
-			toolbarItem.action = #selector(TableController.deleteOTP(_:))
+			toolbarItem.action = #selector(TableController.deleteOTP(_:)) // note that if no target then goes to first responder
 
 			return toolbarItem
 		}

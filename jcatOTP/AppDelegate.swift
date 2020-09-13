@@ -18,22 +18,22 @@ class AppDelegate: NSObject, NSApplicationDelegate
 
 	func applicationDidFinishLaunching(_ aNotification: Notification)
 	{
-		// Insert code here to initialize your application
+		// Create the default preferences
 		if !((UserDefaults.standard.value(forKey: "defaults") as? Bool) ?? false) {
 			setDefaultPreferences()
 		}
 
-		// Our service provider.
+		// Our service provider
 		NSApp.servicesProvider = OTPService.shared
 
+		// load from file
 		try? OTPService.shared.restoreOtps()
 		openMainWindow(self)
 	}
 
 	func applicationWillTerminate(_ aNotification: Notification)
 	{
-		// Insert code here to tear down your application
-		try? OTPService.shared.store()
+		try? OTPService.shared.store() // save to file
 	}
 
 	// MARK: Stuff
@@ -65,6 +65,7 @@ extension AppDelegate: NSWindowDelegate // we are the delegate of the preference
 		defaults.setValue(true, forKey: "copyOnReturn")
 	}
 
+	// Action of both radios in the preferences
 	@IBAction func copyRadios(_ sender: NSButton)
 	{
 		if sender.tag == 100 { // on return
