@@ -99,9 +99,9 @@ class NewOtpViewController: NSViewController
 			alert.informativeText = "Check the parameters and please try again."
 			alert.alertStyle = .warning
 			alert.runModal()
+		} else {
+			dismiss(self)
 		}
-
-		dismiss(self)
 	}
 
 	@IBAction func cancel(_ sender: Any)
