@@ -46,6 +46,11 @@ class AppDelegate: NSObject, NSApplicationDelegate
 
 		mainWindowController?.showWindow(self)
 	}
+
+	@IBAction func orderFrontJCatAboutPanel(_ sender: Any?)
+	{
+		NSApp.orderFrontStandardAboutPanel(options: [NSApplication.AboutPanelOptionKey.applicationIcon: NSImage(named: "jcat")!]) // gato negro gato blanco
+	}
 }
 
 	// MARK: - Preferences

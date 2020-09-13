@@ -76,6 +76,7 @@ class TableController: NSViewController
 			if let otpg = service.otp(at: selRow) {
 				let alert = NSAlert()
 
+				alert.icon = NSImage(named: "jcat")
 				alert.alertStyle = .warning
 				alert.messageText = "Delete \"\(otpg.name)\""
 				alert.informativeText = "Are you sure you want to delete this OTP?"
@@ -225,7 +226,8 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 			if !success {
 				let alert = NSAlert()
 
-				alert.alertStyle = .informational
+				alert.icon = NSImage(named: "jcat")
+				alert.alertStyle = .warning
 				alert.messageText = "Can't Add Item to Services"
 				alert.informativeText = "Make sure you don't have 5 or more items already in the Services."
 				alert.runModal()

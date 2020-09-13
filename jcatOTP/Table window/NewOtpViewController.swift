@@ -95,6 +95,7 @@ class NewOtpViewController: NSViewController
 		if !success {
 			let alert = NSAlert()
 
+			alert.icon = NSImage(named: "jcat")
 			alert.messageText = "Error Creating OTP"
 			alert.informativeText = "Check the parameters and please try again."
 			alert.alertStyle = .warning
