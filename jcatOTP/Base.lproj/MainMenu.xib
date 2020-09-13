@@ -392,14 +392,14 @@
         </menu>
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="N0Q-EW-JJz">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
-            <rect key="contentRect" x="283" y="305" width="320" height="150"/>
+            <rect key="contentRect" x="283" y="305" width="300" height="130"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="yWU-4T-rUy">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="130"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="100" translatesAutoresizingMaskIntoConstraints="NO" id="JuS-Tt-VO1">
-                        <rect key="frame" x="19" y="113" width="175" height="18"/>
+                        <rect key="frame" x="19" y="93" width="175" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="radio" title="Press return to copy OTP" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="e82-xA-Vkq">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -410,7 +410,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" tag="200" translatesAutoresizingMaskIntoConstraints="NO" id="qB8-4i-HlZ">
-                        <rect key="frame" x="19" y="91" width="209" height="18"/>
+                        <rect key="frame" x="19" y="71" width="209" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="radio" title="Copy OTP on selection change" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="aKg-Zk-XcK">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -421,7 +421,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lem-Do-cX1">
-                        <rect key="frame" x="234" y="13" width="72" height="32"/>
+                        <rect key="frame" x="214" y="13" width="72" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="N6Q-7s-hTo">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -439,7 +439,7 @@ Gw
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="mi2-aH-dXg"/>
             </connections>
-            <point key="canvasLocation" x="-151" y="19"/>
+            <point key="canvasLocation" x="-161" y="9"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="EbT-fp-hbe"/>
     </objects>

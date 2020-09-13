@@ -5,6 +5,7 @@
 //  Created by Joaquin Durand Gomez on 9/6/20.
 //  Copyright © 2020 jCat.io. All rights reserved.
 //
+// See: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/SysServices/introduction.html
 
 import Cocoa
 
@@ -17,22 +18,29 @@ class OTPService: NSObject
 	var changeCallback: (() -> Void)?
 
 	private var passwords: Array<OTPWrapper> = [] // The array of OTP passwords
+	private var inServices: Array<OTPWrapper> = [] // the OTPs that respond to the services menu
 
 	var count: Int { passwords.count }
 	var endIndex: Int { passwords.endIndex }
+	var canAddToServices: Bool { (count < 5) ? true : (inServices.count < 5) }
 
 	// MARK: Methods
 
+	private func getinServices()
+	{
+		inServices = passwords.filter({ $0["service"] as? Bool ?? false }) // because order is important
+	}
+
 	func otp(at index:Int) -> OTPGenerator?
 	{
-		guard (index >= 0) && (index < passwords.endIndex) else { return nil }
+		guard (index >= 0) && (index < endIndex) else { return nil }
 
 		return passwords[index]["otp"] as? OTPGenerator
 	}
 
 	func add(otp: OTPGenerator, at index:Int = -1)
 	{
-		guard index <= passwords.endIndex else { return }
+		guard index <= endIndex else { return }
 
 		let wrapper = ["otp": otp, "service": false] as OTPWrapper
 
@@ -41,6 +49,7 @@ class OTPService: NSObject
 		} else {
 			passwords.insert(wrapper, at: index)
 		}
+		getinServices()
 
 		if changeCallback != nil {
 			OperationQueue.main.addOperation(changeCallback!)
@@ -49,46 +58,51 @@ class OTPService: NSObject
 
 	func removeOtp(at index: Int)
 	{
-		guard (index >= 0) && (index < passwords.endIndex) else { return }
+		guard (index >= 0) && (index < endIndex) else { return }
 
 		passwords.remove(at: index)
+		getinServices()
 
 		if changeCallback != nil {
 			OperationQueue.main.addOperation(changeCallback!)
 		}
 	}
 
-	func swapOtp(at index: Int, with dest: Int)
+	func moveOtp(at org: Int, to dest: Int)
 	{
-		guard (index >= 0) && (index < passwords.endIndex) else { return }
-		guard (dest >= 0) && (dest < passwords.endIndex) else { return }
+		guard org != dest else { return }
+		guard (org >= 0) && (org < endIndex) else { return }
+		guard (dest >= 0) && (dest < endIndex) else { return }
 
-		passwords.swapAt(index, dest)
+		passwords.insert(passwords.remove(at: org), at: dest)
+		getinServices() // because order is important
 	}
-
 
 	func isOtpService(at index: Int) -> Bool
 	{
-		guard (index >= 0) && (index < passwords.endIndex) else { return false }
+		guard (index >= 0) && (index < endIndex) else { return false }
 
 		return (passwords[index]["service"] as? Bool) ?? false
 	}
 
 	func setOtpService(at index: Int, service: Bool = true)
 	{
-		guard (index >= 0) && (index < passwords.endIndex) else { return }
+		guard (index >= 0) && (index < endIndex) else { return }
 
 		passwords[index]["service"] = service
 	}
 
 	func toggleOtpService(at index: Int) -> Bool
 	{
-		guard (index >= 0) && (index < passwords.endIndex) else { return false }
+		guard (index >= 0) && (index < endIndex) else { return false }
+		defer { getinServices() }
 
 		if var s = passwords[index]["service"] as? Bool {
-			s.toggle()
-			passwords[index]["service"] = s
-			return s
+			if s || canAddToServices { // is was false then we wanted to turn it on, but can only do it if we can
+				s.toggle()
+				passwords[index]["service"] = s
+				return true
+			}
 		}
 
 		return false
@@ -143,6 +157,7 @@ class OTPService: NSObject
 
 						return nil
 					}
+					getinServices()
 
 					return // we have the passwords set
 				}
@@ -170,10 +185,8 @@ class OTPService: NSObject
 
 	private func otpForService(index: Int) -> OTPGenerator?
 	{
-		let services = passwords.filter({ $0["service"] as? Bool ?? false })
-
-		if !services.isEmpty && (index < services.endIndex) {
-			return services[index]["otp"] as? OTPGenerator
+		if !inServices.isEmpty && (index < inServices.endIndex) {
+			return inServices[index]["otp"] as? OTPGenerator
 		} else {
 			return nil
 		}

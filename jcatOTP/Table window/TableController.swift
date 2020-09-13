@@ -192,7 +192,10 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 					}
 				} else if ident.rawValue == "Service" {
 					if let sb = view.subviews.first as? NSButton {
-						sb.state = service.isOtpService(at: row) ? .on : .off
+						let chk = service.isOtpService(at: row)
+
+						sb.state = chk ? .on : .off
+						sb.isEnabled = chk || service.canAddToServices
 						sb.tag = row // the tag has the row number
 						sb.action = #selector(TableController.updateServiceCheck(_:))
 						sb.target = self
@@ -209,8 +212,18 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 	@IBAction func updateServiceCheck(_ sender: Any?)
 	{
 		if let sb = sender as? NSButton {
-			_ = service.toggleOtpService(at: sb.tag) // because in tag comes the row
-			otpTableView.reloadData(forRowIndexes: IndexSet(integer: sb.tag), columnIndexes: IndexSet(integer: 2))
+			let success = service.toggleOtpService(at: sb.tag) // because in tag comes the row
+
+			if !success {
+				let alert = NSAlert()
+
+				alert.alertStyle = .informational
+				alert.messageText = "Can't Add Item to Services"
+				alert.informativeText = "Make sure you don't have 5 or more items already in the Services."
+				alert.runModal()
+			}
+
+			otpTableView.reloadData(forRowIndexes: IndexSet(integersIn: 0..<service.endIndex), columnIndexes: IndexSet(integer: 2))
 		}
 	}
 
@@ -233,11 +246,10 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 
 	func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation
 	{
-		if let s = info.draggingSource as? NSTableView {
-			if s == otpTableView {
-				return .move
-			}
+		if let s = info.draggingSource as? NSTableView, s == otpTableView {
+			return .move
 		}
+
 		return .generic
 	}
 
@@ -246,14 +258,22 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 		if let s = info.draggingSource as? NSTableView, s == otpTableView {
 			if let data = info.draggingPasteboard.pasteboardItems?.first?.data(forType: .string) {
 				if let irs = String(bytes: data, encoding: .utf8), let iri = Int(irs) {  // in the pasteboard comes the row that initiated the drag
-					let r: Int
-					if row >= service.endIndex { // if its beyond the end...
-						r = service.endIndex - 1 // ...then it's at the end
-					} else {
-						r = row
+					var r = row
+
+					if dropOperation == .above {
+						let d = r - iri
+						if (d == 0) || (d == 1) {
+							return false
+						} else if d > 1 {
+							r -= 1
+						}
 					}
 
-					service.swapOtp(at: iri, with: r)
+					if r > service.endIndex {
+						r = service.endIndex - 1
+					}
+
+					service.moveOtp(at: iri, to: r)
 					OperationQueue.main.addOperation { self.otpTableView.reloadData() }
 
 					return true

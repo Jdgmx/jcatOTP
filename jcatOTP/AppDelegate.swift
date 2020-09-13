@@ -4,8 +4,6 @@
 //
 //  Created by Joaquin Durand Gomez on 7/31/20.
 //  Copyright © 2020 jCat.io. All rights reserved.
-//
-// See: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/SysServices/introduction.html
 
 import Cocoa
 
@@ -25,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
 			setDefaultPreferences()
 		}
 
+		// Our service provider.
 		NSApp.servicesProvider = OTPService.shared
 
 		try? OTPService.shared.restoreOtps()
