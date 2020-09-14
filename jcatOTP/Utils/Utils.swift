@@ -8,27 +8,46 @@
 
 import Foundation
 
-//// Stores the OTPs in the array in a undisclosed location.
-//func store(otps: Array<OTPGenerator>) throws
-//{
-//	if let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
-//		let datas = try otps.compactMap { try $0.save() }
-//		let fileData = try PropertyListSerialization.data(fromPropertyList: datas, format: .binary, options: .zero)
-//
-//		FileManager.default.createFile(atPath: dir.appendingPathComponent(fileName).path, contents: fileData, attributes: nil)
-//	}
-//}
-//
-//// Restores an array of OTPs from a undisclosed location
-//func restoreOtps() throws -> Array<OTPGenerator>?
-//{
-//	if let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
-//		if let fileData = FileManager.default.contents(atPath: dir.appendingPathComponent(fileName).path) {
-//			if let datas = try PropertyListSerialization.propertyList(from: fileData, options: .mutableContainers, format: nil) as? Array<Data> {
-//				return datas.compactMap { OTPRestore(from: $0) }
-//			}
-//		}
-//	}
-//
-//	return nil
-//}
+class OTPFormatter: Formatter
+{
+	override func string(for obj: Any?) -> String?
+	{
+		if let str = obj as? String {
+			if str.count <= 3 {
+				return str
+			} else {
+				let h = str.index(str.startIndex, offsetBy: str.count/2)
+				let lhs = str.prefix(upTo: h)
+				let rhs = str.suffix(from: h)
+
+				return self.string(for: String(lhs))! + " " + self.string(for: String(rhs))!
+			}
+		} else {
+			return nil
+		}
+	}
+}
+
+class OTPTransformer: ValueTransformer
+{
+	static let name = NSValueTransformerName(rawValue: "OTPTransformer")
+
+	override class func transformedValueClass() -> AnyClass
+	{
+		return NSString.self
+	}
+
+	override class func allowsReverseTransformation() -> Bool
+	{
+		return false
+	}
+
+	override func transformedValue(_ value: Any?) -> Any?
+	{
+		if let s = value as? String {
+			return OTPFormatter().string(for: s)
+		} else {
+			return nil
+		}
+	}
+}

@@ -180,7 +180,6 @@ class TableController: NSViewController
 
 extension TableController: NSTableViewDataSource, NSTableViewDelegate
 {
-
 	func numberOfRows(in tableView: NSTableView) -> Int
 	{
 		return service.count
@@ -194,7 +193,7 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 					view.textField?.stringValue = service.otp(at: row)?.name ?? "🐜"
 				} else if ident.rawValue == "Otp" {
 					if let (otpValue, _) = service.otp(at: row)?.generate() {
-						view.textField?.stringValue = otpValue 
+						view.textField?.stringValue = OTPFormatter().string(for: otpValue) ?? "🐜"
 					} else {
 						view.textField?.stringValue = "🐜"
 					}

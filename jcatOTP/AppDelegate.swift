@@ -26,6 +26,9 @@ class AppDelegate: NSObject, NSApplicationDelegate
 		// Our service provider
 		NSApp.servicesProvider = OTPService.shared
 
+		// register otp transformer
+		ValueTransformer.setValueTransformer(OTPTransformer(), forName: OTPTransformer.name)
+
 		// load from file
 		try? OTPService.shared.restoreOtps()
 		openMainWindow(self)
