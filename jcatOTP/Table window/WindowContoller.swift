@@ -14,6 +14,7 @@ private extension NSToolbarItem.Identifier
 {
 	static let newOtpTb: NSToolbarItem.Identifier = NSToolbarItem.Identifier(rawValue: "newOtp")
 	static let deleteOtpTb: NSToolbarItem.Identifier = NSToolbarItem.Identifier(rawValue: "deleteOtp")
+	static let detachOtpTb: NSToolbarItem.Identifier = NSToolbarItem.Identifier(rawValue: "detachOtp")
 }
 
 // MARK: - Window controller
@@ -36,12 +37,12 @@ class WindowContoller: NSWindowController, NSToolbarDelegate, NSWindowDelegate
 
 	func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier]
 	{
-		return [.newOtpTb, .deleteOtpTb]
+		return [.newOtpTb, .deleteOtpTb, .flexibleSpace, .detachOtpTb]
 	}
 
 	func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier]
 	{
-		return [.newOtpTb, .deleteOtpTb, .space, .flexibleSpace, .separator]
+		return [.newOtpTb, .deleteOtpTb, .detachOtpTb, .space, .flexibleSpace, .separator]
 	}
 
 	func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem?
@@ -64,7 +65,17 @@ class WindowContoller: NSWindowController, NSToolbarDelegate, NSWindowDelegate
 			toolbarItem.action = #selector(TableController.deleteOTP(_:)) // note that if no target then goes to first responder
 
 			return toolbarItem
+		} else if itemIdentifier == .detachOtpTb {
+			let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
+
+			toolbarItem.label = "Detach"
+			toolbarItem.toolTip = "Detach floating OTP"
+			toolbarItem.image = NSImage(named: NSImage.rightFacingTriangleTemplateName)
+			toolbarItem.action = #selector(TableController.detachOTP(_:)) // note that if no target then goes to first responder
+
+			return toolbarItem
 		}
+
 
 		return nil
 	}

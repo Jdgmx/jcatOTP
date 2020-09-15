@@ -174,10 +174,11 @@
                     <connections>
                         <outlet property="otpTableView" destination="QtP-UW-eQk" id="g4f-z6-9iJ"/>
                         <segue destination="8eH-Ui-8zy" kind="sheet" identifier="NewOTP" id="QFo-mz-1Uw"/>
+                        <segue destination="ZIU-wu-pUZ" kind="show" identifier="DetachOTP" id="qxj-6u-W3w"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="139" y="526"/>
+            <point key="canvasLocation" x="139" y="533"/>
         </scene>
         <!--New Otp View Controller-->
         <scene sceneID="fZO-jh-g1H">
@@ -436,7 +437,82 @@ Gw
                 </viewController>
                 <customObject id="748-an-yYj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="917"/>
+            <point key="canvasLocation" x="139" y="941"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="jlI-oz-gZR">
+            <objects>
+                <windowController id="ZIU-wu-pUZ" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="Uug-wL-iPi">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
+                        <rect key="contentRect" x="425" y="461" width="300" height="200"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+                        <value key="minSize" type="size" width="300" height="200"/>
+                        <value key="maxSize" type="size" width="300" height="200"/>
+                        <connections>
+                            <outlet property="delegate" destination="ZIU-wu-pUZ" id="lXR-Uq-oRn"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="euL-6p-J2l" kind="relationship" relationship="window.shadowedContentViewController" id="Lvk-kv-qXB"/>
+                    </connections>
+                </windowController>
+                <customObject id="2fh-gG-R0J" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="760" y="533"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="t7K-um-wbH">
+            <objects>
+                <viewController id="euL-6p-J2l" sceneMemberID="viewController">
+                    <view key="view" id="Z07-PW-v0L" customClass="DetachedWindowView" customModule="jcatOTP" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tn0-Vz-Ey5">
+                                <rect key="frame" x="71" y="52" width="158" height="97"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AmN-RK-vfQ">
+                                        <rect key="frame" x="-2" y="50" width="162" height="47"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" alignment="center" title="000 000" placeholderString="000 000" id="dXk-ES-WSb">
+                                            <font key="font" metaFont="systemLight" size="40"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oaj-Xf-Ex5">
+                                        <rect key="frame" x="35" y="26" width="88" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" title="Service Name" id="gDf-Fp-ppg">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <progressIndicator wantsLayer="YES" maxValue="100" doubleValue="50" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="27q-Vu-JqE">
+                                        <rect key="frame" x="0.0" y="-1" width="158" height="20"/>
+                                    </progressIndicator>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Tn0-Vz-Ey5" firstAttribute="centerX" secondItem="Z07-PW-v0L" secondAttribute="centerX" id="1pv-ie-YXq"/>
+                            <constraint firstItem="Tn0-Vz-Ey5" firstAttribute="centerY" secondItem="Z07-PW-v0L" secondAttribute="centerY" id="EKo-zn-ffM"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="T0i-3E-xwe" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="760" y="886"/>
         </scene>
     </scenes>
 </document>

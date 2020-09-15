@@ -58,7 +58,11 @@ class TableController: NSViewController
 	{
 		super.prepare(for: segue, sender: sender)
 
-		(segue.destinationController as? NewOtpViewController)?.ovc = self // setting the ovc in the new otp sheet
+		if segue.identifier == "NewOTP" {
+			(segue.destinationController as? NewOtpViewController)?.ovc = self // setting the ovc in the new otp sheet
+		} else if segue.identifier == "DetachOTP" {
+			NSLog("segue.destinationController = \(segue.destinationController)")
+		}
 	}
 
 	// normally from the menu item and toolbar
@@ -89,6 +93,11 @@ class TableController: NSViewController
 				}
 			}
 		}
+	}
+
+	@IBAction func detachOTP(_ sender: Any)
+	{
+		performSegue(withIdentifier: "DetachOTP", sender: self) // this pulls the add sheet
 	}
 
 	// action if we double click on the table, comes from the nib

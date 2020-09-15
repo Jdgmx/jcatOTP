@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D22994B224D77D9900D80793 /* NewOtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22994B124D77D9900D80793 /* NewOtpViewController.swift */; };
 		D254D93324D6CC2E00EE2C74 /* OTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254D93224D6CC2E00EE2C74 /* OTP.swift */; };
+		D26C6F50251070F8001DA336 /* DetachedWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26C6F4F251070F8001DA336 /* DetachedWindowView.swift */; };
 		D29B16EF250591E80033968A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29B16EE250591E80033968A /* Utils.swift */; };
 		D29B16F12505DC550033968A /* OTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29B16F02505DC550033968A /* OTPService.swift */; };
 		D2B8AE4724D4D79900C542D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8AE4624D4D79900C542D3 /* AppDelegate.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		D22994B124D77D9900D80793 /* NewOtpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOtpViewController.swift; sourceTree = "<group>"; };
 		D254D93224D6CC2E00EE2C74 /* OTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTP.swift; sourceTree = "<group>"; };
+		D26C6F4F251070F8001DA336 /* DetachedWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetachedWindowView.swift; sourceTree = "<group>"; };
 		D29B16EE250591E80033968A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D29B16F02505DC550033968A /* OTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPService.swift; sourceTree = "<group>"; };
 		D2B8AE4324D4D79900C542D3 /* jcatOTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jcatOTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +60,7 @@
 		D29B16ED250591D00033968A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D26C6F4F251070F8001DA336 /* DetachedWindowView.swift */,
 				D29B16EE250591E80033968A /* Utils.swift */,
 			);
 			path = Utils;
@@ -176,6 +179,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D26C6F50251070F8001DA336 /* DetachedWindowView.swift in Sources */,
 				D29B16F12505DC550033968A /* OTPService.swift in Sources */,
 				D2BCD1E124E8406C000E68D6 /* TableController.swift in Sources */,
 				D2D6772824FC49F600700418 /* WindowContoller.swift in Sources */,

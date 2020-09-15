@@ -85,6 +85,12 @@
                                     <action selector="deleteOTP:" target="-1" id="RCh-xm-CPC"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="hpa-XY-A0o"/>
+                            <menuItem title="Detach" keyEquivalent="d" id="5nP-gQ-eDe">
+                                <connections>
+                                    <action selector="detachOTP:" target="-1" id="H7t-Nz-7VL"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
