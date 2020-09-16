@@ -74,19 +74,19 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="OTP" id="bib-Uj-vzu">
                         <items>
-                            <menuItem title="New" keyEquivalent="n" id="Was-JA-tGl">
+                            <menuItem title="New" tag="210" keyEquivalent="n" id="Was-JA-tGl">
                                 <connections>
                                     <action selector="addOTP:" target="-1" id="310-sZ-otU"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Delete" keyEquivalent="" id="Wsy-lv-cyW">
+                            <menuItem title="Delete" tag="220" keyEquivalent="" id="Wsy-lv-cyW">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="deleteOTP:" target="-1" id="RCh-xm-CPC"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="hpa-XY-A0o"/>
-                            <menuItem title="Detach" keyEquivalent="d" id="5nP-gQ-eDe">
+                            <menuItem title="Detach" tag="230" keyEquivalent="d" id="5nP-gQ-eDe">
                                 <connections>
                                     <action selector="detachOTP:" target="-1" id="H7t-Nz-7VL"/>
                                 </connections>

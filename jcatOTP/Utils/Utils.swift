@@ -51,3 +51,24 @@ class OTPTransformer: ValueTransformer
 		}
 	}
 }
+
+// MARK: -
+
+private let c = Calendar.current
+
+func nextDateFor(period p: Int) -> Date?
+{
+	let date = Date()
+	var dc = c.dateComponents([.minute, .second], from: date)
+
+	// want to have the next moment where the time should fire
+	if (dc.second! + p) > 60 {
+		dc.second = 0
+		dc.minute = (dc.minute! < 59) ? dc.minute! + 1 : 0
+	} else {
+		dc.second = p // BUG: we are skipping one case: p=20, second=30, fire at 40 should be valid
+	}
+	dc.nanosecond = 500000000 // want to be half a second ahead
+
+	return c.nextDate(after: date, matching: dc, matchingPolicy: .nextTime)
+}

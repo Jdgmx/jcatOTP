@@ -10,7 +10,7 @@ import Cocoa
 
 // MARK: Item identifiers
 
-private extension NSToolbarItem.Identifier
+extension NSToolbarItem.Identifier
 {
 	static let newOtpTb: NSToolbarItem.Identifier = NSToolbarItem.Identifier(rawValue: "newOtp")
 	static let deleteOtpTb: NSToolbarItem.Identifier = NSToolbarItem.Identifier(rawValue: "deleteOtp")

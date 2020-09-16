@@ -61,7 +61,13 @@ class TableController: NSViewController
 		if segue.identifier == "NewOTP" {
 			(segue.destinationController as? NewOtpViewController)?.ovc = self // setting the ovc in the new otp sheet
 		} else if segue.identifier == "DetachOTP" {
-			NSLog("segue.destinationController = \(segue.destinationController)")
+			if let vc = segue.destinationController as? DetachedWindowController {
+				let selRow = otpTableView.selectedRow
+
+				if (selRow >= 0) { // if there is something selected
+					vc.otp = service.otp(at: selRow)
+				}
+			}
 		}
 	}
 
@@ -146,21 +152,21 @@ class TableController: NSViewController
 
 		// create the timers
 		timers = [:]
-		let c = Calendar.current
+//		let c = Calendar.current
 		for p in refreshPerioids.map({ Int($0) }) { // the periods in Int
-			let date = Date()
-			var dc = c.dateComponents([.minute, .second], from: date)
+//			let date = Date()
+//			var dc = c.dateComponents([.minute, .second], from: date)
+//
+//			// want to have the next moment where the time should fire
+//			if (dc.second! + p) > 60 {
+//				dc.second = 0
+//				dc.minute = (dc.minute! < 59) ? dc.minute! + 1 : 0
+//			} else {
+//				dc.second = p // BUG: we are skipping one case: p=20, second=30, fire at 40 should be valid
+//			}
+//			dc.nanosecond = 500000000 // want to be half a second ahead
 
-			// want to have the next moment where the time should fire
-			if (dc.second! + p) > 60 {
-				dc.second = 0
-				dc.minute = (dc.minute! < 59) ? dc.minute! + 1 : 0
-			} else {
-				dc.second = p // BUG: we are skipping one case: p=20, second=30, fire at 40 should be valid
-			}
-			dc.nanosecond = 500000000 // want to be half a second ahead
-
-			if let nd = c.nextDate(after: date, matching: dc, matchingPolicy: .nextTime) { // this is the next fire date
+			if let nd = nextDateFor(period: p) /*c.nextDate(after: date, matching: dc, matchingPolicy: .nextTime)*/ { // this is the next fire date
 				let t = Timer(fire: nd, interval: TimeInterval(p), repeats: true, block: { (timer) in
 					self.otpTableView.reloadData(forRowIndexes: IndexSet(0..<self.service.count), columnIndexes: IndexSet(integer: 1))
 				})
@@ -300,5 +306,32 @@ extension TableController: NSTableViewDataSource, NSTableViewDelegate
 		}
 
 		return false
+	}
+}
+
+// MARK: - Menu item validation
+
+extension TableController: NSMenuItemValidation, NSToolbarItemValidation
+{
+	func validateMenuItem(_ menuItem: NSMenuItem) -> Bool
+	{
+		let t = menuItem.tag
+
+		if (t == 220) || (t == 230) { // delete || detach OTP
+			return otpTableView.selectedRow >= 0
+		} else {
+			return true
+		}
+	}
+
+	func validateToolbarItem(_ item: NSToolbarItem) -> Bool
+	{
+		let i = item.itemIdentifier
+
+		if (i == .deleteOtpTb) || (i == .detachOtpTb) {  // delete || detach OTP
+			return otpTableView.selectedRow >= 0
+		} else {
+			return true
+		}
 	}
 }
