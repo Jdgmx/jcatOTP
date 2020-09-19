@@ -21,6 +21,7 @@ class DetachedWindowController: NSWindowController, NSWindowDelegate
 	{
 		super.windowDidLoad()
 		window?.level = .floating // this window floats over every other window
+		window?.collectionBehavior = .managed
 
 		if dvc != nil {
 			UniversalTicker.shared.addController(dvc!)
@@ -64,13 +65,35 @@ class DetachedViewController: NSViewController
 
 		progress.minValue = 1
 		progress.maxValue = Double(otp?.period ?? 0)
+
+		refreshOtp()
 	}
 
 	func refreshOtp()
 	{
 		if let (code, count) = otp?.generate() {
-			self.code = OTPFormatter().string(for: code) ?? "🐜"
+			self.code = OTPFormatter().string(for: code) ?? "🐜" // if not bug!
 			self.progress.doubleValue = Double(count)
+		}
+	}
+
+	@IBAction func copy(_ sender: Any?)
+	{
+		guard otp != nil else { return }
+
+		let pb = NSPasteboard.general
+		let (code, _) = otp!.generate()
+
+		pb.clearContents()
+		pb.setString(code, forType: .string)
+	}
+
+	override func mouseDown(with event: NSEvent)
+	{
+		if event.clickCount == 2 {
+			copy(nil)
+		} else {
+			super.mouseDown(with: event)
 		}
 	}
 }
@@ -79,14 +102,14 @@ class DetachedViewController: NSViewController
 
 class DetachedWindowView: NSVisualEffectView
 {
-	override var allowsVibrancy: Bool { true }
+//	override var allowsVibrancy: Bool { true }
 
 	override func awakeFromNib()
 	{
 		super.awakeFromNib()
 
 		material = .sidebar
-//		blendingMode = .behindWindow
+		blendingMode = .behindWindow
 	}
 }
 

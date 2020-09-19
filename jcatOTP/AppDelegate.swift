@@ -23,14 +23,11 @@ class AppDelegate: NSObject, NSApplicationDelegate
 			setDefaultPreferences()
 		}
 
-		// Our service provider
-		NSApp.servicesProvider = OTPService.shared
+		NSWindow.allowsAutomaticWindowTabbing = false // we don't like tabs
+		NSApp.servicesProvider = OTPService.shared // Our service provider
+		ValueTransformer.setValueTransformer(OTPTransformer(), forName: OTPTransformer.name) // register otp transformer
 
-		// register otp transformer
-		ValueTransformer.setValueTransformer(OTPTransformer(), forName: OTPTransformer.name)
-
-		// load from file
-		try? OTPService.shared.restoreOtps()
+		try? OTPService.shared.restoreOtps() // load from file
 		openMainWindow(self)
 	}
 
