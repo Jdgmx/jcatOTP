@@ -76,7 +76,6 @@ class MainWindowContoller: NSWindowController, NSToolbarDelegate, NSWindowDelega
 			return toolbarItem
 		}
 
-
 		return nil
 	}
 }

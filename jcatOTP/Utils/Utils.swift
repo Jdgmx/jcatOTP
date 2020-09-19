@@ -68,7 +68,7 @@ func nextDateFor(period p: Int) -> Date?
 	} else {
 		dc.second = p // BUG: we are skipping one case: p=20, second=30, fire at 40 should be valid
 	}
-	dc.nanosecond = 500000000 // want to be half a second ahead
+	dc.nanosecond = 250000000 // want to be 1/4 a second ahead
 
 	return c.nextDate(after: date, matching: dc, matchingPolicy: .nextTime)
 }

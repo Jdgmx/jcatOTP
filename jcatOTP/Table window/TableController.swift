@@ -152,21 +152,8 @@ class TableController: NSViewController
 
 		// create the timers
 		timers = [:]
-//		let c = Calendar.current
 		for p in refreshPerioids.map({ Int($0) }) { // the periods in Int
-//			let date = Date()
-//			var dc = c.dateComponents([.minute, .second], from: date)
-//
-//			// want to have the next moment where the time should fire
-//			if (dc.second! + p) > 60 {
-//				dc.second = 0
-//				dc.minute = (dc.minute! < 59) ? dc.minute! + 1 : 0
-//			} else {
-//				dc.second = p // BUG: we are skipping one case: p=20, second=30, fire at 40 should be valid
-//			}
-//			dc.nanosecond = 500000000 // want to be half a second ahead
-
-			if let nd = nextDateFor(period: p) /*c.nextDate(after: date, matching: dc, matchingPolicy: .nextTime)*/ { // this is the next fire date
+			if let nd = nextDateFor(period: p) { // this is the next fire date
 				let t = Timer(fire: nd, interval: TimeInterval(p), repeats: true, block: { (timer) in
 					self.otpTableView.reloadData(forRowIndexes: IndexSet(0..<self.service.count), columnIndexes: IndexSet(integer: 1))
 				})

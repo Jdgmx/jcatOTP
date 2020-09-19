@@ -12,6 +12,7 @@
 		D254D93324D6CC2E00EE2C74 /* OTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = D254D93224D6CC2E00EE2C74 /* OTP.swift */; };
 		D29B16EF250591E80033968A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29B16EE250591E80033968A /* Utils.swift */; };
 		D29B16F12505DC550033968A /* OTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29B16F02505DC550033968A /* OTPService.swift */; };
+		D29D917E2516A00000D71480 /* UniversalTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29D917D2516A00000D71480 /* UniversalTicker.swift */; };
 		D2B8AE4724D4D79900C542D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B8AE4624D4D79900C542D3 /* AppDelegate.swift */; };
 		D2B8AE4924D4D79900C542D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2B8AE4824D4D79900C542D3 /* Assets.xcassets */; };
 		D2B8AE4C24D4D79900C542D3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2B8AE4A24D4D79900C542D3 /* MainMenu.xib */; };
@@ -26,6 +27,7 @@
 		D254D93224D6CC2E00EE2C74 /* OTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTP.swift; sourceTree = "<group>"; };
 		D29B16EE250591E80033968A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D29B16F02505DC550033968A /* OTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPService.swift; sourceTree = "<group>"; };
+		D29D917D2516A00000D71480 /* UniversalTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalTicker.swift; sourceTree = "<group>"; };
 		D2B8AE4324D4D79900C542D3 /* jcatOTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jcatOTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2B8AE4624D4D79900C542D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2B8AE4824D4D79900C542D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				D29B16EE250591E80033968A /* Utils.swift */,
+				D29D917D2516A00000D71480 /* UniversalTicker.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 				D2BCD1E124E8406C000E68D6 /* TableController.swift in Sources */,
 				D2D6772824FC49F600700418 /* MainWindowContoller.swift in Sources */,
 				D20C05262511A26C00AF685A /* DetachedWindow.swift in Sources */,
+				D29D917E2516A00000D71480 /* UniversalTicker.swift in Sources */,
 				D22994B224D77D9900D80793 /* NewOtpViewController.swift in Sources */,
 				D254D93324D6CC2E00EE2C74 /* OTP.swift in Sources */,
 				D2B8AE4724D4D79900C542D3 /* AppDelegate.swift in Sources */,

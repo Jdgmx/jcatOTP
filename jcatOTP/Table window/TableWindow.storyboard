@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="WkU-Ep-tGu">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="WkU-Ep-tGu">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -444,11 +445,11 @@ Gw
         <scene sceneID="jlI-oz-gZR">
             <objects>
                 <windowController id="ZIU-wu-pUZ" customClass="DetachedWindowController" customModule="jcatOTP" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="Uug-wL-iPi">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="Uug-wL-iPi">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
-                        <rect key="contentRect" x="425" y="461" width="300" height="200"/>
+                        <rect key="contentRect" x="425" y="461" width="220" height="150"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
-                        <value key="minSize" type="size" width="300" height="200"/>
+                        <value key="minSize" type="size" width="220" height="150"/>
                         <value key="maxSize" type="size" width="300" height="200"/>
                         <connections>
                             <outlet property="delegate" destination="ZIU-wu-pUZ" id="lXR-Uq-oRn"/>
@@ -467,14 +468,14 @@ Gw
             <objects>
                 <viewController id="euL-6p-J2l" customClass="DetachedViewController" customModule="jcatOTP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Z07-PW-v0L" customClass="DetachedWindowView" customModule="jcatOTP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="220" height="157"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tn0-Vz-Ey5">
-                                <rect key="frame" x="71" y="52" width="158" height="97"/>
+                                <rect key="frame" x="20" y="30" width="180" height="97"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AmN-RK-vfQ">
-                                        <rect key="frame" x="-2" y="50" width="162" height="47"/>
+                                        <rect key="frame" x="9" y="50" width="162" height="47"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" alignment="center" title="000 000" placeholderString="000 000" id="dXk-ES-WSb">
                                             <font key="font" metaFont="systemLight" size="40"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -485,7 +486,7 @@ Gw
                                         </connections>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oaj-Xf-Ex5">
-                                        <rect key="frame" x="35" y="26" width="88" height="16"/>
+                                        <rect key="frame" x="46" y="26" width="88" height="16"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" title="Service Name" id="gDf-Fp-ppg">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -496,7 +497,7 @@ Gw
                                         </connections>
                                     </textField>
                                     <progressIndicator wantsLayer="YES" maxValue="100" doubleValue="50" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="27q-Vu-JqE">
-                                        <rect key="frame" x="0.0" y="-1" width="158" height="20"/>
+                                        <rect key="frame" x="11" y="-1" width="158" height="20"/>
                                     </progressIndicator>
                                 </subviews>
                                 <visibilityPriorities>
@@ -512,8 +513,10 @@ Gw
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Tn0-Vz-Ey5" firstAttribute="centerX" secondItem="Z07-PW-v0L" secondAttribute="centerX" id="1pv-ie-YXq"/>
-                            <constraint firstItem="Tn0-Vz-Ey5" firstAttribute="centerY" secondItem="Z07-PW-v0L" secondAttribute="centerY" id="EKo-zn-ffM"/>
+                            <constraint firstItem="Tn0-Vz-Ey5" firstAttribute="leading" secondItem="Z07-PW-v0L" secondAttribute="leading" constant="20" id="11f-O3-oAX"/>
+                            <constraint firstAttribute="bottom" secondItem="Tn0-Vz-Ey5" secondAttribute="bottom" constant="30" id="814-je-48M"/>
+                            <constraint firstAttribute="trailing" secondItem="Tn0-Vz-Ey5" secondAttribute="trailing" constant="20" id="G6K-XM-tnI"/>
+                            <constraint firstItem="Tn0-Vz-Ey5" firstAttribute="top" secondItem="Z07-PW-v0L" secondAttribute="top" constant="30" id="upL-Wu-LO4"/>
                         </constraints>
                     </view>
                     <connections>

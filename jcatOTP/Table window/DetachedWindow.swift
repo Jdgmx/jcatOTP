@@ -16,30 +16,22 @@ class DetachedWindowController: NSWindowController, NSWindowDelegate
 		get { dvc?.otp }
 		set { dvc?.otp = newValue }
 	}
+
 	override func windowDidLoad()
 	{
 		super.windowDidLoad()
 		window?.level = .floating // this window floats over every other window
-	}
 
-	func windowDidBecomeKey(_ notification: Notification)
-	{
-		dvc?.startTimer()
-	}
-
-	func windowWillMiniaturize(_ notification: Notification)
-	{
-		dvc?.invalidateTimer()
-	}
-
-	func windowDidDeminiaturize(_ notification: Notification)
-	{
-		dvc?.startTimer()
+		if dvc != nil {
+			UniversalTicker.shared.addController(dvc!)
+		}
 	}
 
 	func windowWillClose(_ notification: Notification)
 	{
-		dvc?.invalidateTimer()
+		if dvc != nil {
+			UniversalTicker.shared.removeController(dvc!)
+		}
 	}
 }
 
@@ -47,9 +39,9 @@ class DetachedWindowController: NSWindowController, NSWindowDelegate
 
 class DetachedViewController: NSViewController
 {
-	var timer: Timer?
-
 	@IBOutlet weak var progress: NSProgressIndicator!
+
+	var isWindowVisible: Bool { view.window?.isVisible ?? false }
 
 	var otp: OTPGenerator? {
 		willSet { willSetupOtp() }
@@ -59,35 +51,22 @@ class DetachedViewController: NSViewController
 	@objc var name: String { otp?.name ?? "" }
 	@objc dynamic var code: String = ""
 
+	// Called when we are about to setup the OTP for this view
 	func willSetupOtp()
 	{
 		willChangeValue(forKey: "name")
 	}
 
+	// Called when we just setup the OTP for this view
 	func didSetupOtp()
 	{
 		didChangeValue(forKey: "name")
 
+		progress.minValue = 1
 		progress.maxValue = Double(otp?.period ?? 0)
 	}
 
-	func startTimer()
-	{
-		invalidateTimer()
-		timer = Timer(timeInterval: 1.0, repeats: true, block: timerFire)
-
-		RunLoop.current.add(timer!, forMode: .default)
-	}
-
-	func invalidateTimer()
-	{
-		if timer != nil {
-			timer!.invalidate()
-			timer = nil
-		}
-	}
-
-	func timerFire(_ t: Timer)
+	func refreshOtp()
 	{
 		if let (code, count) = otp?.generate() {
 			self.code = OTPFormatter().string(for: code) ?? "🐜"
@@ -107,7 +86,7 @@ class DetachedWindowView: NSVisualEffectView
 		super.awakeFromNib()
 
 		material = .sidebar
-		blendingMode = .behindWindow
+//		blendingMode = .behindWindow
 	}
 }
 
