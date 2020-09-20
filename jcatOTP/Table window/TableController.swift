@@ -121,6 +121,11 @@ class TableController: NSViewController
 		}
 	}
 
+	@IBAction func copy(_ sender: Any?)
+	{
+		copySelectedOTP()
+	}
+
 	override func keyDown(with event: NSEvent)
 	{
 		if !onReturn || !(event.keyCode == 36) {
@@ -304,7 +309,7 @@ extension TableController: NSMenuItemValidation, NSToolbarItemValidation
 	{
 		let t = menuItem.tag
 
-		if (t == 220) || (t == 230) { // delete || detach OTP
+		if (t == 220) || (t == 230) || (t == 340) { // delete || detach OTP || copy OTP
 			return otpTableView.selectedRow >= 0
 		} else {
 			return true

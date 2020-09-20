@@ -107,7 +107,7 @@ class DetachedWindowView: NSVisualEffectView
 	override func awakeFromNib()
 	{
 		super.awakeFromNib()
-
+//		wantsLayer = true
 		material = .sidebar
 		blendingMode = .behindWindow
 	}
