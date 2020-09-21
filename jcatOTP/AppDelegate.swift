@@ -6,15 +6,22 @@
 //  Copyright © 2020 jCat.io. All rights reserved.
 
 import Cocoa
+import LocalAuthentication
+import CryptoKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate
 {
+	static var decryptKey: SymmetricKey?
+	
 	@IBOutlet weak var preferencesWindow: NSWindow!
 	@IBOutlet weak var onReturn: NSButton!
 	@IBOutlet weak var onSelection: NSButton!
 
 	var mainWindowController: NSWindowController? = nil
+
+	private let context = LAContext()
+	private let access = SecAccessControlCreateWithFlags(nil, kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly, .userPresence, nil)
 
 	func applicationDidFinishLaunching(_ aNotification: Notification)
 	{
@@ -27,8 +34,12 @@ class AppDelegate: NSObject, NSApplicationDelegate
 		NSApp.servicesProvider = OTPService.shared // Our service provider
 		ValueTransformer.setValueTransformer(OTPTransformer(), forName: OTPTransformer.name) // register otp transformer
 
-		try? OTPService.shared.restoreOtps() // load from file
-		openMainWindow(self)
+		if authenticateApp() {
+			try? OTPService.shared.restoreOtps() // load from file
+			openMainWindow(self)
+		} else {
+			NSApp.terminate(self)
+		}
 	}
 
 	func applicationWillTerminate(_ aNotification: Notification)
@@ -86,5 +97,57 @@ extension AppDelegate: NSWindowDelegate // we are the delegate of the preference
 
 		onReturn.state = onr ? .on : .off
 		onSelection.state = onr ? .off : .on
+	}
+}
+
+// MARK: - Authentication
+
+extension AppDelegate
+{
+	func authenticateApp() -> Bool
+	{
+		var success: Bool = false
+
+		let query = [kSecClass: kSecClassKey,
+						 kSecAttrAccessControl: access!,
+						 kSecUseAuthenticationContext: context,
+						 kSecAttrApplicationLabel: Bundle.main.bundleIdentifier!,
+						 kSecAttrLabel: Bundle.main.object(forInfoDictionaryKey: "CFBundleName")!,
+						 kSecMatchLimit: kSecMatchLimitOne,
+						 kSecReturnData: true,
+						 kSecUseOperationPrompt: "Authenticate to access your accounts."] as [String: Any]
+
+		var item: CFTypeRef?
+		let succ = SecItemCopyMatching(query as CFDictionary, &item)
+		if succ == errSecSuccess {
+			if let d = item as? Data {
+				AppDelegate.decryptKey = SymmetricKey(data: d)
+				success = AppDelegate.decryptKey != nil
+			} else {
+				success = createAndSaveKey()
+			}
+		} else {
+			success = createAndSaveKey()
+		}
+
+		return success
+	}
+
+	private func createAndSaveKey() -> Bool
+	{
+		AppDelegate.decryptKey = SymmetricKey(size: .bits256) // create the key
+
+		let key = AppDelegate.decryptKey!.withUnsafeBytes { Data($0) }
+		let query = [kSecClass: kSecClassKey,
+						 kSecAttrAccessControl: access!,
+						 kSecUseAuthenticationContext: context,
+						 kSecAttrApplicationLabel: Bundle.main.bundleIdentifier!,
+						 kSecAttrLabel: Bundle.main.object(forInfoDictionaryKey: "CFBundleName")!,
+						 kSecUseDataProtectionKeychain: true,
+						 kSecValueData: key] as [String: Any]
+
+		let succ = SecItemAdd(query as CFDictionary, nil)
+
+		return succ == errSecSuccess
 	}
 }
