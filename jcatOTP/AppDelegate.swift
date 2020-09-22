@@ -8,10 +8,14 @@
 import Cocoa
 import LocalAuthentication
 import CryptoKit
+import os
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate
 {
+	private static var log = OSLog(subsystem: Bundle.main.bundleIdentifier! + ".AppDelegate", category: "jcat")
+	private var log: OSLog { AppDelegate.log }
+
 	static var decryptKey: SymmetricKey?
 	
 	@IBOutlet weak var preferencesWindow: NSWindow!
@@ -106,6 +110,9 @@ extension AppDelegate
 {
 	func authenticateApp() -> Bool
 	{
+		os_log(.debug, log: log, "authenticateApp()")
+
+		let delete: Bool = (UserDefaults.standard.volatileDomain(forName: UserDefaults.argumentDomain)["DeleteKey"] as? String) == "true" // to delete the key pass: "-DeleteKey true"
 		var success: Bool = false
 
 		let query = [kSecClass: kSecClassKey,
@@ -113,21 +120,38 @@ extension AppDelegate
 						 kSecUseAuthenticationContext: context,
 						 kSecAttrApplicationLabel: Bundle.main.bundleIdentifier!,
 						 kSecAttrLabel: Bundle.main.object(forInfoDictionaryKey: "CFBundleName")!,
-						 kSecMatchLimit: kSecMatchLimitOne,
+//						 kSecMatchLimit: kSecMatchLimitOne,
 						 kSecReturnData: true,
 						 kSecUseOperationPrompt: "Authenticate to access your accounts."] as [String: Any]
 
 		var item: CFTypeRef?
-		let succ = SecItemCopyMatching(query as CFDictionary, &item)
-		if succ == errSecSuccess {
-			if let d = item as? Data {
-				AppDelegate.decryptKey = SymmetricKey(data: d)
-				success = AppDelegate.decryptKey != nil
+		let status = SecItemCopyMatching(query as CFDictionary, &item)
+
+		if status == errSecSuccess {
+			if delete { // DELETE THE ENTRY
+				os_log(.debug, log: log, "authenticateApp(), DELETING KEY")
+
+				let dscc = SecItemDelete(query as CFDictionary)
+				os_log(.debug, log: log, "authenticateApp(), delete success = %i", dscc)
+
+				success = false // don't want to continue after a delete
 			} else {
-				success = createAndSaveKey()
+				if let d = item as? Data {
+					AppDelegate.decryptKey = SymmetricKey(data: d)
+					success = AppDelegate.decryptKey != nil
+
+					os_log(.debug, log: log, "authenticateApp(), decrypting key %i", success)
+				} else {
+					os_log(.error, log: log, "authenticateApp(), decrypted key has no data")
+					success = false
+				}
 			}
-		} else {
+		} else if status == errKCItemNotFound {
+			os_log(.debug, log: log, "authenticateApp(), no item found")
+
 			success = createAndSaveKey()
+		} else {
+			os_log(.error, log: log, "authenticateApp(), status = %i", status)
 		}
 
 		return success
@@ -135,6 +159,8 @@ extension AppDelegate
 
 	private func createAndSaveKey() -> Bool
 	{
+		os_log(.debug, log: log, "createAndSaveKey()")
+
 		AppDelegate.decryptKey = SymmetricKey(size: .bits256) // create the key
 
 		let key = AppDelegate.decryptKey!.withUnsafeBytes { Data($0) }
@@ -146,8 +172,10 @@ extension AppDelegate
 						 kSecUseDataProtectionKeychain: true,
 						 kSecValueData: key] as [String: Any]
 
-		let succ = SecItemAdd(query as CFDictionary, nil)
+		let status = SecItemAdd(query as CFDictionary, nil)
 
-		return succ == errSecSuccess
+		os_log(.debug, log: log, "createAndSaveKey(), status = %i", status)
+
+		return status == errSecSuccess
 	}
 }

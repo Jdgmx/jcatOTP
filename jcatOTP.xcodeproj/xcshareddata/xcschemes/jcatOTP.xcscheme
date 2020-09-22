@@ -55,6 +55,10 @@
             argument = "-NSDebugServices io.jcat.jcatOTP"
             isEnabled = "NO">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-DeleteKey true"
+            isEnabled = "NO">
+         </CommandLineArgument>
       </CommandLineArguments>
    </LaunchAction>
    <ProfileAction

@@ -8,9 +8,14 @@
 // See: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/SysServices/introduction.html
 
 import Cocoa
+import os
+import CryptoKit
 
 class OTPService: NSObject
 {
+	private static var log = OSLog(subsystem: Bundle.main.bundleIdentifier! + ".OTPService", category: "jcat")
+	private var log: OSLog { OTPService.log }
+
 	typealias OTPWrapper = Dictionary<String, Any>
 
 	static let shared: OTPService = OTPService() // shared/common instance
@@ -132,38 +137,54 @@ class OTPService: NSObject
 	// Stores the OTPs in the array in a undisclosed location.
 	func store() throws
 	{
+		os_log(.debug, log: log, "store()")
+
 		if let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
 			let datas = passwords.map { ["data":(try? ($0["otp"] as? OTPGenerator)?.save()) ?? Data(), "service": $0["service"]] } // Array<[String: Any]>
 			let fileData = try PropertyListSerialization.data(fromPropertyList: datas, format: .binary, options: .zero)
+			let encrypted = try ChaChaPoly.seal(fileData, using: AppDelegate.decryptKey!)
 
-			FileManager.default.createFile(atPath: dir.appendingPathComponent(OTPService.fileName).path, contents: fileData, attributes: nil)
+			FileManager.default.createFile(atPath: dir.appendingPathComponent(OTPService.fileName).path, contents: encrypted.combined, attributes: nil)
+		} else {
+			os_log(.error, log: log, "store(), could not save file")
 		}
 	}
 
 	func restoreOtps() throws
 	{
+		os_log(.debug, log: log, "restoreOtps()")
+
 		if let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
-			if let fileData = FileManager.default.contents(atPath: dir.appendingPathComponent(OTPService.fileName).path) {
+			if let encrypted = FileManager.default.contents(atPath: dir.appendingPathComponent(OTPService.fileName).path) {
+				if let sealedBox = try? ChaChaPoly.SealedBox(combined: encrypted), let data = try? ChaChaPoly.open(sealedBox, using: AppDelegate.decryptKey!) {
+					if let datas = try PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as? Array<[String: Any]> {
+						passwords = datas.compactMap { (d) -> OTPWrapper? in
+							if let data = d["data"] as? Data, data.count > 0 {
+								let s = d["service"] as? Bool ?? false
 
-				if let datas = try PropertyListSerialization.propertyList(from: fileData, options: .mutableContainers, format: nil) as? Array<[String: Any]> {
-					passwords = datas.compactMap { (d) -> OTPWrapper? in
-						if let data = d["data"] as? Data, data.count > 0 {
-							let s = d["service"] as? Bool ?? false
-
-							if let g = OTPRestore(from: data) {
-								return ["otp": g, "service": s]
-							} else {
-								return nil
+								if let g = OTPRestore(from: data) {
+									return ["otp": g, "service": s]
+								} else {
+									return nil
+								}
 							}
+
+							return nil
 						}
+						getInServices()
 
-						return nil
+						return // we have the passwords set
+					} else {
+						os_log(.error, log: log, "restoreOtps(), could not deserialize data")
 					}
-					getInServices()
-
-					return // we have the passwords set
+				} else {
+					os_log(.error, log: log, "restoreOtps(), could not decrypt file")
 				}
+			} else {
+				os_log(.error, log: log, "restoreOtps(), could not read file")
 			}
+		} else {
+			os_log(.error, log: log, "restoreOtps(), no file found")
 		}
 
 		passwords = []
@@ -196,51 +217,75 @@ class OTPService: NSObject
 
 	@objc func otpPassword0(from pboard: NSPasteboard, userData: String) throws
 	{
+		pboard.clearContents()
+
 		if let otp = otpForService(index: 0) {
 			let (code, _) = otp.generate()
 
-			pboard.clearContents()
+			os_log(.debug, log: log, "otp index 0 returning %s: %s", otp.name, code)
 			pboard.setString(code, forType: .string)
+		} else {
+			os_log(.error, log: log, "otp index 0 not found")
+			pboard.setString("", forType: .string)
 		}
 	}
 
 	@objc func otpPassword1(from pboard: NSPasteboard, userData: String) throws
 	{
+		pboard.clearContents()
+
 		if let otp = otpForService(index: 1) {
 			let (code, _) = otp.generate()
 
-			pboard.clearContents()
+			os_log(.debug, log: log, "otp index 1 returning %s: %s", otp.name, code)
 			pboard.setString(code, forType: .string)
+		} else {
+			os_log(.error, log: log, "otp index 1 not found")
+			pboard.setString("", forType: .string)
 		}
 	}
 
 	@objc func otpPassword2(from pboard: NSPasteboard, userData: String) throws
 	{
+		pboard.clearContents()
+
 		if let otp = otpForService(index: 2) {
 			let (code, _) = otp.generate()
 
-			pboard.clearContents()
+			os_log(.debug, log: log, "otp index 2 returning %s: %s", otp.name, code)
 			pboard.setString(code, forType: .string)
+		} else {
+			os_log(.error, log: log, "otp index 2 not found")
+			pboard.setString("", forType: .string)
 		}
 	}
 
 	@objc func otpPassword3(from pboard: NSPasteboard, userData: String) throws
 	{
+		pboard.clearContents()
 		if let otp = otpForService(index: 3) {
 			let (code, _) = otp.generate()
 
-			pboard.clearContents()
+			os_log(.debug, log: log, "otp index 3 returning %s: %s", otp.name, code)
 			pboard.setString(code, forType: .string)
+		} else {
+			os_log(.error, log: log, "otp index 3 not found")
+			pboard.setString("", forType: .string)
 		}
 	}
 
 	@objc func otpPassword4(from pboard: NSPasteboard, userData: String) throws
 	{
+		pboard.clearContents()
+
 		if let otp = otpForService(index: 4) {
 			let (code, _) = otp.generate()
 
-			pboard.clearContents()
+			os_log(.debug, log: log, "otp index 4 returning %s: %s", otp.name, code)
 			pboard.setString(code, forType: .string)
+		} else {
+			os_log(.error, log: log, "otp index 4 not found")
+			pboard.setString("", forType: .string)
 		}
 	}
 }

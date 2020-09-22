@@ -8,6 +8,9 @@
 
 import Foundation
 import CryptoKit
+import os
+
+fileprivate let log = OSLog(subsystem: Bundle.main.bundleIdentifier! + ".otp", category: "jcat")
 
 enum DecodingScheme
 {
@@ -114,6 +117,8 @@ extension OTP: OTPGenerator // for loading and saving
 
 	func save() throws -> Data
 	{
+		os_log(.debug, log: log, "save() %s", name)
+
 		let algo: HashingAlgorithm
 
 		if algorithm is HMAC<SHA256>.Type {
@@ -132,37 +137,36 @@ extension OTP: OTPGenerator // for loading and saving
 														 "digits": self.digits,
 														 "period": Int(self.period)];
 
-		let data = try PropertyListSerialization.data(fromPropertyList: info, format: .binary, options: .zero)
-		let encrypted = try ChaChaPoly.seal(data, using: AppDelegate.decryptKey!)
-
-		return encrypted.combined
+		return try PropertyListSerialization.data(fromPropertyList: info, format: .binary, options: .zero)
 	}
 }
 
-func OTPRestore(from encrypted: Data) -> OTPGenerator?
+func OTPRestore(from data: Data) -> OTPGenerator?
 {
-	if let sealedBox = try? ChaChaPoly.SealedBox(combined: encrypted),
-		let data = try? ChaChaPoly.open(sealedBox, using: AppDelegate.decryptKey!) {
-		
-		if let info = try? PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as? Dictionary<String, Any> {
-			if let name = info["name"] as? String,
-				let secretKey = info["secretKey"] as? Data,
-				let algo = info["algorithm"] as? Int, let algorithm = HashingAlgorithm(rawValue: algo),
-				let digits = info["digits"] as? Int,
-				let period = info["period"] as? Int {
+	os_log(.debug, log: log, "OTPRestore(from:)")
 
-				switch algorithm {
-					case .sha1:
-						return OTP<Insecure.SHA1>(name: name, secretKey: secretKey, digits: digits, period: period)
-					case .sha256:
-						return OTP<SHA256>(name: name, secretKey: secretKey, digits: digits, period: period)
-					case .sha384:
-						return OTP<SHA384>(name: name, secretKey: secretKey, digits: digits, period: period)
-					case .sha512:
-						return OTP<SHA512>(name: name, secretKey: secretKey, digits: digits, period: period)
-				}
+	if let info = try? PropertyListSerialization.propertyList(from: data, options: .mutableContainers, format: nil) as? Dictionary<String, Any> {
+		if let name = info["name"] as? String,
+			let secretKey = info["secretKey"] as? Data,
+			let algo = info["algorithm"] as? Int, let algorithm = HashingAlgorithm(rawValue: algo),
+			let digits = info["digits"] as? Int,
+			let period = info["period"] as? Int {
+
+			switch algorithm {
+				case .sha1:
+					return OTP<Insecure.SHA1>(name: name, secretKey: secretKey, digits: digits, period: period)
+				case .sha256:
+					return OTP<SHA256>(name: name, secretKey: secretKey, digits: digits, period: period)
+				case .sha384:
+					return OTP<SHA384>(name: name, secretKey: secretKey, digits: digits, period: period)
+				case .sha512:
+					return OTP<SHA512>(name: name, secretKey: secretKey, digits: digits, period: period)
 			}
+		} else {
+			os_log(.error, log: log, "OTPRestore(from:), could not get data")
 		}
+	} else {
+		os_log(.error, log: log, "OTPRestore(from:), could not deserialize data")
 	}
 
 	return nil
