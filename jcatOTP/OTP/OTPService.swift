@@ -28,6 +28,7 @@ class OTPService: NSObject
 	var count: Int { passwords.count }
 	var endIndex: Int { passwords.endIndex }
 	var canAddToServices: Bool { (count < 5) ? true : (inServices.count < 5) }
+	var isSafe: Bool = false
 
 	// MARK: Methods
 
@@ -50,6 +51,8 @@ class OTPService: NSObject
 
 		let wrapper = ["otp": otp, "service": false] as OTPWrapper
 
+		isSafe = false
+
 		if index < 0 {
 			passwords.append(wrapper)
 		} else {
@@ -66,6 +69,8 @@ class OTPService: NSObject
 	{
 		guard (index >= 0) && (index < endIndex) else { return }
 
+		isSafe = false
+
 		passwords.remove(at: index)
 		getInServices()
 
@@ -79,6 +84,8 @@ class OTPService: NSObject
 		guard org != dest else { return }
 		guard (org >= 0) && (org < endIndex) else { return }
 		guard (dest >= 0) && (dest < endIndex) else { return }
+
+		isSafe = false
 
 		passwords.insert(passwords.remove(at: org), at: dest)
 		getInServices() // because order is important
@@ -95,6 +102,8 @@ class OTPService: NSObject
 	{
 		guard (index >= 0) && (index < endIndex) else { return }
 
+		isSafe = false
+
 		passwords[index]["service"] = service
 	}
 
@@ -102,6 +111,8 @@ class OTPService: NSObject
 	{
 		guard (index >= 0) && (index < endIndex) else { return false }
 		defer { getInServices() }
+
+		isSafe = false
 
 		if var s = passwords[index]["service"] as? Bool {
 			if s || canAddToServices { // is was false then we wanted to turn it on, but can only do it if we can
@@ -139,12 +150,14 @@ class OTPService: NSObject
 	{
 		os_log(.debug, log: log, "store()")
 
+		guard !isSafe else { os_log(.debug, log: log, "store(), is safe"); return }
+
 		if let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
 			let datas = passwords.map { ["data":(try? ($0["otp"] as? OTPGenerator)?.save()) ?? Data(), "service": $0["service"]] } // Array<[String: Any]>
 			let fileData = try PropertyListSerialization.data(fromPropertyList: datas, format: .binary, options: .zero)
 			let encrypted = try ChaChaPoly.seal(fileData, using: AppDelegate.decryptKey!)
 
-			FileManager.default.createFile(atPath: dir.appendingPathComponent(OTPService.fileName).path, contents: encrypted.combined, attributes: nil)
+			isSafe = FileManager.default.createFile(atPath: dir.appendingPathComponent(OTPService.fileName).path, contents: encrypted.combined, attributes: nil)
 		} else {
 			os_log(.error, log: log, "store(), could not save file")
 		}
@@ -172,6 +185,7 @@ class OTPService: NSObject
 							return nil
 						}
 						getInServices()
+						isSafe = true
 
 						return // we have the passwords set
 					} else {

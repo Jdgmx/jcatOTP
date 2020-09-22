@@ -120,7 +120,7 @@ extension AppDelegate
 						 kSecUseAuthenticationContext: context,
 						 kSecAttrApplicationLabel: Bundle.main.bundleIdentifier!,
 						 kSecAttrLabel: Bundle.main.object(forInfoDictionaryKey: "CFBundleName")!,
-//						 kSecMatchLimit: kSecMatchLimitOne,
+						 kSecMatchLimit: kSecMatchLimitOne,
 						 kSecReturnData: true,
 						 kSecUseOperationPrompt: "Authenticate to access your accounts."] as [String: Any]
 
