@@ -98,15 +98,6 @@ class OTPService: NSObject
 		return (passwords[index]["service"] as? Bool) ?? false
 	}
 
-	func setOtpService(at index: Int, service: Bool = true)
-	{
-		guard (index >= 0) && (index < endIndex) else { return }
-
-		isSafe = false
-
-		passwords[index]["service"] = service
-	}
-
 	func toggleOtpService(at index: Int) -> Bool
 	{
 		guard (index >= 0) && (index < endIndex) else { return false }
