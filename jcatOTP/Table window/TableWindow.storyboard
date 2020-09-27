@@ -10,7 +10,7 @@
         <scene sceneID="fdh-G7-fKc">
             <objects>
                 <windowController id="WkU-Ep-tGu" customClass="MainWindowContoller" customModule="jcatOTP" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="jCat OTP" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="jQf-GP-Som">
+                    <window key="window" title="jCat OTP" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="jQf-GP-Som">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
                         <rect key="contentRect" x="425" y="461" width="480" height="270"/>

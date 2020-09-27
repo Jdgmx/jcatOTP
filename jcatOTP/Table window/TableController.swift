@@ -8,9 +8,13 @@
 
 import Cocoa
 import CryptoKit
+import os
 
 class TableController: NSViewController
 {
+	private static var log = OSLog(subsystem: Bundle.main.bundleIdentifier! + ".TableController", category: "jcat")
+	private var log: OSLog { TableController.log }
+
 	@IBOutlet var otpTableView: NSTableView!
 
 	var onReturn: Bool = true // value from Defaults
@@ -36,6 +40,8 @@ class TableController: NSViewController
 
 	override func viewDidLoad()
 	{
+		os_log(.debug, log: log, "viewDidLoad()")
+
 		super.viewDidLoad()
 
 		// this table view can drag
@@ -44,13 +50,29 @@ class TableController: NSViewController
 
 		// the callback is called from the service every time the collection of otps changes
 		OTPService.shared.changeCallback = self.updatedOtps
+//		updatedOtps() // and for thew first time...
+//		defaultsChanged(nil)
+	}
+
+	override func viewWillAppear()
+	{
+		os_log(.debug, log: log, "viewWillAppear()")
+
+		super.viewWillAppear()
+
 		updatedOtps() // and for thew first time...
 		defaultsChanged(nil)
 	}
 
 	override func viewWillDisappear()
 	{
+		os_log(.debug, log: log, "viewWillDisappear()")
+
 		super.viewWillDisappear()
+
+		// invalidate all the previous timers
+		timers?.forEach { ($0.value as? Timer)?.invalidate() }
+
 		try? OTPService.shared.store() // save!
 	}
 
@@ -148,6 +170,8 @@ class TableController: NSViewController
 	// Note that for now we are refreshing the whole table, that can be optimized
 	func calcRefreshTimers()
 	{
+		os_log(.debug, log: log, "calcRefreshTimers()")
+
 		let refreshPerioids = service.getRefreshPeriods()
 
 		// invalidate all the previous timers
@@ -159,8 +183,10 @@ class TableController: NSViewController
 		timers = [:]
 		for p in refreshPerioids.map({ Int($0) }) { // the periods in Int
 			if let nd = nextDateFor(period: p) { // this is the next fire date
-				let t = Timer(fire: nd, interval: TimeInterval(p), repeats: true, block: { (timer) in
-					self.otpTableView.reloadData(forRowIndexes: IndexSet(0..<self.service.count), columnIndexes: IndexSet(integer: 1))
+				let t = Timer(fire: nd, interval: TimeInterval(p), repeats: true, block: { [weak self] (timer) in
+					os_log(.debug, log: TableController.log, "timer %s fiered, %s, %f", String(describing:timer), String(describing:timer.fireDate), timer.tolerance)
+
+					self?.otpTableView.reloadData(forRowIndexes: IndexSet(0..<(self?.service.count ?? 0)), columnIndexes: IndexSet(integer: 1))
 				})
 
 				RunLoop.current.add(t, forMode: .default)
@@ -172,6 +198,8 @@ class TableController: NSViewController
 	// we need to do this if the array of otps changes
 	func updatedOtps()
 	{
+		os_log(.debug, log: log, "updatedOtps()")
+
 		calcRefreshTimers()
 		otpTableView.reloadData() // always do it right now
 	}

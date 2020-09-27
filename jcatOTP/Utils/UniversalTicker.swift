@@ -7,9 +7,13 @@
 //
 
 import Foundation
+import os
 
 class UniversalTicker
 {
+	private static var log = OSLog(subsystem: Bundle.main.bundleIdentifier! + ".UniversalTicker", category: "jcat")
+	private var log: OSLog { UniversalTicker.log }
+
 	static let shared: UniversalTicker = UniversalTicker()
 
 	var controllers: Array<DetachedViewController> = []
@@ -38,7 +42,7 @@ class UniversalTicker
 	func startTimer()
 	{
 		if (timer == nil) || !(timer?.isValid ?? false) {
-			let d = Date(timeIntervalSince1970: round(Date().timeIntervalSince1970) + 1.05) // the next date that starts in exactly the second
+			let d = Date(timeIntervalSince1970: round(Date().timeIntervalSince1970) + 1.05) // the next date that starts in exactly the second+0.05
 
 			timer = Timer(fire: d, interval: 1.0, repeats: true, block: tickTok)
 			RunLoop.main.add(timer!, forMode: .default)
@@ -55,6 +59,8 @@ class UniversalTicker
 
 	func tickTok(_ timer: Timer)
 	{
+		os_log(.debug, log: log, "tickTok(), %s", String(describing: timer.fireDate))
+		
 		controllers.forEach { dvc in
 			if dvc.isWindowVisible {
 				dvc.refreshOtp()

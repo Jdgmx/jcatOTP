@@ -139,9 +139,10 @@ class OTPService: NSObject
 	// Stores the OTPs in the array in a undisclosed location.
 	func store() throws
 	{
-		os_log(.debug, log: log, "store()")
-
 		guard !isSafe else { os_log(.debug, log: log, "store(), is safe"); return }
+		guard AppDelegate.decryptKey != nil else { os_log(.debug, log: log, "store(), key is nil"); return }
+
+		os_log(.debug, log: log, "store()")
 
 		if let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
 			let datas = passwords.map { ["data":(try? ($0["otp"] as? OTPGenerator)?.save()) ?? Data(), "service": $0["service"]] } // Array<[String: Any]>
