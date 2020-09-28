@@ -29,12 +29,31 @@ class TableController: NSViewController
 
 		// need to know when the notifications change
 		obs = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main, using: defaultsChanged)
+
+		let not = NSWorkspace.shared.notificationCenter
+		not.addObserver(self, selector: #selector(wakeOrSleepe(_:)), name: NSWorkspace.didWakeNotification, object: nil)
+		not.addObserver(self, selector: #selector(wakeOrSleepe(_:)), name: NSWorkspace.willSleepNotification, object: nil)
 	}
 
 	deinit
 	{
 		if obs != nil { // no longer need to know
 			NotificationCenter.default.removeObserver(obs!)
+		}
+	}
+
+	@objc func wakeOrSleepe(_ n: Notification)
+	{
+		os_log(.debug, log: log, "wakeOrSleepe(), %s", String(describing: n))
+
+		if n.name == NSWorkspace.willSleepNotification {
+			timers?.forEach { ($0.value as? Timer)?.invalidate() }
+			try? OTPService.shared.store() // save!
+		} else if n.name == NSWorkspace.didWakeNotification {
+			if view.window?.isVisible ?? false {
+				updatedOtps() // and for thew first time...
+				defaultsChanged(nil)
+			}
 		}
 	}
 

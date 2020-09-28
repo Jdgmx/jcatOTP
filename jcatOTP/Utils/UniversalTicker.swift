@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AppKit
 import os
 
 class UniversalTicker
@@ -18,6 +19,26 @@ class UniversalTicker
 
 	var controllers: Array<DetachedViewController> = []
 	var timer: Timer? = nil
+
+	init()
+	{
+		let not = NSWorkspace.shared.notificationCenter
+		not.addObserver(self, selector: #selector(wakeOrSleepe(_:)), name: NSWorkspace.didWakeNotification, object: nil)
+		not.addObserver(self, selector: #selector(wakeOrSleepe(_:)), name: NSWorkspace.willSleepNotification, object: nil)
+	}
+
+	@objc func wakeOrSleepe(_ n: Notification)
+	{
+		os_log(.debug, log: log, "wakeOrSleepe(), %s", String(describing: n))
+
+		if n.name == NSWorkspace.willSleepNotification {
+			invalidateTimer()
+		} else if n.name == NSWorkspace.didWakeNotification {
+			if !controllers.isEmpty {
+				startTimer()
+			}
+		}
+	}
 
 	func addController(_ ctrl: DetachedViewController)
 	{
@@ -41,6 +62,8 @@ class UniversalTicker
 
 	func startTimer()
 	{
+		os_log(.debug, log: log, "startTimer()")
+
 		if (timer == nil) || !(timer?.isValid ?? false) {
 			let d = Date(timeIntervalSince1970: round(Date().timeIntervalSince1970) + 1.05) // the next date that starts in exactly the second+0.05
 
@@ -51,6 +74,8 @@ class UniversalTicker
 
 	func invalidateTimer()
 	{
+		os_log(.debug, log: log, "invalidateTimer(), %s", String(describing: timer))
+
 		if timer != nil {
 			timer!.invalidate()
 			timer = nil
