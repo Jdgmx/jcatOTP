@@ -37,12 +37,15 @@
 		<dict>
 			<key>NSReturnTypes</key>
 			<array>
-				<string>NSStringPboardType</string>
+				<string>com.apple.flat-rtfd</string>
+				<string>public.rtf</string>
 				<string>public.text</string>
-				<string>public.plain-text </string>
+				<string>public.plain-text</string>
+				<string>public.utf8-plain-text</string>
+				<string>public.url</string>
 			</array>
 			<key>NSPortName</key>
-			<string></string>
+			<string>jcatOTP</string>
 			<key>NSRequiredContext</key>
 			<dict/>
 			<key>NSMenuItem</key>
@@ -56,10 +59,15 @@
 		<dict>
 			<key>NSReturnTypes</key>
 			<array>
-				<string>NSStringPboardType</string>
+				<string>com.apple.flat-rtfd</string>
+				<string>public.rtf</string>
 				<string>public.text</string>
-				<string>public.plain-text </string>
+				<string>public.plain-text</string>
+				<string>public.utf8-plain-text</string>
+				<string>public.url</string>
 			</array>
+			<key>NSPortName</key>
+			<string>jcatOTP</string>
 			<key>NSRequiredContext</key>
 			<dict/>
 			<key>NSMenuItem</key>
@@ -73,10 +81,15 @@
 		<dict>
 			<key>NSReturnTypes</key>
 			<array>
-				<string>NSStringPboardType</string>
+				<string>com.apple.flat-rtfd</string>
+				<string>public.rtf</string>
 				<string>public.text</string>
-				<string>public.plain-text </string>
+				<string>public.plain-text</string>
+				<string>public.utf8-plain-text</string>
+				<string>public.url</string>
 			</array>
+			<key>NSPortName</key>
+			<string>jcatOTP</string>
 			<key>NSRequiredContext</key>
 			<dict/>
 			<key>NSMenuItem</key>
@@ -90,10 +103,15 @@
 		<dict>
 			<key>NSReturnTypes</key>
 			<array>
-				<string>NSStringPboardType</string>
+				<string>com.apple.flat-rtfd</string>
+				<string>public.rtf</string>
 				<string>public.text</string>
-				<string>public.plain-text </string>
+				<string>public.plain-text</string>
+				<string>public.utf8-plain-text</string>
+				<string>public.url</string>
 			</array>
+			<key>NSPortName</key>
+			<string>jcatOTP</string>
 			<key>NSRequiredContext</key>
 			<dict/>
 			<key>NSMenuItem</key>
@@ -107,10 +125,15 @@
 		<dict>
 			<key>NSReturnTypes</key>
 			<array>
-				<string>NSStringPboardType</string>
+				<string>com.apple.flat-rtfd</string>
+				<string>public.rtf</string>
 				<string>public.text</string>
-				<string>public.plain-text </string>
+				<string>public.plain-text</string>
+				<string>public.utf8-plain-text</string>
+				<string>public.url</string>
 			</array>
+			<key>NSPortName</key>
+			<string>jcatOTP</string>
 			<key>NSRequiredContext</key>
 			<dict/>
 			<key>NSMenuItem</key>
