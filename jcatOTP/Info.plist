@@ -51,7 +51,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>0 jCatOTP</string>
+				<string>0 jcatOTP</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>otpPassword0From</string>
@@ -73,7 +73,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>1 jCatOTP</string>
+				<string>1 jcatOTP</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>otpPassword1From</string>
@@ -95,7 +95,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>2 jCatOTP</string>
+				<string>2 jcatOTP</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>otpPassword2From</string>
@@ -117,7 +117,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>3 jCatOTP</string>
+				<string>3 jcatOTP</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>otpPassword3From</string>
@@ -139,7 +139,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>4 jCatOTP</string>
+				<string>4 jcatOTP</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>otpPassword4From</string>

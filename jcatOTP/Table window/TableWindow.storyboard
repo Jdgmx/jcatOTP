@@ -10,7 +10,7 @@
         <scene sceneID="fdh-G7-fKc">
             <objects>
                 <windowController id="WkU-Ep-tGu" customClass="MainWindowContoller" customModule="jcatOTP" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="jCat OTP" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="jQf-GP-Som">
+                    <window key="window" title="jcat OTP" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="jQf-GP-Som">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
                         <rect key="contentRect" x="425" y="461" width="480" height="270"/>
@@ -445,7 +445,7 @@ Gw
         <scene sceneID="jlI-oz-gZR">
             <objects>
                 <windowController id="ZIU-wu-pUZ" customClass="DetachedWindowController" customModule="jcatOTP" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="0 jCatOTP" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="Uug-wL-iPi">
+                    <window key="window" title="n jcatOTP" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="Uug-wL-iPi">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
                         <rect key="contentRect" x="425" y="461" width="220" height="150"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
