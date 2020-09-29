@@ -30,6 +30,8 @@ class OTPService: NSObject
 	var canAddToServices: Bool { (count < 5) ? true : (inServices.count < 5) }
 	var isSafe: Bool = false
 
+	let kitten = "=^._.^="
+
 	// MARK: Methods
 
 	// because the order of the items in services is important
@@ -232,7 +234,7 @@ class OTPService: NSObject
 			pboard.setString(code, forType: .string)
 		} else {
 			os_log(.error, log: log, "otp index 0 not found")
-			pboard.setString("", forType: .string)
+			pboard.setString(kitten, forType: .string)
 		}
 	}
 
@@ -247,7 +249,7 @@ class OTPService: NSObject
 			pboard.setString(code, forType: .string)
 		} else {
 			os_log(.error, log: log, "otp index 1 not found")
-			pboard.setString("", forType: .string)
+			pboard.setString(kitten, forType: .string)
 		}
 	}
 
@@ -262,7 +264,7 @@ class OTPService: NSObject
 			pboard.setString(code, forType: .string)
 		} else {
 			os_log(.error, log: log, "otp index 2 not found")
-			pboard.setString("", forType: .string)
+			pboard.setString(kitten, forType: .string)
 		}
 	}
 
@@ -276,7 +278,7 @@ class OTPService: NSObject
 			pboard.setString(code, forType: .string)
 		} else {
 			os_log(.error, log: log, "otp index 3 not found")
-			pboard.setString("", forType: .string)
+			pboard.setString(kitten, forType: .string)
 		}
 	}
 
@@ -291,7 +293,7 @@ class OTPService: NSObject
 			pboard.setString(code, forType: .string)
 		} else {
 			os_log(.error, log: log, "otp index 4 not found")
-			pboard.setString("", forType: .string)
+			pboard.setString(kitten, forType: .string)
 		}
 	}
 }
