@@ -1,4 +1,4 @@
-#Introduction#
+# Introduction
 
 jcatOTP is a simple tool that I wrote for myself to solve a particular problem.
 In my job I constantly need to log into applications that use two factor authentication with one time passwords (OTPs). As everybody else, I was using a password manager to store and generate the OTP. But at a certain point it became very bothersome, every time I had to log in, to switch from my app to the password manager, search for the code, copy it, return to my app, and paste it back.
@@ -10,7 +10,7 @@ But, after some comments from someone else, I decided to release it for free to 
 
 A few more weekends later and jcatOTP was born.
 
-#How It Works#
+# How It Works
 
 The idea is very simple. First you create accounts by providing a names and the OTP codes. The list of the services is fixed, so you have to flag which accounts will map to which services. Then you enable each account for the Services menu in System Preferences.
 Then, next time you have to enter an OTP code you can right-click/or go to the Services menu, select the corresponding account index and it will be automatically pasted in the selected text field.
@@ -26,11 +26,11 @@ Start by creating a new account by clicking on the *New +* symbol in the toolbar
 IMAGE_2
 
 Enter the name of the OTP account and the secret key. In general you don’t need to worry about the rest of the parameters, but if you do then you’ll know what to do.
-As expected, you can delete an account by selecting it on the table and clicking on the Delete − symbol in the toolbar, or by pressing the *Delete ⌦* key.
+As expected, you can delete an account by selecting it on the table and clicking on the *Delete −* symbol in the toolbar, or by pressing the *Delete ⌦* key.
 
 You can reorder the accounts in the table by dragging them up or down, this will be important when associating them to the System Services.
 
-##Using System Services##
+## Using System Services
 
 Select the accounts that will be available in the Services menu by clicking on the checkbox in the In Services column. You can check up top 5 accounts.
 
@@ -65,7 +65,7 @@ Alternatively, sometimes the Services menu is available in the context menu of t
 
 IMAGE_5
 
-##Using Copy/Paste##
+## Using Copy/Paste
 
 There are three ways you can copy and paste an OTP code.
 The first two ways work by selecting the desire item in the list of accounts. They can be customized in the Preferences window by pressing ⌘,
@@ -79,7 +79,7 @@ IMAGE_6
 
 First select the desire item in the list of accounts, then click on the *Detach ＞* symbol in the toolbar, or press  ⌘D. A new window will open with the selected code and a progress bar indicating the time left for the next code. The code can be copied by double-clicking on its numbers.
 
-#Important Notes#
+# Important Notes
 
 Unfortunately I haven’t been able to find a way to customize the name of the items in the Services menu. It would be nice to have the name of your account instead of just an index number. If someone knows how to do this some feedback will be appreciated.
 
