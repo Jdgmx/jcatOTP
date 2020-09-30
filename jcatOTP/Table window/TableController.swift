@@ -69,8 +69,6 @@ class TableController: NSViewController
 
 		// the callback is called from the service every time the collection of otps changes
 		OTPService.shared.changeCallback = self.updatedOtps
-//		updatedOtps() // and for thew first time...
-//		defaultsChanged(nil)
 	}
 
 	override func viewWillAppear()
