@@ -63,8 +63,6 @@ Alternatively, sometimes the Services menu is available in the context menu of t
 1. Select the item that correspond to the account that you want.
 1. Pasted!
 
-IMAGE_5
-
 ## Using Copy/Paste
 
 There are three ways you can copy and paste an OTP code.
@@ -75,7 +73,7 @@ The first two ways work by selecting the desire item in the list of accounts. Th
 
 The third method consist on opening a floating window with the code in it. The window floats because it will be over every other standard window in your desktop.
 
-IMAGE_6
+IMAGE_5
 
 First select the desire item in the list of accounts, then click on the *Detach ＞* symbol in the toolbar, or press  ⌘D. A new window will open with the selected code and a progress bar indicating the time left for the next code. The code can be copied by double-clicking on its numbers.
 
