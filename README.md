@@ -39,9 +39,9 @@ The titles of the Services menu are fixed. *“__n__ jcatOTP”* corresponds to 
 
 IMAGE_3
 
-*0 jcatOTP* correspond to *Favorite Account*.
-*1 jcatOTP* correspond to *My social media*.
-*2 jcatOTP* correspond to *Super secret stuff*.
+* *0 jcatOTP* correspond to *Favorite Account*.
+* *1 jcatOTP* correspond to *My social media*.
+* *2 jcatOTP* correspond to *Super secret stuff*.
 
 In order to have the services available to other applications don’t forget to also check the *“n jcatOTP”* item in System Preferences.
 
