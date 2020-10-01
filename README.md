@@ -19,11 +19,13 @@ jcatOTP uses your system’s keychain to store a key to encrypt and decrypt the 
 
 The first thing you will see is the list of accounts.
 
-IMAGE_1
+![](/assets/image_1.png?raw=true)
+
+<img src="https://joaquin.micro.blog/uploads/2020/f0dddc7e2f.png" alt="" />
 
 Start by creating a new account by clicking on the *New +* symbol in the toolbar of by pressing ⌘N.
 
-IMAGE_2
+<img src="https://joaquin.micro.blog/uploads/2020/23241a3293.png" alt="" />
 
 Enter the name of the OTP account and the secret key. In general you don’t need to worry about the rest of the parameters, but if you do then you’ll know what to do.
 As expected, you can delete an account by selecting it on the table and clicking on the *Delete −* symbol in the toolbar, or by pressing the *Delete ⌦* key.
@@ -32,12 +34,12 @@ You can reorder the accounts in the table by dragging them up or down, this will
 
 ## Using System Services
 
-Select the accounts that will be available in the Services menu by clicking on the checkbox in the In Services column. You can check up top 5 accounts.
+Select the accounts that will be available in the Services menu by clicking on the checkbox in the *In Services* column. You can check up to 5 accounts.
 
 Open System Preferences and go to Keyboard → Shortcuts → Services → Text.
 The titles of the Services menu are fixed. *“__n__ jcatOTP”* corresponds to the *__n__-th* row of the table where the service is checked. For example:
 
-IMAGE_3
+<img src="https://joaquin.micro.blog/uploads/2020/b471f7ff29.png" alt="" />
 
 * *0 jcatOTP* correspond to *Favorite Account*.
 * *1 jcatOTP* correspond to *My social media*.
@@ -54,7 +56,7 @@ First select the text field by clicking on it (the cursor should be on it). Then
 1. Select the item that correspond to the account that you want.
 1. Pasted!
 
-IMAGE_4
+<img src="https://joaquin.micro.blog/uploads/2020/35dc65df4e.png" alt="" />
 
 Alternatively, sometimes the Services menu is available in the context menu of the text field.
 
@@ -73,7 +75,7 @@ The first two ways work by selecting the desire item in the list of accounts. Th
 
 The third method consist on opening a floating window with the code in it. The window floats because it will be over every other standard window in your desktop.
 
-IMAGE_5
+<img src="https://joaquin.micro.blog/uploads/2020/c1c16c5b60.png" alt="" />
 
 First select the desire item in the list of accounts, then click on the *Detach ＞* symbol in the toolbar, or press  ⌘D. A new window will open with the selected code and a progress bar indicating the time left for the next code. The code can be copied by double-clicking on its numbers.
 
@@ -83,3 +85,4 @@ Unfortunately I haven’t been able to find a way to customize the name of the i
 
 **Don’t use jcatOTP to permanently store the OTP secret keys.** For that use a proper password manager.
 This tool uses a cryptographic key generated at runtime to encode and decode the file where the OTPs information is stored. The key is stored in your system’s keychain, if for any reason the keychain couldn’t be read then your codes will be lost forever. **There is no backup or synching mechanism.**
+
