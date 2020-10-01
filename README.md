@@ -83,3 +83,7 @@ Unfortunately I haven’t been able to find a way to customize the name of the i
 
 **Don’t use jcatOTP to permanently store the OTP secret keys.** For that use a proper password manager.
 This tool uses a cryptographic key generated at runtime to encode and decode the file where the OTPs information is stored. The key is stored in your system’s keychain, if for any reason the keychain couldn’t be read then your codes will be lost forever. **There is no backup or synching mechanism.**
+
+## License
+
+GNU Affero General Public License v3.0
