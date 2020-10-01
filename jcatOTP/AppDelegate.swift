@@ -66,6 +66,13 @@ class AppDelegate: NSObject, NSApplicationDelegate
 	{
 		NSApp.orderFrontStandardAboutPanel(options: [NSApplication.AboutPanelOptionKey.applicationIcon: NSImage(named: "jcat")!]) // gato negro gato blanco
 	}
+
+	@IBAction func showHelp(_ sender: Any)
+	{
+		if let url = URL(string: "http://www.jcat.io/jcatotp") {
+			NSWorkspace.shared.open(url)
+		}
+	}
 }
 
 	// MARK: - Preferences
