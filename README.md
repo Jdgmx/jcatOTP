@@ -1,7 +1,11 @@
 <p align="center">
 <img src="https://github.com/Jdgmx/jcatOTP/raw/master/assets/salchicha_256.png?raw=true" />
-<img src="https://github.com/Jdgmx/jcatOTP/raw/master/assets/kira_256.png?raw=true" />
-<h1>jcatOTP</h1>
+<img src="https://github.com/Jdgmx/jcatOTP/raw/master/assets/kiris_256.png?raw=true" />
+</p>
+
+<h1 align="center">jcatOTP</h1>
+
+<p align="center">
 <a href="https://github.com/Jdgmx/jcatOTP/releases">Releases</a> ·  
 </p>
 
