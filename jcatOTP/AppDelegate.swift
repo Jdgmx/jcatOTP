@@ -83,7 +83,7 @@ class AppDelegate: NSObject, NSApplicationDelegate
 
 	@IBAction func showHelp(_ sender: Any)
 	{
-		if let url = URL(string: "http://www.jcat.io/jcatotp") {
+		if let url = URL(string: "https://www.jcat.io/") {
 			NSWorkspace.shared.open(url)
 		}
 	}

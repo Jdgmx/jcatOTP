@@ -386,7 +386,7 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                         <items>
-                            <menuItem title="jcatOTP Help Page" keyEquivalent="?" id="FKE-Sm-Kum">
+                            <menuItem title="jcatOTP Project Page" keyEquivalent="?" id="FKE-Sm-Kum">
                                 <connections>
                                     <action selector="showHelp:" target="Voe-Tx-rLC" id="9jT-Wr-xzn"/>
                                 </connections>
