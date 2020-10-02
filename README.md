@@ -1,5 +1,6 @@
 <p align="center">
-![](/assets/salchicha_256.png?raw=true)   ![](/assets/salchicha_256.png?raw=true)
+<img src="https://github.com/Jdgmx/jcatOTP/raw/master/assets/salchicha_256.png?raw=true" />
+<img src="https://github.com/Jdgmx/jcatOTP/raw/master/assets/kira_256.png?raw=true" />
 <h1>jcatOTP</h1>
 <a href="https://github.com/Jdgmx/jcatOTP/releases">Releases</a> ·  
 </p>
