@@ -4,17 +4,16 @@
 </p>
 
 <h1 align="center">jcatOTP</h1>
+<p align="center">Simple TOTP tool for fast code pasting.</p>
 
-<p align="center">
-<a href="https://github.com/Jdgmx/jcatOTP/releases">Releases</a> ·  
-</p>
+<p align="center"><a href="https://github.com/Jdgmx/jcatOTP/releases">Download latest releases.</a></p>
 
 ---
 
 # Introduction
 
 jcatOTP is a simple tool that I wrote for myself to solve a particular problem.
-In my job I constantly need to log into applications that use two factor authentication with one time passwords (OTPs). As everybody else, I was using a password manager to store and generate the OTP. But at a certain point it became very bothersome, every time I had to log in, to switch from my app to the password manager, search for the code, copy it, return to my app, and paste it back.
+In my job I constantly need to log into applications that use two factor authentication with time based one time passwords (OTPs). As everybody else, I was using a password manager to store and generate the OTP. But at a certain point it became very bothersome, every time I had to log in, to switch from my app to the password manager, search for the code, copy it, return to my app, and paste it back.
 There should be a better solution to do that.
 
 The solution that occurred to me was to use macOS Services, in other words, I should just need right-click on the text field for the OTP, and select the code.
