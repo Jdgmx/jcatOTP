@@ -1,3 +1,11 @@
+<p align="center">
+![](/assets/salchicha_256.png?raw=true)   ![](/assets/salchicha_256.png?raw=true)
+<h1>jcatOTP</h1>
+<a href="https://github.com/Jdgmx/jcatOTP/releases">Releases</a> ·  
+</p>
+
+---
+
 # Introduction
 
 jcatOTP is a simple tool that I wrote for myself to solve a particular problem.
