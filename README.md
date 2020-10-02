@@ -4,9 +4,8 @@
 </p>
 
 <h1 align="center">jcatOTP</h1>
-<p align="center">Simple TOTP tool for fast code pasting.</p>
-
-<p align="center"><a href="https://github.com/Jdgmx/jcatOTP/releases">Download latest releases.</a></p>
+<p align="center">Simple TOTP tool for fast code pasting.<br>
+<a href="https://github.com/Jdgmx/jcatOTP/releases/latest">Download most recent release.</a></p>
 
 ---
 
