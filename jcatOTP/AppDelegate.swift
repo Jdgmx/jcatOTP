@@ -49,15 +49,20 @@ class AppDelegate: NSObject, NSApplicationDelegate
 		}
 
 		NSWindow.allowsAutomaticWindowTabbing = false // we don't like tabs
-		NSApp.servicesProvider = OTPService.shared // Our service provider
 		ValueTransformer.setValueTransformer(OTPTransformer(), forName: OTPTransformer.name) // register otp transformer
 
-		if authenticateApp() {
-			try? OTPService.shared.restoreOtps() // load from file
-			openMainWindow(self)
-		} else {
-			NSApp.terminate(self)
+		do {
+			if authenticateApp() {
+				try OTPService.shared.restoreOtps() // load from file
+				NSApp.servicesProvider = OTPService.shared // Our service provider
+			} else {
+				NSApp.terminate(self)
+			}
+		} catch {
+			os_log(.error, log: log, "applicationDidFinishLaunching(), error %s", String(describing: error))
 		}
+
+		openMainWindow(self)
 	}
 
 	func applicationWillTerminate(_ aNotification: Notification)
