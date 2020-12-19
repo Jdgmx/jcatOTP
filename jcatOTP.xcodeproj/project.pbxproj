@@ -18,7 +18,7 @@
 		D2B8AE4C24D4D79900C542D3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2B8AE4A24D4D79900C542D3 /* MainMenu.xib */; };
 		D2BCD1DD24E83CEE000E68D6 /* TableWindow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2BCD1DC24E83CEE000E68D6 /* TableWindow.storyboard */; };
 		D2BCD1E124E8406C000E68D6 /* TableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BCD1E024E8406C000E68D6 /* TableController.swift */; };
-		D2D6772824FC49F600700418 /* MainWindowContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6772724FC49F600700418 /* MainWindowContoller.swift */; };
+		D2D6772824FC49F600700418 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D6772724FC49F600700418 /* MainWindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +36,7 @@
 		D2B8AE4E24D4D79900C542D3 /* jcatOTP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = jcatOTP.entitlements; sourceTree = "<group>"; };
 		D2BCD1DC24E83CEE000E68D6 /* TableWindow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TableWindow.storyboard; sourceTree = "<group>"; };
 		D2BCD1E024E8406C000E68D6 /* TableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableController.swift; sourceTree = "<group>"; };
-		D2D6772724FC49F600700418 /* MainWindowContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowContoller.swift; sourceTree = "<group>"; };
+		D2D6772724FC49F600700418 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				D2BCD1DC24E83CEE000E68D6 /* TableWindow.storyboard */,
-				D2D6772724FC49F600700418 /* MainWindowContoller.swift */,
+				D2D6772724FC49F600700418 /* MainWindowController.swift */,
 				D2BCD1E024E8406C000E68D6 /* TableController.swift */,
 				D22994B124D77D9900D80793 /* NewOtpViewController.swift */,
 				D20C05252511A26C00AF685A /* DetachedWindow.swift */,
@@ -184,7 +184,7 @@
 			files = (
 				D29B16F12505DC550033968A /* OTPService.swift in Sources */,
 				D2BCD1E124E8406C000E68D6 /* TableController.swift in Sources */,
-				D2D6772824FC49F600700418 /* MainWindowContoller.swift in Sources */,
+				D2D6772824FC49F600700418 /* MainWindowController.swift in Sources */,
 				D20C05262511A26C00AF685A /* DetachedWindow.swift in Sources */,
 				D29D917E2516A00000D71480 /* UniversalTicker.swift in Sources */,
 				D22994B224D77D9900D80793 /* NewOtpViewController.swift in Sources */,

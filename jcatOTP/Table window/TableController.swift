@@ -31,7 +31,7 @@ class TableController: NSViewController
 	@IBOutlet var otpTableView: NSTableView!
 
 	var onReturn: Bool = true // value from Defaults
-	private var obs: NSObjectProtocol? // to retain the notiofication
+	private var obs: NSObjectProtocol? // to retain the notification
 
 	var timers: Dictionary<Int, Any>? // set of timers used to refresh the otp codes
 	var service: OTPService { OTPService.shared } // the otp service
@@ -44,8 +44,8 @@ class TableController: NSViewController
 		obs = NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main, using: defaultsChanged)
 
 		let not = NSWorkspace.shared.notificationCenter
-		not.addObserver(self, selector: #selector(wakeOrSleepe(_:)), name: NSWorkspace.didWakeNotification, object: nil)
-		not.addObserver(self, selector: #selector(wakeOrSleepe(_:)), name: NSWorkspace.willSleepNotification, object: nil)
+		not.addObserver(self, selector: #selector(wakeOrSleep(_:)), name: NSWorkspace.didWakeNotification, object: nil)
+		not.addObserver(self, selector: #selector(wakeOrSleep(_:)), name: NSWorkspace.willSleepNotification, object: nil)
 	}
 
 	deinit
@@ -55,9 +55,9 @@ class TableController: NSViewController
 		}
 	}
 
-	@objc func wakeOrSleepe(_ n: Notification)
+	@objc func wakeOrSleep(_ n: Notification)
 	{
-		os_log(.debug, log: log, "wakeOrSleepe(), %s", String(describing: n))
+		os_log(.debug, log: log, "wakeOrSleep(), %s", String(describing: n))
 
 		if n.name == NSWorkspace.willSleepNotification {
 			timers?.forEach { ($0.value as? Timer)?.invalidate() }

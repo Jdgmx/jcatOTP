@@ -1,5 +1,5 @@
 //
-//  WindowContoller.swift
+//  WindowController.swift
 //  jcatOTP
 //
 //  Created by Joaquin Durand Gomez on 8/30/20.
@@ -32,7 +32,7 @@ extension NSToolbarItem.Identifier
 
 // MARK: - Window controller
 
-class MainWindowContoller: NSWindowController, NSToolbarDelegate, NSWindowDelegate
+class MainWindowController: NSWindowController, NSToolbarDelegate, NSWindowDelegate
 {
 	@IBOutlet weak var toolbar: NSToolbar!
 	@IBOutlet weak var progressView: NSView!

@@ -36,13 +36,13 @@ class UniversalTicker
 	init()
 	{
 		let not = NSWorkspace.shared.notificationCenter
-		not.addObserver(self, selector: #selector(wakeOrSleepe(_:)), name: NSWorkspace.didWakeNotification, object: nil)
-		not.addObserver(self, selector: #selector(wakeOrSleepe(_:)), name: NSWorkspace.willSleepNotification, object: nil)
+		not.addObserver(self, selector: #selector(wakeOrSleep(_:)), name: NSWorkspace.didWakeNotification, object: nil)
+		not.addObserver(self, selector: #selector(wakeOrSleep(_:)), name: NSWorkspace.willSleepNotification, object: nil)
 	}
 
-	@objc func wakeOrSleepe(_ n: Notification)
+	@objc func wakeOrSleep(_ n: Notification)
 	{
-		os_log(.debug, log: log, "wakeOrSleepe(), %s", String(describing: n))
+		os_log(.debug, log: log, "wakeOrSleep(), %s", String(describing: n))
 
 		if n.name == NSWorkspace.willSleepNotification {
 			invalidateTimer()
