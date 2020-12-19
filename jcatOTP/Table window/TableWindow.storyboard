@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="WkU-Ep-tGu">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,7 +10,7 @@
         <scene sceneID="fdh-G7-fKc">
             <objects>
                 <windowController id="WkU-Ep-tGu" customClass="MainWindowController" customModule="jcatOTP" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="jcat OTP" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="jQf-GP-Som">
+                    <window key="window" title="jcat OTP" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="Main Window" animationBehavior="default" id="jQf-GP-Som">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
                         <rect key="contentRect" x="425" y="461" width="480" height="270"/>
@@ -46,7 +47,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="gpa-es-YeK">
                             <rect key="frame" x="1" y="1" width="448" height="298"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="8Ed-Gh-Fck" viewBased="YES" id="QtP-UW-eQk">
                                     <rect key="frame" x="0.0" y="0.0" width="448" height="273"/>
@@ -167,7 +168,7 @@
                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <tableHeaderView key="headerView" id="8Ed-Gh-Fck">
+                        <tableHeaderView key="headerView" wantsLayer="YES" id="8Ed-Gh-Fck">
                             <rect key="frame" x="0.0" y="0.0" width="448" height="25"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
