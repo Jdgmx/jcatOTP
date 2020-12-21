@@ -10,7 +10,7 @@
         <scene sceneID="fdh-G7-fKc">
             <objects>
                 <windowController id="WkU-Ep-tGu" customClass="MainWindowController" customModule="jcatOTP" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="jcat OTP" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="Main Window" animationBehavior="default" id="jQf-GP-Som">
+                    <window key="window" title="jcat OTP" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="jCatWindow" animationBehavior="default" id="jQf-GP-Som">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
                         <rect key="contentRect" x="425" y="461" width="480" height="270"/>
@@ -69,7 +69,7 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView id="xgX-2I-c72">
-                                                    <rect key="frame" x="1" y="1" width="175" height="17"/>
+                                                    <rect key="frame" x="11" y="1" width="175" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kIt-xC-Sna">
@@ -101,7 +101,7 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView id="1OG-bd-Z8F">
-                                                    <rect key="frame" x="179" y="1" width="170" height="17"/>
+                                                    <rect key="frame" x="189" y="1" width="170" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0LF-8N-PMg">
@@ -120,7 +120,7 @@
                                                 </tableCellView>
                                             </prototypeCellViews>
                                         </tableColumn>
-                                        <tableColumn identifier="Service" width="90" minWidth="10" maxWidth="3.4028234663852886e+38" id="ni0-0Y-GHu">
+                                        <tableColumn identifier="Service" width="61" minWidth="10" maxWidth="3.4028234663852886e+38" id="ni0-0Y-GHu">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="In Services">
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -133,11 +133,11 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView id="H3U-Gq-RBi">
-                                                    <rect key="frame" x="352" y="1" width="94" height="17"/>
+                                                    <rect key="frame" x="362" y="1" width="65" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4rn-m4-6PZ">
-                                                            <rect key="frame" x="38" y="0.0" width="18" height="18"/>
+                                                            <rect key="frame" x="24" y="0.0" width="18" height="18"/>
                                                             <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" state="on" inset="2" id="YdD-La-U9b">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -448,7 +448,7 @@ Gw
                     <window key="window" title="n jcatOTP" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="Uug-wL-iPi">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
                         <rect key="contentRect" x="425" y="461" width="220" height="150"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
                         <value key="minSize" type="size" width="220" height="150"/>
                         <value key="maxSize" type="size" width="300" height="200"/>
                         <connections>

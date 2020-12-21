@@ -37,6 +37,16 @@ class MainWindowController: NSWindowController, NSToolbarDelegate, NSWindowDeleg
 	@IBOutlet weak var toolbar: NSToolbar!
 	@IBOutlet weak var progressView: NSView!
 
+	let autoSaveName = "jCatWindow"
+
+	override func windowWillLoad()
+	{
+		shouldCascadeWindows = false
+		windowFrameAutosaveName = autoSaveName
+
+		super.windowWillLoad()
+	}
+
 	override func windowDidLoad()
 	{
 		super.windowDidLoad()

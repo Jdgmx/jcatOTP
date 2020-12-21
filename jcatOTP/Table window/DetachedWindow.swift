@@ -32,7 +32,11 @@ class DetachedWindowController: NSWindowController, NSWindowDelegate
 
 	override func windowDidLoad()
 	{
+		shouldCascadeWindows = false
+		windowFrameAutosaveName = dvc?.name ?? "dvc"
+
 		super.windowDidLoad()
+
 		window?.level = .floating // this window floats over every other window
 		window?.collectionBehavior = .managed
 
