@@ -17,7 +17,7 @@
                         <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
                         <value key="minSize" type="size" width="240" height="135"/>
                         <value key="maxSize" type="size" width="960" height="540"/>
-                        <toolbar key="toolbar" implicitIdentifier="A7C51D67-F9F0-4FC3-9791-36183035897C" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="M2v-It-6DG">
+                        <toolbar key="toolbar" implicitIdentifier="A7C51D67-F9F0-4FC3-9791-36183035897C" displayMode="iconAndLabel" sizeMode="regular" id="M2v-It-6DG">
                             <allowedToolbarItems/>
                             <defaultToolbarItems/>
                             <connections>
