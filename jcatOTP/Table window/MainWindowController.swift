@@ -41,10 +41,10 @@ class MainWindowController: NSWindowController, NSToolbarDelegate, NSWindowDeleg
 
 	override func windowWillLoad()
 	{
+		super.windowWillLoad()
+
 		shouldCascadeWindows = false
 		windowFrameAutosaveName = autoSaveName
-
-		super.windowWillLoad()
 	}
 
 	override func windowDidLoad()

@@ -27,14 +27,20 @@ class DetachedWindowController: NSWindowController, NSWindowDelegate
 
 	var otp: OTPGenerator? {
 		get { dvc?.otp }
-		set { dvc?.otp = newValue }
+		set {
+			dvc?.otp = newValue
+			windowFrameAutosaveName = dvc?.name ?? "dvc"
+		}
+	}
+
+	override func windowWillLoad()
+	{
+		super.windowWillLoad()
+		shouldCascadeWindows = false
 	}
 
 	override func windowDidLoad()
 	{
-		shouldCascadeWindows = false
-		windowFrameAutosaveName = dvc?.name ?? "dvc"
-
 		super.windowDidLoad()
 
 		window?.level = .floating // this window floats over every other window
