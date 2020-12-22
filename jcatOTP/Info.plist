@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSFaceIDUsageDescription</key>
-	<string>Authenticate to access your accounts.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -21,11 +19,13 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Authenticate to access your accounts.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2020 jCat.io. All rights reserved. LICENSE: AGPL-3.0-or-later.</string>
 	<key>NSMainNibFile</key>
@@ -35,19 +35,6 @@
 	<key>NSServices</key>
 	<array>
 		<dict>
-			<key>NSReturnTypes</key>
-			<array>
-				<string>com.apple.flat-rtfd</string>
-				<string>public.rtf</string>
-				<string>public.text</string>
-				<string>public.plain-text</string>
-				<string>public.utf8-plain-text</string>
-				<string>public.url</string>
-			</array>
-			<key>NSPortName</key>
-			<string>jcatOTP</string>
-			<key>NSRequiredContext</key>
-			<dict/>
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
@@ -55,8 +42,10 @@
 			</dict>
 			<key>NSMessage</key>
 			<string>otpPassword0From</string>
-		</dict>
-		<dict>
+			<key>NSPortName</key>
+			<string>jcatOTP</string>
+			<key>NSRequiredContext</key>
+			<dict/>
 			<key>NSReturnTypes</key>
 			<array>
 				<string>com.apple.flat-rtfd</string>
@@ -66,10 +55,8 @@
 				<string>public.utf8-plain-text</string>
 				<string>public.url</string>
 			</array>
-			<key>NSPortName</key>
-			<string>jcatOTP</string>
-			<key>NSRequiredContext</key>
-			<dict/>
+		</dict>
+		<dict>
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
@@ -77,8 +64,10 @@
 			</dict>
 			<key>NSMessage</key>
 			<string>otpPassword1From</string>
-		</dict>
-		<dict>
+			<key>NSPortName</key>
+			<string>jcatOTP</string>
+			<key>NSRequiredContext</key>
+			<dict/>
 			<key>NSReturnTypes</key>
 			<array>
 				<string>com.apple.flat-rtfd</string>
@@ -88,10 +77,8 @@
 				<string>public.utf8-plain-text</string>
 				<string>public.url</string>
 			</array>
-			<key>NSPortName</key>
-			<string>jcatOTP</string>
-			<key>NSRequiredContext</key>
-			<dict/>
+		</dict>
+		<dict>
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
@@ -99,8 +86,10 @@
 			</dict>
 			<key>NSMessage</key>
 			<string>otpPassword2From</string>
-		</dict>
-		<dict>
+			<key>NSPortName</key>
+			<string>jcatOTP</string>
+			<key>NSRequiredContext</key>
+			<dict/>
 			<key>NSReturnTypes</key>
 			<array>
 				<string>com.apple.flat-rtfd</string>
@@ -110,10 +99,8 @@
 				<string>public.utf8-plain-text</string>
 				<string>public.url</string>
 			</array>
-			<key>NSPortName</key>
-			<string>jcatOTP</string>
-			<key>NSRequiredContext</key>
-			<dict/>
+		</dict>
+		<dict>
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
@@ -121,8 +108,10 @@
 			</dict>
 			<key>NSMessage</key>
 			<string>otpPassword3From</string>
-		</dict>
-		<dict>
+			<key>NSPortName</key>
+			<string>jcatOTP</string>
+			<key>NSRequiredContext</key>
+			<dict/>
 			<key>NSReturnTypes</key>
 			<array>
 				<string>com.apple.flat-rtfd</string>
@@ -132,10 +121,8 @@
 				<string>public.utf8-plain-text</string>
 				<string>public.url</string>
 			</array>
-			<key>NSPortName</key>
-			<string>jcatOTP</string>
-			<key>NSRequiredContext</key>
-			<dict/>
+		</dict>
+		<dict>
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
@@ -143,6 +130,19 @@
 			</dict>
 			<key>NSMessage</key>
 			<string>otpPassword4From</string>
+			<key>NSPortName</key>
+			<string>jcatOTP</string>
+			<key>NSRequiredContext</key>
+			<dict/>
+			<key>NSReturnTypes</key>
+			<array>
+				<string>com.apple.flat-rtfd</string>
+				<string>public.rtf</string>
+				<string>public.text</string>
+				<string>public.plain-text</string>
+				<string>public.utf8-plain-text</string>
+				<string>public.url</string>
+			</array>
 		</dict>
 	</array>
 	<key>NSSupportsAutomaticTermination</key>
