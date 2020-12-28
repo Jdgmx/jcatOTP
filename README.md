@@ -12,10 +12,10 @@
 # Introduction
 
 jcatOTP is a simple tool that I wrote for myself to solve a particular problem.
-In my job I constantly need to log into applications that use two factor authentication with time based one time passwords (OTPs). As everybody else, I was using a password manager to store and generate the OTP. But at a certain point it became very bothersome, every time I had to log in, to switch from my app to the password manager, search for the code, copy it, return to my app, and paste it back.
+In my job, I constantly need to log into applications that use two factor authentication with one time based passwords (OTPs). As everybody else, I was using a password manager to store and generate the OTP. But at a certain point it became very bothersome to have to log in, switch to the password manager, search for the code, copy it, return to my app, and paste it back.
 There should be a better solution to do that.
 
-The solution that occurred to me was to use macOS Services, in other words, I should just need right-click on the text field for the OTP, and select the code.
+The solution that occurred to me was to use macOS Services, in other words, I should just need right-click on the OTP text field and select the code.
 A few weekends later and some free time spent, and I had a tool that just did exactly that. It was just a simple list of accounts, a check-button to relate them to a fixed list of services, and that’s it.
 But, after some comments from someone else, I decided to release it for free to anyone that could find it useful.
 
@@ -23,8 +23,8 @@ A few more weekends later and jcatOTP was born.
 
 # How It Works
 
-The idea is very simple. First you create accounts by providing a names and the OTP codes. The list of the services is fixed, so you have to flag which accounts will map to which services. Then you enable each account for the Services menu in System Preferences.
-Then, next time you have to enter an OTP code you can right-click/or go to the Services menu, select the corresponding account index and it will be automatically pasted in the selected text field.
+The idea is very simple. First you create accounts by providing names and the OTP codes. The list of the services is fixed, so you have to flag which accounts will map to which services. Then you enable each account for the Services menu in System Preferences.
+The next time you have to enter an OTP code you can right-click or go to the Services menu, select the corresponding account index and it will be automatically pasted in the selected text field.
 
 jcatOTP uses your system’s keychain to store a key to encrypt and decrypt the file where the codes are stored. Every time it’s launched it will ask you for your computer credentials to access the keychain. If you somehow delete the keychain entry, or don’t provide the correct password, it will no longer be able to read your accounts (everything will be lost).
 
