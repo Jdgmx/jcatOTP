@@ -285,6 +285,7 @@ class OTPService: NSObject
 	@objc func otpPassword3(from pboard: NSPasteboard, userData: String) throws
 	{
 		pboard.clearContents()
+
 		if let otp = otpForService(index: 3) {
 			let (code, _) = otp.generate()
 
