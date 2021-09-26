@@ -9,6 +9,10 @@
 
 ---
 
+# Important
+
+jcatOTP has been sherlocked by MacOS Monterey. No new development will continue.
+
 # Introduction
 
 jcatOTP is a simple tool that I wrote for myself to solve a particular problem.
